@@ -2,7 +2,7 @@ Minorproject Software Ontwerpen en Toepassen
 ============
 
 
-INTRODUCTION
+Introduction
 ============
 This document describes the assignment for the minorproject EWI3620TU. It is part of the minor
 “Software Ontwerpen en Toepassen” and is held during the 2nd quarter of this study year.
