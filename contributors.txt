@@ -1,16 +1,39 @@
+*******
+GROUP 6
+*******
+
 WORLD BUILDER
 Arnoud Jonker
+GitHub: 2ArounD
+Email: arnoudjonker@gmail.com
 
 LEAD ARTIS
 Jordi Hessels
+GitHub: Jordi1080
+Email: jordi.hesselz@hotmail.com
 
 PRODUCER
 Mike Koch
+GitHub: mikekoch
+Email: mr.koch1993@gmail.com
 
 LEAD PROGRAMMER
 Tim de Boer
+GitHub: tim427
+Email tim@tim427.net
 
 GAME DESIGNER
 Xander de Ronde
+GitHub: XanderdeRonde
+Email: xanderderonde@gmail.com
 
+
+********
+TU Delft
+********
+
+TEACHING ASSISTANT
+Tom Viering
+GitHub: EWI3620TU
+Email: t.j.viering@student.tudelft.nl
 
