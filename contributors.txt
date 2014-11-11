@@ -1,1 +1,16 @@
-Arnoud Jonker, Jordi Hessels, Mike Koch, Tim de Boer, Xander de Ronde
+WORLD BUILDER
+Arnoud Jonker
+
+LEAD ARTIS
+Jordi Hessels
+
+PRODUCER
+Mike Koch
+
+LEAD PROGRAMMER
+Tim de Boer
+
+GAME DESIGNER
+Xander de Ronde
+
+
