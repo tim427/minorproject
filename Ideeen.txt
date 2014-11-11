@@ -1,0 +1,9 @@
+- Ontsnappen
+- 1 centraal doel -> verschillende doelen om tot centraal doel te komen (tegenstrijdige belangen?).
+- Iedereen krijgt veel van iets, maar jij maar 1.
+- Goal: PLayer moet allemaal (AI) mensen een subdoel laten vervullen, maar die mensen hebben alleen hun eigen belang en zien het grote geheel niet.
+- Past -> Timelines (effect/consequenties)
+- Wereld veranderd snel -> Physics
+			-> 4 werelden met verschillende objecten
+- Nadat je iets doet, komt het volgende deel in je level vrij.
+- Bouw hulpmiddelen om een level door te komen (ladder, brug, blok, etc).
