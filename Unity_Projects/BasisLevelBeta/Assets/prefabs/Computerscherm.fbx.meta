@@ -1,62 +1,52 @@
 fileFormatVersion: 2
-guid: 1294aaf9d90e8f143a2ecb31f7c54f7f
+guid: 3826ac09510380a4eb9e060413be5f0c
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
-    100000: Back
-    100002: Camera
-    100004: Cylinder
-    100006: Floor
-    100008: Floor_Cylinder
-    100010: //RootNode
-    100012: Lamp
-    100014: Left_wall
-    100016: Right_wall
-    100018: Roof
-    100020: Roof_Cylinder
-    400000: Back
-    400002: Camera
-    400004: Cylinder
-    400006: Floor
-    400008: Floor_Cylinder
-    400010: //RootNode
-    400012: Lamp
-    400014: Left_wall
-    400016: Right_wall
-    400018: Roof
-    400020: Roof_Cylinder
-    2300000: Back
-    2300002: Cylinder
-    2300004: Floor
-    2300006: Floor_Cylinder
-    2300008: Left_wall
-    2300010: Right_wall
-    2300012: Roof
-    2300014: Roof_Cylinder
-    3300000: Back
-    3300002: Cylinder
-    3300004: Floor
-    3300006: Floor_Cylinder
-    3300008: Left_wall
-    3300010: Right_wall
-    3300012: Roof
-    3300014: Roof_Cylinder
-    4300000: Cylinder
-    4300002: Roof_Cylinder
-    4300004: Right_wall
-    4300006: Roof
-    4300008: Back
-    4300010: Left_wall
-    4300012: Floor
-    4300014: Floor_Cylinder
-    6400000: Back
-    6400002: Cylinder
-    6400004: Floor
-    6400006: Floor_Cylinder
-    6400008: Left_wall
-    6400010: Right_wall
-    6400012: Roof
-    6400014: Roof_Cylinder
+    100000: Camera
+    100002: //RootNode
+    100004: Cube
+    100006: Cube.001
+    100008: Cube.002
+    100010: Lamp
+    100012: Deur_Links
+    100014: Deur_Rechts
+    100016: Light
+    100018: Slider
+    400000: Camera
+    400002: //RootNode
+    400004: Cube
+    400006: Cube.001
+    400008: Cube.002
+    400010: Lamp
+    400012: Deur_Links
+    400014: Deur_Rechts
+    400016: Light
+    400018: Slider
+    2300000: Cube
+    2300002: Cube.001
+    2300004: Cube.002
+    2300006: Deur_Links
+    2300008: Deur_Rechts
+    2300010: Light
+    2300012: Slider
+    3300000: Cube
+    3300002: Cube.001
+    3300004: Cube.002
+    3300006: Deur_Links
+    3300008: Deur_Rechts
+    3300010: Light
+    3300012: Slider
+    4300000: Cube.001
+    4300002: Cube.002
+    4300004: Cube
+    4300006: Slider
+    4300008: Deur_Rechts
+    4300010: Deur_Links
+    4300012: Light
+    6400000: Cube
+    6400002: Cube.001
+    6400004: Cube.002
     9500000: //RootNode
   materials:
     importMaterials: 1
