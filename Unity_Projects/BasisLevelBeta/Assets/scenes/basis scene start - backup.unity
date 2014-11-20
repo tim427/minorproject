@@ -423,6 +423,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 60676140}
   - 111: {fileID: 60676141}
+  - 136: {fileID: 60676142}
   m_Layer: 0
   m_Name: koelkast_animatie
   m_TagString: Untagged
@@ -465,9 +466,22 @@ Animation:
   m_Animations:
   - {fileID: 7400000, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
   m_WrapMode: 0
-  m_PlayAutomatically: 1
+  m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!136 &60676142
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 60676139}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: .0149999997
+  m_Height: .0500000007
+  m_Direction: 1
+  m_Center: {x: 0, y: .0199999996, z: .00999999978}
 --- !u!1 &62869541
 GameObject:
   m_ObjectHideFlags: 0
@@ -1043,6 +1057,10 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 60
       objectReference: {fileID: 0}
+    - target: {fileID: 11100000, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
+      propertyPath: m_PlayAutomatically
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
   m_RootGameObject: {fileID: 339348115}
@@ -1476,6 +1494,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 339348116}
   - 111: {fileID: 339348117}
+  - 136: {fileID: 339348118}
   m_Layer: 0
   m_Name: koelkast_animatie
   m_TagString: Untagged
@@ -1518,9 +1537,22 @@ Animation:
   m_Animations:
   - {fileID: 7400000, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
   m_WrapMode: 0
-  m_PlayAutomatically: 1
+  m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!136 &339348118
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 339348115}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: .0149999997
+  m_Height: .0500000007
+  m_Direction: 1
+  m_Center: {x: 0, y: .0199999996, z: .00999999978}
 --- !u!1 &362074158
 GameObject:
   m_ObjectHideFlags: 0
@@ -2183,6 +2215,10 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 60
       objectReference: {fileID: 0}
+    - target: {fileID: 11100000, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
+      propertyPath: m_PlayAutomatically
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
   m_RootGameObject: {fileID: 588143198}
@@ -2370,6 +2406,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 588143199}
   - 111: {fileID: 588143200}
+  - 136: {fileID: 588143201}
   m_Layer: 0
   m_Name: koelkast_animatie
   m_TagString: Untagged
@@ -2412,9 +2449,22 @@ Animation:
   m_Animations:
   - {fileID: 7400000, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
   m_WrapMode: 0
-  m_PlayAutomatically: 1
+  m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!136 &588143201
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 588143198}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: .0149999997
+  m_Height: .0500000007
+  m_Direction: 1
+  m_Center: {x: 0, y: .0199999996, z: .00999999978}
 --- !u!1 &591358881
 GameObject:
   m_ObjectHideFlags: 0
@@ -2764,6 +2814,10 @@ Prefab:
     - target: {fileID: 400010, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
       propertyPath: m_LocalScale.z
       value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 11100000, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
+      propertyPath: m_PlayAutomatically
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
@@ -3920,6 +3974,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 869761909}
   - 111: {fileID: 869761910}
+  - 136: {fileID: 869761911}
   m_Layer: 0
   m_Name: koelkast_animatie
   m_TagString: Untagged
@@ -3962,9 +4017,22 @@ Animation:
   m_Animations:
   - {fileID: 7400000, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
   m_WrapMode: 0
-  m_PlayAutomatically: 1
+  m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!136 &869761911
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 869761908}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: .0149999997
+  m_Height: .0500000007
+  m_Direction: 1
+  m_Center: {x: 0, y: .0199999996, z: .00999999978}
 --- !u!1 &876201608
 GameObject:
   m_ObjectHideFlags: 0
@@ -4088,6 +4156,10 @@ Prefab:
     - target: {fileID: 400010, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
       propertyPath: m_LocalScale.z
       value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 11100000, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
+      propertyPath: m_PlayAutomatically
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
@@ -5233,6 +5305,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1106177106}
   - 111: {fileID: 1106177107}
+  - 136: {fileID: 1106177108}
   m_Layer: 0
   m_Name: koelkast_animatie
   m_TagString: Untagged
@@ -5275,9 +5348,22 @@ Animation:
   m_Animations:
   - {fileID: 7400000, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
   m_WrapMode: 0
-  m_PlayAutomatically: 1
+  m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!136 &1106177108
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1106177105}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: .0149999997
+  m_Height: .0500000007
+  m_Direction: 1
+  m_Center: {x: 0, y: .0199999996, z: .00999999978}
 --- !u!1 &1109113725
 GameObject:
   m_ObjectHideFlags: 0
@@ -6360,6 +6446,10 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 60
       objectReference: {fileID: 0}
+    - target: {fileID: 11100000, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
+      propertyPath: m_PlayAutomatically
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
   m_RootGameObject: {fileID: 1359639964}
@@ -6651,6 +6741,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Schakelaar: {fileID: 678042800}
   Deur: {fileID: 977711376}
+  Koelkast: {fileID: 339348118}
 --- !u!1 &1318671552
 GameObject:
   m_ObjectHideFlags: 0
@@ -6878,6 +6969,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1359639965}
   - 111: {fileID: 1359639966}
+  - 136: {fileID: 1359639967}
   m_Layer: 0
   m_Name: koelkast_animatie
   m_TagString: Untagged
@@ -6920,9 +7012,22 @@ Animation:
   m_Animations:
   - {fileID: 7400000, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
   m_WrapMode: 0
-  m_PlayAutomatically: 1
+  m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!136 &1359639967
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1359639964}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: .0149999997
+  m_Height: .0500000007
+  m_Direction: 1
+  m_Center: {x: 0, y: .0199999996, z: .00999999978}
 --- !u!1 &1365603080
 GameObject:
   m_ObjectHideFlags: 0
@@ -9637,6 +9742,10 @@ Prefab:
     - target: {fileID: 400010, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
       propertyPath: m_LocalScale.z
       value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 11100000, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
+      propertyPath: m_PlayAutomatically
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
