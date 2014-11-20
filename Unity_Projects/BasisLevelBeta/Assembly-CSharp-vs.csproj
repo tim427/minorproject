@@ -46,8 +46,12 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
      <Compile Include="Assets\ColliderController.cs" />
      <Compile Include="Assets\scripts\koelkastAnimator.cs" />
+=======
+     <Compile Include="Assets\scripts\testplayer_controller.cs" />
+>>>>>>> dd73c2ba048a1408f6c775b8e30db270ee60ee79
  <Reference Include="Assembly-UnityScript-firstpass">
  <HintPath>C:/Users/tim/Documents/GitHub/minorproject/Unity_Projects/BasisLevelBeta/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>
