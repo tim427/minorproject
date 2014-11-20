@@ -1,62 +1,28 @@
 fileFormatVersion: 2
-guid: af062871f13ed5b4eaf15a2e75357b42
+guid: 84b68c063248b4841a47219a72c81db4
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
-    100000: Back
-    100002: Camera
-    100004: Cylinder
-    100006: Floor
-    100008: Floor_Cylinder
-    100010: //RootNode
-    100012: Lamp
-    100014: Left_wall
-    100016: Right_wall
-    100018: Roof
-    100020: Roof_Cylinder
-    400000: Back
-    400002: Camera
-    400004: Cylinder
-    400006: Floor
-    400008: Floor_Cylinder
-    400010: //RootNode
-    400012: Lamp
-    400014: Left_wall
-    400016: Right_wall
-    400018: Roof
-    400020: Roof_Cylinder
-    2300000: Back
-    2300002: Cylinder
-    2300004: Floor
-    2300006: Floor_Cylinder
-    2300008: Left_wall
-    2300010: Right_wall
-    2300012: Roof
-    2300014: Roof_Cylinder
-    3300000: Back
-    3300002: Cylinder
-    3300004: Floor
-    3300006: Floor_Cylinder
-    3300008: Left_wall
-    3300010: Right_wall
-    3300012: Roof
-    3300014: Roof_Cylinder
+    100000: Camera
+    100002: Cylinder
+    100004: //RootNode
+    100006: Lamp
+    100008: Left_wall
+    400000: Camera
+    400002: Cylinder
+    400004: //RootNode
+    400006: Lamp
+    400008: Left_wall
+    2300000: Cylinder
+    2300002: Left_wall
+    3300000: Cylinder
+    3300002: Left_wall
     4300000: Cylinder
-    4300002: Roof_Cylinder
-    4300004: Right_wall
-    4300006: Roof
-    4300008: Back
-    4300010: Left_wall
-    4300012: Floor
-    4300014: Floor_Cylinder
-    6400000: Back
-    6400002: Cylinder
-    6400004: Floor
-    6400006: Floor_Cylinder
-    6400008: Left_wall
-    6400010: Right_wall
-    6400012: Roof
-    6400014: Roof_Cylinder
+    4300002: Left_wall
+    7400000: Cylinder|CylinderAction
+    7400002: Lamp|CylinderAction
+    7400004: Camera|CylinderAction
+    7400006: Left_wall|CylinderAction
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -79,7 +45,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: .00999999978
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0

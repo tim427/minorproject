@@ -7,7 +7,6 @@ public class ColliderController : MonoBehaviour {
 	//GameObject you might collide with 
 	public Collider Schakelaar;
 	public Collider Deur;
-	public Collider Koelkast;
 
 
 	// Place here all "enter" events like pop-up messages
@@ -25,14 +24,12 @@ public class ColliderController : MonoBehaviour {
 			print ("Enter Deur :)");
 
 		}
-		if (collision.collider == Koelkast) 
+
+		if (collision.gameObject.tag == "Koelkast") 
 		{
 			print ("Koelkast enter");
-			Koelkast.animation.Play ("Cylinder|CylinderAction");
-
+			collision.animation.Play ("Cylinder|CylinderAction");
 		}
-
-
 
 	}
 
