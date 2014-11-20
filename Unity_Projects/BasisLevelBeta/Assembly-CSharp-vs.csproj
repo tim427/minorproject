@@ -46,10 +46,9 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\ColliderController.cs" />
      <Compile Include="Assets\scripts\testplayer_controller.cs" />
  <Reference Include="Assembly-UnityScript-firstpass">
- <HintPath>C:/Users/tim/Documents/GitHub/minorproject/Unity_Projects/BasisLevelBeta/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
+ <HintPath>C:/Users/Arnoud/Documents/GitHub/minorproject/Unity_Projects/BasisLevelBeta/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.0/UnityEngine.UI.dll</HintPath>
