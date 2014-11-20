@@ -3,6 +3,17 @@
 # =============== #
 Temp/
 Library/
+Library/AssetImportState
+Library/AssetServerCacheV3
+Library/FailedAssetImports.txt
+Library/ScriptAssemblies
+Library/ScriptMapper
+Library/assetDatabase3
+Library/cache
+Library/expandedItems
+Library/metadata
+Library/previews
+Library/guidmapper
 
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
@@ -11,10 +22,10 @@ ExportedObj/
 obj/
 *.svd
 *.userprefs
-/*.csproj
+*.csproj
 *.pidb
 *.suo
-/*.sln
+*.sln
 *.user
 *.unityproj
 *.booproj
