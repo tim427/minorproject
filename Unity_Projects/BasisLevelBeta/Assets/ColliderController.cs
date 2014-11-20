@@ -51,12 +51,5 @@ public class ColliderController : MonoBehaviour {
 			if (Input.GetKeyDown(KeyCode.Space))
 				print("You just toggled the switch");
 		}
-
-		if (collision.collider == Deur)
-		{
-
-			print ("Stay Deur :)");
-
-		}
 	}
 }
