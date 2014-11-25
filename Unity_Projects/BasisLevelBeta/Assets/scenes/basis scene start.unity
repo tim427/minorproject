@@ -2855,7 +2855,7 @@ GameObject:
   - 136: {fileID: 678042800}
   m_Layer: 0
   m_Name: Schakelaar
-  m_TagString: Untagged
+  m_TagString: Schakelaar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3510,6 +3510,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: 5b14262672daca64ba4648427bfeb494, type: 3}
       propertyPath: m_Name
+      value: Deur
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 5b14262672daca64ba4648427bfeb494, type: 3}
+      propertyPath: m_TagString
       value: Deur
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -4675,7 +4679,7 @@ GameObject:
   - 65: {fileID: 977711376}
   m_Layer: 0
   m_Name: Deur
-  m_TagString: Untagged
+  m_TagString: Deur
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6529,7 +6533,7 @@ Transform:
   m_PrefabInternal: {fileID: 1345100533}
   m_GameObject: {fileID: 1300248366}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 1.89999998, y: 1, z: 3.73000002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1095069078}
@@ -6649,8 +6653,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 824da32de5e986d4c9bcfea8b59305ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Schakelaar: {fileID: 678042800}
-  Deur: {fileID: 977711376}
+  SwitchOn: 0
+  OnScreenText: 
+  Font: {fileID: 12800000, guid: 65b8fd223bdc45940b6b41bdb8b2d1f0, type: 3}
+  spacePressed: 0
 --- !u!1 &1318671552
 GameObject:
   m_ObjectHideFlags: 0
@@ -6733,7 +6739,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400002, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.89999998
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
       propertyPath: m_LocalPosition.y
@@ -6741,7 +6747,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 3.73000002
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 9d4133d5d30b644bd87802a347eaccbe, type: 2}
       propertyPath: m_LocalRotation.x
@@ -8815,6 +8821,10 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 100012, guid: f2480c3bad72f944b90fdf1bc7f031d4, type: 3}
+      propertyPath: m_TagString
+      value: Schakelaar
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f2480c3bad72f944b90fdf1bc7f031d4, type: 3}
   m_RootGameObject: {fileID: 678042797}
@@ -9716,6 +9726,79 @@ MeshCollider:
   m_SmoothSphereCollisions: 0
   m_Convex: 0
   m_Mesh: {fileID: 4300008, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
+--- !u!1 &2049205177
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2049205181}
+  - 114: {fileID: 2049205180}
+  - 114: {fileID: 2049205179}
+  - 114: {fileID: 2049205178}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2049205178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2049205177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1997211142, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AllowActivationOnStandalone: 0
+--- !u!114 &2049205179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2049205177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1077351063, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_AllowActivationOnMobileDevice: 0
+--- !u!114 &2049205180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2049205177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -619905303, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 5
+--- !u!4 &2049205181
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2049205177}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
 --- !u!1 &2049993124
 GameObject:
   m_ObjectHideFlags: 0
