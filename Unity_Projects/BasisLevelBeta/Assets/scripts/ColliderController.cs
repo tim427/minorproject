@@ -4,8 +4,10 @@ using System.Collections;
 
 public class ColliderController : MonoBehaviour {
 
-	public bool SwitchOn = false;
-	public string OnScreenText;
+	public bool switchOn = false;
+    public bool hasCollectableTorch = false;
+    public bool showCollectables = false;
+	public string onScreenText;
 	public Font Font;
 	public bool spacePressed = false;
 
@@ -14,72 +16,94 @@ public class ColliderController : MonoBehaviour {
 		{
 			spacePressed = true;
 		}
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            showCollectables = !showCollectables;
+        }
 	}
 
 	// Place here all "enter" events like pop-up messages
 	void OnTriggerEnter(Collider collision)
 	{
-		if (collision.gameObject.tag == "Schakelaar")
+		if (collision.gameObject.tag == "Switch")
 		{
-			OnScreenText = "This is a Power Switch. To toggle the switch press the spacebar";
+			onScreenText = "This is a Power Switch. To toggle the switch press the spacebar";
 		}
 
-		if (collision.gameObject.tag == "Deur")
+		if (collision.gameObject.tag == "Door")
 		{
-			OnScreenText = "To open the door press the spacebar";
-
+			onScreenText = "To open the door press the spacebar";
 		}
 
-		if (collision.gameObject.tag == "Koelkast") 
+        if (collision.gameObject.tag == "Refrigerator") 
 		{
 			collision.animation.Play ("Cylinder|CylinderAction");
 		}
 
+        if (collision.gameObject.tag == "Torch") 
+        {
+            onScreenText = "To collect the Torch press the spacebar!";
+        }
 	}
 
 	// Place here al "exit" events like removing the pop-up messages
 	void OnTriggerExit(Collider collision)
 	{
-        OnScreenText = "";
+        onScreenText = "";
 	}
 
 	// Place here all "stay" events, like listeners to specific buttons for further actions
 	void OnTriggerStay(Collider collision)
 	{
 
-		if (collision.gameObject.tag == "Schakelaar")
+		if (collision.gameObject.tag == "Switch")
 		{
 			if (spacePressed) {
 				spacePressed = false;
-				SwitchOn = !SwitchOn;
+				switchOn = !switchOn;
 				// collision.animation.Play ("Switch|SwitchAction");
-				OnScreenText = "You just toggled the switch " +  (SwitchOn?"ON":"OFF");
+				onScreenText = "You just toggled the switch " +  (switchOn?"ON":"OFF");
+                foreach (GameObject ceilingLight in GameObject.FindGameObjectsWithTag("CeilingLights")) {
+                    ceilingLight.light.color = (switchOn?new Color(0.64F, 0.82F, 1F, 1F):new Color(1F, 0F, 0F, 1F));
+                }
+                GameObject.FindGameObjectWithTag("MainCamera").camera.backgroundColor = (switchOn?new Color(0.64F, 0.82F, 1F, 1F):new Color(0.95F, 0.25F, 0.25F, 1F));
 			}
 		}
 
-		if (collision.gameObject.tag == "Deur")
+		if (collision.gameObject.tag == "Door")
 		{
 			if (spacePressed) {
 				spacePressed = false;
-				if (SwitchOn) {
+				if (switchOn) {
 					// collision.animation.Play ("Door|DoorAction");
-					OnScreenText = "DOOR OPENS";
+				    onScreenText = "DOOR OPENS";
 
 				} else {
 					// collision.animation.Play ("Door|DoorAction");
 					// in reverse
-					OnScreenText = "FAILED! NO POWER ON DOOR\nTWEEDE REGEL";
+					onScreenText = "FAILED! NO POWER ON DOOR";
 				}
 			}
 		}
+
+        if (collision.gameObject.tag == "Torch")
+        {
+            if (spacePressed) {
+                spacePressed = false;
+                onScreenText = "Successfully collected the Torch";
+                hasCollectableTorch = true;
+                Destroy(collision.gameObject);
+            }
+        }
 	}
 
 	void OnGUI() {
 		GUI.skin.font = Font;
 
-		if (OnScreenText.Length > 0)
+		if (onScreenText.Length > 0)
 		{
-			string[] lines = OnScreenText.Split('\n');
+			string[] lines = onScreenText.Split('\n');
 			int longestLineLength = 0;
 			for (int i = 0; i < lines.Length; i++)
 			{
@@ -93,7 +117,7 @@ public class ColliderController : MonoBehaviour {
 			int height = lines.Length*16 + 20;
 			int x = Screen.width/2 - width/2;
             int y = Screen.height/2 - height/2;
-			GUI.Box(new Rect(x, y, width, height), OnScreenText);
+			GUI.Box(new Rect(x, y, width, height), onScreenText);
 		}
 
 	}

@@ -3,9 +3,11 @@
 --- !u!78 &1
 TagManager:
   tags:
-  - Koelkast
-  - Schakelaar
-  - Deur
+  - Refrigerator
+  - Switch
+  - Door
+  - Torch
+  - CeilingLights
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
