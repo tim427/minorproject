@@ -40,16 +40,7 @@ public class ColliderController : MonoBehaviour {
 	// Place here al "exit" events like removing the pop-up messages
 	void OnTriggerExit(Collider collision)
 	{
-		if (collision.gameObject.tag == "Schakelaar")
-		{
-			OnScreenText = "";
-
-		}
-
-		if (collision.gameObject.tag == "Deur")
-		{
-			OnScreenText = "";
-		}
+        OnScreenText = "";
 	}
 
 	// Place here all "stay" events, like listeners to specific buttons for further actions
@@ -98,13 +89,12 @@ public class ColliderController : MonoBehaviour {
 				}
 				i++;
 			}
-			int width = longestLineLength * 9 + 30;
-			int height = 30*lines.Length;
+			int width = longestLineLength*9 + 30;
+			int height = lines.Length*16 + 20;
 			int x = Screen.width/2 - width/2;
-			int y = Screen.height/2;
+            int y = Screen.height/2 - height/2;
 			GUI.Box(new Rect(x, y, width, height), OnScreenText);
 		}
 
 	}
-		
 }
