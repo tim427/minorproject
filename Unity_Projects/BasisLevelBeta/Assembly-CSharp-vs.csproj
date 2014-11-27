@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\scripts\ColliderController.cs" />
+     <Compile Include="Assets\settings.cs" />
  <Reference Include="Assembly-UnityScript-firstpass">
  <HintPath>C:/Users/tim/Documents/GitHub/minorproject/Unity_Projects/BasisLevelBeta/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>
