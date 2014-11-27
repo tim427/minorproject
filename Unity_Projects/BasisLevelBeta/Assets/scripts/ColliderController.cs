@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ColliderController : MonoBehaviour {
 
 	private Collider Collider = null;
+	private List<GameObject> CollectedGameObjects = new List<GameObject>();
 	public bool switchOn = false;
-    public bool hasCollectableTorch = false;
     public bool showCollectables = false;
 	public string onScreenText;
 	public Font Font;
@@ -16,6 +17,11 @@ public class ColliderController : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Tab))
         {
             showCollectables = !showCollectables;
+			print(CollectedGameObjects.Count);
+			for (int i = 0; i < CollectedGameObjects.Count; i++)
+			{
+				print(CollectedGameObjects[0].name);
+			}
         }
 
 		if (Collider != null && Collider.gameObject.tag == "Switch")
@@ -46,12 +52,13 @@ public class ColliderController : MonoBehaviour {
 			}
 		}
 		
-		if (Collider != null && Collider.gameObject.tag == "Torch")
+		if (Collider != null && Collider.gameObject.tag == "Collectable")
 		{
 			if (Input.GetKeyDown(KeyCode.Space)) {
-				onScreenText = "Successfully collected the Torch";
-				hasCollectableTorch = true;
-				Destroy(Collider.gameObject);
+				onScreenText = "Successfully collected the " + Collider.gameObject.name;
+
+				CollectedGameObjects.Add(Collider.gameObject);
+				Collider.gameObject.SetActive(false);
 			}
 		}
 	}
@@ -60,24 +67,25 @@ public class ColliderController : MonoBehaviour {
 	void OnTriggerEnter(Collider collision)
 	{
 		Collider = collision;
-		if (collision.gameObject.tag == "Switch")
+		if (Collider.gameObject.tag == "Switch")
 		{
 			onScreenText = "This is a Power Switch. To toggle the switch press the spacebar";
 		}
 
-		if (collision.gameObject.tag == "Door")
+		if (Collider.gameObject.tag == "Door")
 		{
 			onScreenText = "To open the door press the spacebar";
 		}
 
-        if (collision.gameObject.tag == "Refrigerator") 
+		if (Collider.gameObject.tag == "Refrigerator") 
 		{
-			collision.animation.Play ("Cylinder|CylinderAction");
+//			Collider.animation["Cylinder|CylinderAction"].speed = -0.1;
+			Collider.animation.Play ("Cylinder|CylinderAction");
 		}
 
-        if (collision.gameObject.tag == "Torch") 
+		if (Collider.gameObject.tag == "Collectable") 
         {
-			onScreenText = "To collect the Torch press the spacebar!";
+			onScreenText = "To collect the " + Collider.gameObject.name + " press the spacebar!";
         }
 	}
 

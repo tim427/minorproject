@@ -423,9 +423,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 60676140}
   - 111: {fileID: 60676141}
+  - 65: {fileID: 60676142}
   m_Layer: 0
   m_Name: koelkast_animatie
-  m_TagString: Untagged
+  m_TagString: Refrigerator
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -465,9 +466,21 @@ Animation:
   m_Animations:
   - {fileID: 7400000, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
   m_WrapMode: 0
-  m_PlayAutomatically: 1
+  m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!65 &60676142
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 60676139}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: .0320000015, y: .0399999991, z: .0599999987}
+  m_Center: {x: 0, y: .0199999996, z: 0}
 --- !u!1 &62869541
 GameObject:
   m_ObjectHideFlags: 0
@@ -1043,6 +1056,18 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 60
       objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
+      propertyPath: m_TagString
+      value: Refrigerator
+      objectReference: {fileID: 0}
+    - target: {fileID: 11100000, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
+      propertyPath: m_PlayAutomatically
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
   m_RootGameObject: {fileID: 339348115}
@@ -1476,9 +1501,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 339348116}
   - 111: {fileID: 339348117}
+  - 65: {fileID: 339348118}
   m_Layer: 0
   m_Name: koelkast_animatie
-  m_TagString: Untagged
+  m_TagString: Refrigerator
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1518,9 +1544,21 @@ Animation:
   m_Animations:
   - {fileID: 7400000, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
   m_WrapMode: 0
-  m_PlayAutomatically: 1
+  m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!65 &339348118
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 339348115}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: .0320000015, y: .0399999991, z: .0599999987}
+  m_Center: {x: 0, y: .0199999996, z: 0}
 --- !u!1 &362074158
 GameObject:
   m_ObjectHideFlags: 0
@@ -2183,6 +2221,14 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 60
       objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
+      propertyPath: m_TagString
+      value: Refrigerator
+      objectReference: {fileID: 0}
+    - target: {fileID: 11100000, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
+      propertyPath: m_PlayAutomatically
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
   m_RootGameObject: {fileID: 588143198}
@@ -2370,9 +2416,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 588143199}
   - 111: {fileID: 588143200}
+  - 65: {fileID: 588143201}
   m_Layer: 0
   m_Name: koelkast_animatie
-  m_TagString: Untagged
+  m_TagString: Refrigerator
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2412,9 +2459,21 @@ Animation:
   m_Animations:
   - {fileID: 7400000, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
   m_WrapMode: 0
-  m_PlayAutomatically: 1
+  m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!65 &588143201
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 588143198}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: .0320000015, y: .0399999991, z: .0599999987}
+  m_Center: {x: 0, y: .0199999996, z: 0}
 --- !u!1 &591358881
 GameObject:
   m_ObjectHideFlags: 0
@@ -2674,6 +2733,10 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 60
       objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 3826ac09510380a4eb9e060413be5f0c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3826ac09510380a4eb9e060413be5f0c, type: 3}
   m_RootGameObject: {fileID: 1939148191}
@@ -2793,6 +2856,42 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 60
       objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
+      propertyPath: m_TagString
+      value: Refrigerator
+      objectReference: {fileID: 0}
+    - target: {fileID: 11100000, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
+      propertyPath: m_PlayAutomatically
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: .0534366556
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: .10202685
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
+      propertyPath: m_LocalScale.y
+      value: .999999762
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 400004, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
   m_RootGameObject: {fileID: 1106177105}
@@ -2895,7 +2994,7 @@ Transform:
   m_PrefabInternal: {fileID: 1801267597}
   m_GameObject: {fileID: 678042797}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: -4.37113883e-08}
-  m_LocalPosition: {x: -4.9000001, y: 1, z: 3}
+  m_LocalPosition: {x: -4.9000001, y: 1, z: 3.48900008}
   m_LocalScale: {x: 60, y: 60, z: 60}
   m_Children:
   - {fileID: 369494863}
@@ -3424,7 +3523,7 @@ GameObject:
   - 136: {fileID: 757636398}
   m_Layer: 0
   m_Name: Zaklamp
-  m_TagString: Torch
+  m_TagString: Collectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3435,8 +3534,8 @@ Transform:
   m_PrefabParentObject: {fileID: 400008, guid: c321a35c4bea692499e44a46ea120cd5, type: 3}
   m_PrefabInternal: {fileID: 1536562326}
   m_GameObject: {fileID: 757636395}
-  m_LocalRotation: {x: .00528811477, y: -.216375008, z: .0238531437, w: -.976004601}
-  m_LocalPosition: {x: .722199976, y: .0375000015, z: 1.61989999}
+  m_LocalRotation: {x: .0225724895, y: -.923603773, z: -.00934983045, w: .382569164}
+  m_LocalPosition: {x: -.587000012, y: .153999999, z: 4.0170002}
   m_LocalScale: {x: 60, y: 60, z: 60}
   m_Children:
   - {fileID: 625304998}
@@ -4015,9 +4114,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 869761909}
   - 111: {fileID: 869761910}
+  - 65: {fileID: 869761911}
   m_Layer: 0
   m_Name: koelkast_animatie
-  m_TagString: Untagged
+  m_TagString: Refrigerator
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4057,9 +4157,21 @@ Animation:
   m_Animations:
   - {fileID: 7400000, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
   m_WrapMode: 0
-  m_PlayAutomatically: 1
+  m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!65 &869761911
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 869761908}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: .0320000015, y: .0399999991, z: .0599999987}
+  m_Center: {x: 0, y: .0199999996, z: 0}
 --- !u!1 &876201608
 GameObject:
   m_ObjectHideFlags: 0
@@ -4183,6 +4295,14 @@ Prefab:
     - target: {fileID: 400010, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
       propertyPath: m_LocalScale.z
       value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
+      propertyPath: m_TagString
+      value: Refrigerator
+      objectReference: {fileID: 0}
+    - target: {fileID: 11100000, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
+      propertyPath: m_PlayAutomatically
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
@@ -4846,7 +4966,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: .0799999982, y: .0799999982, z: .0199999996}
+  m_Size: {x: .0599999987, y: .0799999982, z: .0199999996}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1019062117
 GameObject:
@@ -5355,9 +5475,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 1106177106}
   - 111: {fileID: 1106177107}
+  - 65: {fileID: 1106177108}
   m_Layer: 0
   m_Name: koelkast_animatie
-  m_TagString: Untagged
+  m_TagString: Refrigerator
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5373,8 +5494,8 @@ Transform:
   m_LocalScale: {x: 60, y: 60, z: 60}
   m_Children:
   - {fileID: 1657865707}
-  - {fileID: 1458973572}
   - {fileID: 1812834833}
+  - {fileID: 1458973572}
   - {fileID: 735827467}
   - {fileID: 1977229997}
   - {fileID: 1697949436}
@@ -5397,9 +5518,21 @@ Animation:
   m_Animations:
   - {fileID: 7400000, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
   m_WrapMode: 0
-  m_PlayAutomatically: 1
+  m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!65 &1106177108
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1106177105}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: .0320000015, y: .0399999991, z: .0599999987}
+  m_Center: {x: 0, y: .0199999996, z: 0}
 --- !u!1 &1109113725
 GameObject:
   m_ObjectHideFlags: 0
@@ -5950,7 +6083,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 136fe3fbaf6c5d447aaac57a4204b504, type: 2}
+  - {fileID: 2100000, guid: b5030e7360b23f6439e4b419e995a047, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -6482,6 +6615,14 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 60
       objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
+      propertyPath: m_TagString
+      value: Refrigerator
+      objectReference: {fileID: 0}
+    - target: {fileID: 11100000, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
+      propertyPath: m_PlayAutomatically
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
   m_RootGameObject: {fileID: 1359639964}
@@ -6776,11 +6917,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   switchOn: 0
-  hasCollectableTorch: 0
   showCollectables: 0
   onScreenText: 
   Font: {fileID: 12800000, guid: 65b8fd223bdc45940b6b41bdb8b2d1f0, type: 3}
-  spacePressed: 0
 --- !u!1 &1318671552
 GameObject:
   m_ObjectHideFlags: 0
@@ -7067,9 +7206,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 1359639965}
   - 111: {fileID: 1359639966}
+  - 65: {fileID: 1359639967}
   m_Layer: 0
   m_Name: koelkast_animatie
-  m_TagString: Untagged
+  m_TagString: Refrigerator
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7109,9 +7249,21 @@ Animation:
   m_Animations:
   - {fileID: 7400000, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
   m_WrapMode: 0
-  m_PlayAutomatically: 1
+  m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!65 &1359639967
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1359639964}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: .0320000015, y: .0399999991, z: .0599999987}
+  m_Center: {x: 0, y: .0199999996, z: 0}
 --- !u!1 &1365603080
 GameObject:
   m_ObjectHideFlags: 0
@@ -7539,11 +7691,11 @@ Transform:
   m_PrefabInternal: {fileID: 636711025}
   m_GameObject: {fileID: 1458973571}
   m_LocalRotation: {x: .122654475, y: .93165344, z: -.0446426272, w: -.339094073}
-  m_LocalPosition: {x: -.0983929262, y: .0534366518, z: .102026843}
-  m_LocalScale: {x: .999999881, y: .999999642, z: .999999821}
+  m_LocalPosition: {x: -.0983929262, y: .0534366556, z: .10202685}
+  m_LocalScale: {x: .999999881, y: .999999762, z: .999999821}
   m_Children: []
   m_Father: {fileID: 1106177106}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!1 &1470805504
 GameObject:
   m_ObjectHideFlags: 0
@@ -7978,31 +8130,31 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400008, guid: c321a35c4bea692499e44a46ea120cd5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: .722199976
+      value: -.587000012
       objectReference: {fileID: 0}
     - target: {fileID: 400008, guid: c321a35c4bea692499e44a46ea120cd5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: .0375000015
+      value: .153999999
       objectReference: {fileID: 0}
     - target: {fileID: 400008, guid: c321a35c4bea692499e44a46ea120cd5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.61989999
+      value: 4.0170002
       objectReference: {fileID: 0}
     - target: {fileID: 400008, guid: c321a35c4bea692499e44a46ea120cd5, type: 3}
       propertyPath: m_LocalRotation.x
-      value: .00528811477
+      value: .0225724895
       objectReference: {fileID: 0}
     - target: {fileID: 400008, guid: c321a35c4bea692499e44a46ea120cd5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -.216375008
+      value: -.923603773
       objectReference: {fileID: 0}
     - target: {fileID: 400008, guid: c321a35c4bea692499e44a46ea120cd5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: .0238531437
+      value: -.00934983045
       objectReference: {fileID: 0}
     - target: {fileID: 400008, guid: c321a35c4bea692499e44a46ea120cd5, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -.976004601
+      value: .382569164
       objectReference: {fileID: 0}
     - target: {fileID: 400008, guid: c321a35c4bea692499e44a46ea120cd5, type: 3}
       propertyPath: m_RootOrder
@@ -8026,7 +8178,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100008, guid: c321a35c4bea692499e44a46ea120cd5, type: 3}
       propertyPath: m_TagString
-      value: Torch
+      value: Collectable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c321a35c4bea692499e44a46ea120cd5, type: 3}
@@ -8149,7 +8301,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: f45a00bf9434b6d4ba7ce48ef96e5b24, type: 2}
+  - {fileID: 2100000, guid: 0e4abc6b0ba4d3643b0858f3e9f3c46c, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -9131,7 +9283,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400012, guid: f2480c3bad72f944b90fdf1bc7f031d4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3
+      value: 3.48900008
       objectReference: {fileID: 0}
     - target: {fileID: 400012, guid: f2480c3bad72f944b90fdf1bc7f031d4, type: 3}
       propertyPath: m_LocalRotation.x
@@ -9227,7 +9379,7 @@ Transform:
   m_LocalScale: {x: 1.39999998, y: 1, z: 1.79999995}
   m_Children: []
   m_Father: {fileID: 1106177106}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!23 &1812834834
 Renderer:
   m_ObjectHideFlags: 0
@@ -10016,6 +10168,14 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 60
       objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
+      propertyPath: m_TagString
+      value: Refrigerator
+      objectReference: {fileID: 0}
+    - target: {fileID: 11100000, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
+      propertyPath: m_PlayAutomatically
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e222201345704b14b9294dd36c0fe7ce, type: 3}
   m_RootGameObject: {fileID: 60676139}
@@ -10577,7 +10737,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: f45a00bf9434b6d4ba7ce48ef96e5b24, type: 2}
+  - {fileID: 2100000, guid: 0e4abc6b0ba4d3643b0858f3e9f3c46c, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
