@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 [ExecuteInEditMode]
 [RequireComponent(typeof(MeshFilter))]
@@ -12,13 +13,26 @@ public class RandomPlaneCreator : MonoBehaviour {
 	public float tileSize = 1.0f;
 	public Texture2D terrainTiles;
 	public int tileResolution;
+	public int[] tileChance;
 
 	// Use this for initialization
 	void Start () {
 		BuildMesh ();
+
+	}
+
+	public void SetTileChances() {
+
+		tileChance = new int[ChopUpTiles().Length];
+
+		for (int c=0; c<ChopUpTiles().Length; c++) {
+			tileChance[c] = 1;
+		}
+
 	}
 
 	Color[][] ChopUpTiles() {
+
 		int numTilesPerRow = terrainTiles.width / tileResolution;
 		int numRows = terrainTiles.height / tileResolution;
 
@@ -41,11 +55,27 @@ public class RandomPlaneCreator : MonoBehaviour {
 		int texHeight = size_z * tileResolution;
 		Texture2D texture = new Texture2D(texWidth,texHeight);
 
+		//maak Color array aan met tiles, tiles met hoge kans worden vaker in array geplaatst
 		Color[][] tiles = ChopUpTiles();
+		Color[][] tilesChances = new Color[tileChance.Sum ()][];
+		Debug.Log ("lengte tileschances" + tilesChances.Length);
+		int counter = 0;
 
+		for (int i = 0; i<tileChance.Length; i++) {
+			int chance = tileChance[i];
+			for (int j = 0; j<chance ; j++){
+				int temp = i+ counter;
+				Debug.Log ("i " +i);
+				Debug.Log ("counter " + counter);
+				Debug.Log ("i+counter " + temp);
+				Debug.Log ("j " +j);
+				tilesChances[i+counter+j] = tiles[i];
+			}
+			counter = counter + chance - 1;
+		}
 		for (int y=0; y<size_z; y++) {
 			for (int x=0; x<size_x; x++) {
-				Color[] p = tiles[Random.Range(0,numTilesPerRow*numRows)];
+				Color[] p = tilesChances[Random.Range(0,tileChance.Sum ())];
 				texture.SetPixels(x*tileResolution,y*tileResolution,tileResolution,tileResolution,p);
 			}
 		}
@@ -57,7 +87,7 @@ public class RandomPlaneCreator : MonoBehaviour {
 	}
 
 	public void BuildMesh() {
-		
+
 		int numTiles = size_x * size_z;
 		int numTris = numTiles * 2;
 		
