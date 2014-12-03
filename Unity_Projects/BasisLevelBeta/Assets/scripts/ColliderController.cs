@@ -4,44 +4,45 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class ColliderController : MonoBehaviour {
-	
+
 	private Collider Collider = null;
 	private List<GameObject> CollectedGameObjects = new List<GameObject>();
-	private List<GameObject> PlayedGameObjects = new List<GameObject>();
 	public bool switchOn = false;
-	public bool showCollectables = false;
+    public bool showCollectables = false;
 	public string onScreenText;
 	public Font Font;
 
-	public Transform Guard;
-	
 	void Update() {
+<<<<<<< HEAD
+
+		// maxmimal afstand test!
 		Vector3 targetDir = transform.position - Guard.position;
 		Vector3 forward = Guard.forward;
 		float angle = Vector3.Angle(targetDir, forward);
-		if (angle < 25.0F)
-				onScreenText = "MONGOOL! Je bent gesnapt!";
-		else
-				onScreenText = "";
-
-		/////
-		
-		if (Input.GetKeyDown(KeyCode.Tab))
+		float distance = Vector3.Distance(targetDir, forward);
+		if (angle < 25.0F && distance < 3.5F)
 		{
-			showCollectables = !showCollectables;
+			print ("GUARD");
+		}
+=======
+>>>>>>> 9e0f10fdd12431421791f832a6aa45d115ba7952
+
+		if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            showCollectables = !showCollectables;
 			print(CollectedGameObjects.Count);
 			for (int i = 0; i < CollectedGameObjects.Count; i++)
 			{
 				print(CollectedGameObjects[0].name);
 			}
-		}
-		
+        }
+
 		if (Collider != null && Collider.gameObject.tag == "Switch")
 		{
 			if (Input.GetKeyDown(KeyCode.Space)) {
 				switchOn = !switchOn;
 				// collision.animation.Play ("Switch|SwitchAction");
-				onScreenText = "You just toggled the switch " +  (switchOn?"ON":"OFF");
+				SetOnScreenText("You just toggled the switch " +  (switchOn?"ON":"OFF"));
 				foreach (GameObject ceilingLight in GameObject.FindGameObjectsWithTag("CeilingLights")) {
 					ceilingLight.light.color = (switchOn?new Color(0.64F, 0.82F, 1F, 1F):new Color(1F, 0F, 0F, 1F));
 				}
@@ -54,12 +55,12 @@ public class ColliderController : MonoBehaviour {
 			if (Input.GetKeyDown(KeyCode.Space)) {
 				if (switchOn) {
 					// collision.animation.Play ("Door|DoorAction");
-					onScreenText = "DOOR OPENS";
+					SetOnScreenText("DOOR OPENS");
 					
 				} else {
 					// collision.animation.Play ("Door|DoorAction");
 					// in reverse
-					onScreenText = "FAILED! NO POWER ON DOOR";
+					SetOnScreenText("FAILED! NO POWER ON DOOR");
 				}
 			}
 		}
@@ -67,53 +68,76 @@ public class ColliderController : MonoBehaviour {
 		if (Collider != null && Collider.gameObject.tag == "Collectable")
 		{
 			if (Input.GetKeyDown(KeyCode.Space)) {
-				onScreenText = "Successfully collected the " + Collider.gameObject.name;
+<<<<<<< HEAD
+				SetOnScreenText("Successfully collected the " + Collider.gameObject.name);
 				
+=======
+				onScreenText = "Successfully collected the " + Collider.gameObject.name;
+
+>>>>>>> 9e0f10fdd12431421791f832a6aa45d115ba7952
 				CollectedGameObjects.Add(Collider.gameObject);
 				Collider.gameObject.SetActive(false);
 			}
 		}
 	}
+
+<<<<<<< HEAD
+	void SetOnScreenText(string text) {
+		onScreenText = text;
+		StartCoroutine(AutoRemoveOnScreenText(onScreenText));
+	}
 	
+	IEnumerator AutoRemoveOnScreenText(string CurrentOnScreenText) {
+		if (onScreenText != "" && CurrentOnScreenText == onScreenText)
+		{
+			yield return new WaitForSeconds(5);
+			onScreenText = "";
+		}
+	}
+	
+=======
+>>>>>>> 9e0f10fdd12431421791f832a6aa45d115ba7952
 	// Place here all "enter" events like pop-up messages
 	void OnTriggerEnter(Collider collision)
 	{
 		Collider = collision;
 		if (Collider.gameObject.tag == "Switch")
 		{
-			onScreenText = "This is a Power Switch. To toggle the switch press the spacebar";
+			SetOnScreenText("This is a Power Switch. To toggle the switch press the spacebar");
 		}
-		
+
 		if (Collider.gameObject.tag == "Door")
 		{
-			onScreenText = "To open the door press the spacebar";
+			SetOnScreenText("To open the door press the spacebar");
 		}
-		
+
 		if (Collider.gameObject.tag == "Refrigerator") 
 		{
-			if (!PlayedGameObjects.Contains(Collider.gameObject))
-			{
-				Collider.animation.Play ();
-				PlayedGameObjects.Add(Collider.gameObject);
-			}
+//			Collider.animation["Cylinder|CylinderAction"].speed = -0.1;
+			Collider.animation.Play ("Cylinder|CylinderAction");
 		}
-		
+
 		if (Collider.gameObject.tag == "Collectable") 
+<<<<<<< HEAD
 		{
-			onScreenText = "To collect the " + Collider.gameObject.name + " press the spacebar!";
+			SetOnScreenText("To collect the " + Collider.gameObject.name + " press the spacebar!");
 		}
+=======
+        {
+			onScreenText = "To collect the " + Collider.gameObject.name + " press the spacebar!";
+        }
+>>>>>>> 9e0f10fdd12431421791f832a6aa45d115ba7952
 	}
-	
+
 	// Place here al "exit" events like removing the pop-up messages
 	void OnTriggerExit(Collider collision)
 	{
-		Collider = null;
-		onScreenText = "";
+		SetOnScreenText("");
 	}
-	
+
 	void OnGUI() {
 		GUI.skin.font = Font;
-		
+
 		if (onScreenText.Length > 0)
 		{
 			string[] lines = onScreenText.Split('\n');
@@ -129,9 +153,9 @@ public class ColliderController : MonoBehaviour {
 			int width = longestLineLength*9 + 30;
 			int height = lines.Length*16 + 20;
 			int x = Screen.width/2 - width/2;
-			int y = Screen.height/2 - height/2;
+            int y = Screen.height/2 - height/2;
 			GUI.Box(new Rect(x, y, width, height), onScreenText);
 		}
-		
+
 	}
 }
