@@ -12,18 +12,18 @@ public class ColliderController : MonoBehaviour {
 	public bool showCollectables = false;
 	public string onScreenText;
 	public Font Font;
-	
-	public Transform Guard;
-	
+
 	void Update() {
-		
-		Vector3 targetDir = transform.position - Guard.position;
-		Vector3 forward = Guard.forward;
-		float angle = Vector3.Angle(targetDir, forward);
-		float distance = Vector3.Distance(targetDir, forward);
-		if (angle < 25.0F && distance < 3.5F)
-		{
-			print ("GUARD");
+
+		foreach (GameObject Guard in GameObject.FindGameObjectsWithTag("Guard")) {
+			Vector3 targetDir = transform.position - Guard.transform.position;
+			Vector3 forward = Guard.transform.forward;
+			float angle = Vector3.Angle(targetDir, forward);
+			float distance = Vector3.Distance(targetDir, forward);
+			if (angle < 25.0F && distance < 3.5F)
+			{
+				print (Guard.name);
+			}
 		}
 		
 		if (Input.GetKeyDown(KeyCode.Tab))
