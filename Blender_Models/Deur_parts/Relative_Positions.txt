@@ -1,0 +1,16 @@
+Relative positions for door object
+
+Slider_door:
+	x = x_slider
+	y = y_slider
+	z = z_slider
+
+Deur_Links:
+	x = x_slider + 0.225
+	y = y_slider - 2.5
+	z = z_slider 
+
+Deur_Rechts:
+	x = x_slider - 0.825
+	y = y_slider - 2.5
+	z = z_slider 
