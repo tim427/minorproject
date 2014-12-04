@@ -15,16 +15,17 @@ public class ColliderController : MonoBehaviour {
 
 	void Update() {
 
-		foreach (GameObject Guard in GameObject.FindGameObjectsWithTag("Guard")) {
-			Vector3 targetDir = transform.position - Guard.transform.position;
-			Vector3 forward = Guard.transform.forward;
-			float angle = Vector3.Angle(targetDir, forward);
-			float distance = Vector3.Distance(targetDir, forward);
-			if (angle < 25.0F && distance < 3.5F)
-			{
-				print (Guard.name);
-			}
-		}
+//		foreach (GameObject Guard in GameObject.FindGameObjectsWithTag("Guard")) {
+//			Vector3 targetDir = transform.position - Guard.transform.position;
+//			Vector3 forward = Guard.transform.forward;
+//			float angle = Vector3.Angle(targetDir, forward);
+//			float distance = Vector3.Distance(targetDir, forward);
+//			if (angle < 25.0F && distance < 3.5F)
+//			{
+//				print (Guard.name);
+//				Guard.
+//			}
+//		}
 		
 		if (Input.GetKeyDown(KeyCode.Tab))
 		{
