@@ -12,21 +12,10 @@ public class ColliderController : MonoBehaviour {
 	public bool showCollectables = false;
 	public string onScreenText;
 	public Font Font;
+	public AudioClip collectSound;
 
 	void Update() {
 
-//		foreach (GameObject Guard in GameObject.FindGameObjectsWithTag("Guard")) {
-//			Vector3 targetDir = transform.position - Guard.transform.position;
-//			Vector3 forward = Guard.transform.forward;
-//			float angle = Vector3.Angle(targetDir, forward);
-//			float distance = Vector3.Distance(targetDir, forward);
-//			if (angle < 25.0F && distance < 3.5F)
-//			{
-//				print (Guard.name);
-//				Guard.
-//			}
-//		}
-		
 		if (Input.GetKeyDown(KeyCode.Tab))
 		{
 			showCollectables = !showCollectables;
@@ -43,6 +32,7 @@ public class ColliderController : MonoBehaviour {
 				switchOn = !switchOn;
 				// collision.animation.Play ("Switch|SwitchAction");
 				SetOnScreenText("You just toggled the switch " +  (switchOn?"ON":"OFF"));
+				Collider.audio.Play();
 				foreach (GameObject ceilingLight in GameObject.FindGameObjectsWithTag("CeilingLights")) {
 					ceilingLight.light.color = (switchOn?new Color(0.64F, 0.82F, 1F, 1F):new Color(1F, 0F, 0F, 1F));
 				}
@@ -55,6 +45,7 @@ public class ColliderController : MonoBehaviour {
 			if (Input.GetKeyDown(KeyCode.Space)) {
 				if (switchOn) {
 					// collision.animation.Play ("Door|DoorAction");
+					Collider.audio.Play();
 					SetOnScreenText("DOOR OPENS");
 					
 				} else {
@@ -69,7 +60,7 @@ public class ColliderController : MonoBehaviour {
 		{
 			if (Input.GetKeyDown(KeyCode.Space)) {
 				SetOnScreenText("Successfully collected the " + Collider.gameObject.name);
-				
+				AudioSource.PlayClipAtPoint(collectSound, transform.position);
 				CollectedGameObjects.Add(Collider.gameObject);
 				Collider.gameObject.SetActive(false);
 			}
@@ -107,6 +98,7 @@ public class ColliderController : MonoBehaviour {
 		{
 			if (!PlayedGameObjects.Contains(Collider.gameObject))
 			{
+				Collider.audio.Play();
 				Collider.animation.Play ();
 				PlayedGameObjects.Add(Collider.gameObject);
 			}

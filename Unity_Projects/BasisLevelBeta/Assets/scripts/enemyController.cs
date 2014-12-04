@@ -15,7 +15,7 @@ public class enemyController : MonoBehaviour {
 		direction = new Vector3(0,0,0);
 	}
 	
-	// Update is called once per frame 
+	// Update is called once per frame
 	void Update () {
 
 		GameObject target = GameObject.FindGameObjectWithTag ("Player");
@@ -28,8 +28,7 @@ public class enemyController : MonoBehaviour {
 			print ("Detected by " + name);
 			triggerGuard();
 		}
-
-
+	
 		rigidbody.velocity = direction * 0;
 		if (isTriggered) {
 				moveTowardsTarget (targetLoc);
