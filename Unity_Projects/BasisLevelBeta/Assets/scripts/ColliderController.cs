@@ -13,6 +13,7 @@ public class ColliderController : MonoBehaviour {
 	public string onScreenText;
 	public Font Font;
 	public AudioClip collectSound;
+	public int position_switch;
 
 	void Update() {
 
@@ -37,6 +38,16 @@ public class ColliderController : MonoBehaviour {
 					ceilingLight.light.color = (switchOn?new Color(0.64F, 0.82F, 1F, 1F):new Color(1F, 0F, 0F, 1F));
 				}
 				GameObject.FindGameObjectWithTag("MainCamera").camera.backgroundColor = (switchOn?new Color(0.64F, 0.82F, 1F, 1F):new Color(0.95F, 0.25F, 0.25F, 1F));
+
+				position_switch = 10000;
+
+				// Switch the switch down
+				if (switchOn == false){
+					Collider.transform.FindChild("Switch").Rotate(0, -position_switch, 0);
+				}
+				if (switchOn == true){
+					Collider.transform.FindChild("Switch").Rotate(0, position_switch, 0);
+				}
 			}
 		}
 		

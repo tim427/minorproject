@@ -9,7 +9,9 @@ TagManager:
   - Collectable
   - CeilingLights
   - Guard
+  - Switch_hendel
   - 
+  - Koelkast
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
