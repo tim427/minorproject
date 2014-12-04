@@ -58,17 +58,17 @@ public class RandomPlaneCreator : MonoBehaviour {
 		//maak Color array aan met tiles, tiles met hoge kans worden vaker in array geplaatst
 		Color[][] tiles = ChopUpTiles();
 		Color[][] tilesChances = new Color[tileChance.Sum ()][];
-		Debug.Log ("lengte tileschances" + tilesChances.Length);
+//		Debug.Log ("lengte tileschances" + tilesChances.Length);
 		int counter = 0;
 
 		for (int i = 0; i<tileChance.Length; i++) {
 			int chance = tileChance[i];
 			for (int j = 0; j<chance ; j++){
 				int temp = i+ counter;
-				Debug.Log ("i " +i);
-				Debug.Log ("counter " + counter);
-				Debug.Log ("i+counter " + temp);
-				Debug.Log ("j " +j);
+//				Debug.Log ("i " +i);
+//				Debug.Log ("counter " + counter);
+//				Debug.Log ("i+counter " + temp);
+//				Debug.Log ("j " +j);
 				tilesChances[i+counter+j] = tiles[i];
 			}
 			counter = counter + chance - 1;
