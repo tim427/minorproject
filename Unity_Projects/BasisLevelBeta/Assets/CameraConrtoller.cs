@@ -4,6 +4,7 @@ using System.Collections;
 public class CameraConrtoller : MonoBehaviour {
 
 	private float direction;
+	private bool started = false;
 	public int maxLeft = 270;
 	public int maxRight = 90;
 	public float rotationSpeed = 1f;
@@ -12,7 +13,8 @@ public class CameraConrtoller : MonoBehaviour {
 
 	void Update () {
 		float degrees = transform.FindChild("Body").rotation.eulerAngles.z;
-		if (degrees >= maxRight-1 && degrees <= maxRight+1) {
+		if ((degrees >= maxRight-1 && degrees <= maxRight+1) || !started) {
+			started = true;
 			direction = rotationSpeed;
 		}
 		if (degrees >= maxLeft-1 && degrees <= maxLeft+1) {
