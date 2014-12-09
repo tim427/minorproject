@@ -9,9 +9,9 @@ public class enemyController : MonoBehaviour {
 	private Vector3 targetLoc;
 	public bool isTriggered = false;
 	private Vector3 initialLoc;
-	private bool moveBackNow;
+	public bool moveBackNow;
 	private Vector3 initialRot;
-	private bool turningAroundNow;
+	public bool turningAroundNow;
 	
 	// Use this for initialization
 	void Start () {
@@ -52,6 +52,7 @@ public class enemyController : MonoBehaviour {
 	
 	//Function that triggers a guard and initializes the 'walking'
 	public void triggerGuard() {
+		turningAroundNow = false;
 		moveBackNow = false;
 		isTriggered = true;
 		targetLoc = getTargetPos (GameObject.FindGameObjectWithTag ("Player"));
