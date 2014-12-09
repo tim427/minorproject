@@ -20,11 +20,6 @@ public class ColliderController : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Tab))
 		{
 			showCollectables = !showCollectables;
-			print(CollectedGameObjects.Count);
-			for (int i = 0; i < CollectedGameObjects.Count; i++)
-			{
-				print(CollectedGameObjects[0].name);
-			}
 		}
 		
 		if (Collider != null && Collider.gameObject.tag == "Switch")
@@ -74,6 +69,7 @@ public class ColliderController : MonoBehaviour {
 				AudioSource.PlayClipAtPoint(collectSound, transform.position);
 				CollectedGameObjects.Add(Collider.gameObject);
 				Collider.gameObject.SetActive(false);
+				Collider = null;
 			}
 		}
 	}
@@ -148,6 +144,15 @@ public class ColliderController : MonoBehaviour {
 			int y = Screen.height/2 - height/2;
 			GUI.Box(new Rect(x, y, width, height), onScreenText);
 		}
+
+		if (showCollectables) {
+			GUI.Box (new Rect (10,10,250,CollectedGameObjects.Count*30 + 30), "Collected items: " + CollectedGameObjects.Count);
+			for (int i = 0; i < CollectedGameObjects.Count; i++)
+			{
+				GUI.Button(new Rect(20,i*30 + 40,80,20), CollectedGameObjects[i].name);
+			}
+		}
+
 		
 	}
 }

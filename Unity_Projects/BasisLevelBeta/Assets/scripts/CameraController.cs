@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CameraConrtoller : MonoBehaviour {
+public class CameraController : MonoBehaviour {
 
 	private float direction;
 	private bool started = false;
