@@ -7,17 +7,20 @@ public class enemyController : MonoBehaviour {
 	public float enemySpeed;
 	public float turnspeed;
 	private Vector3 targetLoc;
-	public bool isTriggered = false;
+	private bool isTriggered;
 	private Vector3 initialLoc;
-	public bool moveBackNow;
+	private bool moveBackNow;
 	private Vector3 initialRot;
-	public bool turningAroundNow;
+	private bool turningAroundNow;
 	
 	// Use this for initialization
 	void Start () {
 		direction = new Vector3(0,0,0);
 		initialLoc = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
 		initialRot = transform.forward;
+		isTriggered = false;
+		moveBackNow = false;
+		turningAroundNow = false;
 	}
 	
 	// Update is called once per frame
