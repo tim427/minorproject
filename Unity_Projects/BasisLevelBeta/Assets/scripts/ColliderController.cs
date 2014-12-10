@@ -8,6 +8,7 @@ public class ColliderController : MonoBehaviour {
 	private Collider Collider = null;
 	private List<GameObject> CollectedGameObjects = new List<GameObject>();
 	private List<GameObject> PlayedGameObjects = new List<GameObject>();
+	private int SwitchCounter = 0;
 	public bool switchOn = false;
 	public bool showCollectables = false;
 	public string onScreenText;
@@ -26,13 +27,24 @@ public class ColliderController : MonoBehaviour {
 		{
 			if (Input.GetKeyDown(KeyCode.Space)) {
 				switchOn = !switchOn;
+				SwitchCounter ++;
 				// collision.animation.Play ("Switch|SwitchAction");
-				SetOnScreenText("You just toggled the switch " +  (switchOn?"ON":"OFF"));
 				Collider.audio.Play();
-				foreach (GameObject ceilingLight in GameObject.FindGameObjectsWithTag("CeilingLights")) {
-					ceilingLight.light.color = (switchOn?new Color(0.64F, 0.82F, 1F, 1F):new Color(1F, 0F, 0F, 1F));
+				if(SwitchCounter < 20){
+					SetOnScreenText("You just toggled the switch " +  (switchOn?"ON":"OFF"));
+					foreach (GameObject ceilingLight in GameObject.FindGameObjectsWithTag("CeilingLights")) {
+						 ceilingLight.light.color = (switchOn?new Color(0.64F, 0.82F, 1F, 1F):new Color(1F, 0F, 0F, 1F));
+					}
+					GameObject.FindGameObjectWithTag("MainCamera").camera.backgroundColor = (switchOn?new Color(0.64F, 0.82F, 1F, 1F):new Color(0.95F, 0.25F, 0.25F, 1F));
 				}
-				GameObject.FindGameObjectWithTag("MainCamera").camera.backgroundColor = (switchOn?new Color(0.64F, 0.82F, 1F, 1F):new Color(0.95F, 0.25F, 0.25F, 1F));
+				else{
+					SetOnScreenText("The lights are malfunctioning due to excessive usage!");
+					GameObject.FindGameObjectWithTag("MainCamera").camera.backgroundColor = new Color(0F, 0F, 0F, 0F);
+					foreach (GameObject ceilingLight in GameObject.FindGameObjectsWithTag("CeilingLights")) {
+						ceilingLight.light.enabled = false;
+					}
+					GameObject.FindGameObjectWithTag("DirectionalLight").light.enabled = false;
+				}
 
 				position_switch = 10000;
 
@@ -121,6 +133,7 @@ public class ColliderController : MonoBehaviour {
 	void OnTriggerExit(Collider collision)
 	{
 		SetOnScreenText("");
+		Collider = null;
 	}
 	
 	void OnGUI() {
@@ -149,7 +162,14 @@ public class ColliderController : MonoBehaviour {
 			GUI.Box (new Rect (10,10,250,CollectedGameObjects.Count*30 + 30), "Collected items: " + CollectedGameObjects.Count);
 			for (int i = 0; i < CollectedGameObjects.Count; i++)
 			{
-				GUI.Button(new Rect(20,i*30 + 40,80,20), CollectedGameObjects[i].name);
+				if (GUI.Button(new Rect(20,i*30 + 40,80,20), CollectedGameObjects[i].name)) {
+					CollectedGameObjects[i].SetActive(true);
+					CollectedGameObjects[i].transform.position = transform.position;
+					CollectedGameObjects[i].transform.Translate(0.4f, 0.15f, 0.75f);
+					CollectedGameObjects[i].transform.rotation = transform.rotation;
+					CollectedGameObjects[i].transform.Rotate(0, 90, 0);
+					CollectedGameObjects[i].transform.parent = transform;
+				}
 			}
 		}
 
