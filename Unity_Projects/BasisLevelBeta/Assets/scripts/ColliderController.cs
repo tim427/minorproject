@@ -10,6 +10,7 @@ public class ColliderController : MonoBehaviour
 		private List<GameObject> CollectedGameObjects = new List<GameObject> ();
 		private List<GameObject> PlayedGameObjects = new List<GameObject> ();
 		private int SwitchCounter = 0;
+		private bool doorOpen = false;
 		public bool switchOn = false;
 		public bool showCollectables = false;
 		public string onScreenText;
@@ -68,6 +69,19 @@ public class ColliderController : MonoBehaviour
 								}
 						}
 				}
+				
+		// The animation for the doors!
+		if (doorOpen == true) {
+			if (Collider.transform.FindChild ("Deur_Links").localPosition.x < .028){
+				Collider.transform.FindChild("Deur_Links").Translate(Time.deltaTime, 0, 0);	
+			}
+			if (Collider.transform.FindChild ("Deur_Rechts").localPosition.x > -.033){
+				Collider.transform.FindChild("Deur_Rechts").Translate(-Time.deltaTime, 0, 0);	
+			}
+			else{
+				doorOpen = false;
+			}
+		}
 		
 				if (Collider != null && (Collider.gameObject.tag == "CollectableConsumable" || Collider.gameObject.tag == "CollectableReusable")) {
 						if (Input.GetKeyDown (KeyCode.Space)) {
