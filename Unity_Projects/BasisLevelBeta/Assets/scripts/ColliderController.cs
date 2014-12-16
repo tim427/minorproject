@@ -81,6 +81,7 @@ public class ColliderController : MonoBehaviour {
 				AudioSource.PlayClipAtPoint(collectSound, transform.position);
 				CollectedGameObjects.Add(Collider.gameObject);
 				Collider.gameObject.SetActive(false);
+				Destroy(Collider.gameObject.collider);
 				Collider = null;
 			}
 		}
