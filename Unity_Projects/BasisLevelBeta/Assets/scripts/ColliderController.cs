@@ -15,6 +15,7 @@ public class ColliderController : MonoBehaviour {
 	public Font Font;
 	public AudioClip collectSound;
 	public int position_switch;
+	public bool door_open = false;
 
 	void Update() {
 
@@ -65,12 +66,27 @@ public class ColliderController : MonoBehaviour {
 					// collision.animation.Play ("Door|DoorAction");
 					Collider.audio.Play();
 					SetOnScreenText("DOOR OPENS");
+					door_open = true;
 					
 				} else {
 					// collision.animation.Play ("Door|DoorAction");
 					// in reverse
 					SetOnScreenText("FAILED! NO POWER ON DOOR");
+					door_open = false;
 				}
+			}
+		}
+
+		// The animation for the doors!
+		if (door_open == true) {
+			if (Collider.transform.FindChild ("Deur_Links").localPosition.x < .028){
+				Collider.transform.FindChild("Deur_Links").Translate(Time.deltaTime, 0, 0);	
+			}
+			if (Collider.transform.FindChild ("Deur_Rechts").localPosition.x > -.033){
+				Collider.transform.FindChild("Deur_Rechts").Translate(-Time.deltaTime, 0, 0);	
+			}
+			else{
+				door_open = false;
 			}
 		}
 		
