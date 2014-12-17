@@ -71,15 +71,13 @@ public class ColliderController : MonoBehaviour
 				
 		// The animation for the doors!
 		if (doorOpen == true) {
-			if (Collider.transform.FindChild ("Deur_Links_Start").localPosition.x < 1.486){
-				Collider.transform.FindChild("Deur_Links_Start").Translate(Time.deltaTime, 0, 0);	
+			if (Collider.transform.FindChild ("Deur_Links_Start").localPosition.x < 1.49){
+				Collider.transform.FindChild("Deur_Links_Start").Translate(Time.deltaTime, 0, 0);
 			}
 			if (Collider.transform.FindChild ("Deur_Rechts_Start").localPosition.x > -1.69){
 				Collider.transform.FindChild("Deur_Rechts_Start").Translate(-Time.deltaTime, 0, 0);	
 			}
-			else {
-				doorOpen = false;
-			}
+
 		}
 		
 				if (Collider != null && (Collider.gameObject.tag == "CollectableConsumable" || Collider.gameObject.tag == "CollectableReusable")) {
