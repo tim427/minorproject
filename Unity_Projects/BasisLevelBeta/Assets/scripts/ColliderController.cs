@@ -6,77 +6,79 @@ using System.Collections.Generic;
 public class ColliderController : MonoBehaviour
 {
 	
-		private Collider Collider = null;
-		private List<GameObject> CollectedGameObjects = new List<GameObject> ();
-		private List<GameObject> PlayedGameObjects = new List<GameObject> ();
-		private int SwitchCounter = 0;
-		private bool doorOpen = false;
-		public bool switchOn = false;
-		public bool showCollectables = false;
-		public string onScreenText;
-		public Font Font;
-		public AudioClip collectSound;
-		public int position_switch;
+	private Collider Collider = null;
+	private List<GameObject> CollectedGameObjects = new List<GameObject> ();
+	private List<GameObject> PlayedGameObjects = new List<GameObject> ();
+	private int SwitchCounter = 0;
+	private bool doorOpen = false;
+	public bool switchOn = false;
+	public bool showCollectables = false;
+	public string onScreenText;
+	public Font Font;
+	public AudioClip collectSound;
+	public int position_switch;
+	private bool doorOpen = false;
 	
-		void Update ()
-		{
+	void Update ()
+	{
 		
-				if (Collider != null && Collider.gameObject.tag == "Switch") {
-						if (Input.GetKeyDown (KeyCode.Space)) {
-								switchOn = !switchOn;
-								SwitchCounter ++;
-								// collision.animation.Play ("Switch|SwitchAction");
-								Collider.audio.Play ();
-								if (SwitchCounter < 20) {
-										SetOnScreenText ("You just toggled the switch " + (switchOn ? "ON" : "OFF"));
-										foreach (GameObject ceilingLight in GameObject.FindGameObjectsWithTag("CeilingLights")) {
-												ceilingLight.light.color = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (1F, 0F, 0F, 1F));
-										}
-										GameObject.FindGameObjectWithTag ("MainCamera").camera.backgroundColor = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (0.95F, 0.25F, 0.25F, 1F));
-								} else {
-										SetOnScreenText ("The lights are malfunctioning due to excessive usage!");
-										GameObject.FindGameObjectWithTag ("MainCamera").camera.backgroundColor = new Color (0F, 0F, 0F, 0F);
-										foreach (GameObject ceilingLight in GameObject.FindGameObjectsWithTag("CeilingLights")) {
-												ceilingLight.light.enabled = false;
-										}
-										GameObject.FindGameObjectWithTag ("DirectionalLight").light.enabled = false;
-								}
-				
-								position_switch = 10000;
-				
-								// Switch the switch down
-								if (switchOn == false) {
-										Collider.transform.FindChild ("Switch").Rotate (0, -position_switch, 0);
-								}
-								if (switchOn == true) {
-										Collider.transform.FindChild ("Switch").Rotate (0, position_switch, 0);
-								}
+		if (Collider != null && Collider.gameObject.tag == "Switch") {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				switchOn = !switchOn;
+				SwitchCounter ++;
+				// collision.animation.Play ("Switch|SwitchAction");
+				Collider.audio.Play ();
+				if (SwitchCounter < 20) {
+				SetOnScreenText ("You just toggled the switch " + (switchOn ? "ON" : "OFF"));
+				foreach (GameObject ceilingLight in GameObject.FindGameObjectsWithTag("CeilingLights")) {
+					ceilingLight.light.color = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (1F, 0F, 0F, 1F));
+					}
+							GameObject.FindGameObjectWithTag ("MainCamera").camera.backgroundColor = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (0.95F, 0.25F, 0.25F, 1F));
+					} else {
+						SetOnScreenText ("The lights are malfunctioning due to excessive usage!");
+						GameObject.FindGameObjectWithTag ("MainCamera").camera.backgroundColor = new Color (0F, 0F, 0F, 0F);
+						foreach (GameObject ceilingLight in GameObject.FindGameObjectsWithTag("CeilingLights")) {
+						ceilingLight.light.enabled = false;
 						}
-				}
+						GameObject.FindGameObjectWithTag ("DirectionalLight").light.enabled = false;
+					}
+				
+					position_switch = 10000;
+				
+					// Switch the switch down
+					if (switchOn == false) {
+						Collider.transform.FindChild ("Switch").Rotate (0, -position_switch, 0);
+					}
+					if (switchOn == true) {
+						Collider.transform.FindChild ("Switch").Rotate (0, position_switch, 0);
+					}
+			}
+		}
 		
-				if (Collider != null && Collider.gameObject.tag == "Door") {
-						if (Input.GetKeyDown (KeyCode.Space)) {
-								if (switchOn) {
-										// collision.animation.Play ("Door|DoorAction");
-										Collider.audio.Play ();
-										SetOnScreenText ("DOOR OPENS");
-										Application.LoadLevel ("nieuwe test scene");
+		if (Collider != null && Collider.gameObject.tag == "Door") {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+					if (switchOn) {
+						// collision.animation.Play ("Door|DoorAction");
+						Collider.audio.Play ();
+						SetOnScreenText ("DOOR OPENS");
+						//Application.LoadLevel ("nieuwe test scene");
+						doorOpen = true;
 					
-								} else {
-										// collision.animation.Play ("Door|DoorAction");
-										// in reverse
-										SetOnScreenText ("FAILED! NO POWER ON DOOR");
-								}
-						}
+					} else {
+						// collision.animation.Play ("Door|DoorAction");
+						// in reverse
+						SetOnScreenText ("FAILED! NO POWER ON DOOR");
+					}
 				}
+		}
 				
 		// The animation for the doors!
 		if (doorOpen == true) {
-			if (Collider.transform.FindChild ("Deur_Links").localPosition.x < .028){
-				Collider.transform.FindChild("Deur_Links").Translate(Time.deltaTime, 0, 0);	
+			if (Collider.transform.FindChild ("Deur_Links_Start").localPosition.x < .068){
+				Collider.transform.FindChild("Deur_Links_Start").Translate(Time.deltaTime, 0, 0);	
 			}
-			if (Collider.transform.FindChild ("Deur_Rechts").localPosition.x > -.033){
-				Collider.transform.FindChild("Deur_Rechts").Translate(-Time.deltaTime, 0, 0);	
+			if (Collider.transform.FindChild ("Deur_Rechts_Start").localPosition.x > -.093){
+				Collider.transform.FindChild("Deur_Rechts_Start").Translate(-Time.deltaTime, 0, 0);	
 			}
 			else{
 				doorOpen = false;
