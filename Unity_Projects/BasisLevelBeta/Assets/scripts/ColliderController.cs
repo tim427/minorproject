@@ -17,11 +17,9 @@ public class ColliderController : MonoBehaviour
 	public Font Font;
 	public AudioClip collectSound;
 	public int position_switch;
-	private bool doorOpen = false;
-	
+		
 	void Update ()
 	{
-		
 		if (Collider != null && Collider.gameObject.tag == "Switch") {
 			if (Input.GetKeyDown (KeyCode.Space)) {
 				switchOn = !switchOn;
@@ -61,9 +59,8 @@ public class ColliderController : MonoBehaviour
 						// collision.animation.Play ("Door|DoorAction");
 						Collider.audio.Play ();
 						SetOnScreenText ("DOOR OPENS");
-						//Application.LoadLevel ("nieuwe test scene");
 						doorOpen = true;
-					
+
 					} else {
 						// collision.animation.Play ("Door|DoorAction");
 						// in reverse
@@ -74,13 +71,13 @@ public class ColliderController : MonoBehaviour
 				
 		// The animation for the doors!
 		if (doorOpen == true) {
-			if (Collider.transform.FindChild ("Deur_Links_Start").localPosition.x < .068){
+			if (Collider.transform.FindChild ("Deur_Links_Start").localPosition.x < 1.486){
 				Collider.transform.FindChild("Deur_Links_Start").Translate(Time.deltaTime, 0, 0);	
 			}
-			if (Collider.transform.FindChild ("Deur_Rechts_Start").localPosition.x > -.093){
+			if (Collider.transform.FindChild ("Deur_Rechts_Start").localPosition.x > -1.69){
 				Collider.transform.FindChild("Deur_Rechts_Start").Translate(-Time.deltaTime, 0, 0);	
 			}
-			else{
+			else {
 				doorOpen = false;
 			}
 		}
