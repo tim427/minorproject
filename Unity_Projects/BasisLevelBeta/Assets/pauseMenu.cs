@@ -15,6 +15,7 @@ public class pauseMenu : MonoBehaviour {
 	public int resY;
 	// Use this for initialization
 	void Start () {
+		Screen.lockCursor = true;
 	}
 	
 	// Update is called once per frame
@@ -22,7 +23,7 @@ public class pauseMenu : MonoBehaviour {
 
 		if (Input.GetKeyDown (KeyCode.Escape) && !isPause) {
 			Time.timeScale = 0;
-			Screen.lockCursor = false;
+			Screen.lockCursor = !Screen.lockCursor;
 			GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MouseLook>().enabled = false;
 			GetComponent<MouseLook>().enabled = false;
 			GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioListener>().enabled = false;
@@ -55,7 +56,7 @@ public class pauseMenu : MonoBehaviour {
 		//Start the game, view/edit Options or quit the game
 		if (GUI.Button(new Rect (Screen.width / 2 - 75, Screen.height / 2 - 50, 150, 30), "Resume game")) {
 			Time.timeScale = 1;
-			Screen.lockCursor = false;
+			Screen.lockCursor = true;
 			GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MouseLook>().enabled = true;
 			GetComponent<MouseLook>().enabled = true;
 			GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioListener>().enabled = true;

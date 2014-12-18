@@ -17,11 +17,16 @@ public class ColliderController : MonoBehaviour
 		public Font Font;
 		public AudioClip collectSound;
 		public int position_switch;
+
+
 		
 		void Update ()
 		{
 				if (Input.GetKeyDown (KeyCode.Tab)) {
 						showCollectables = !showCollectables;
+						Screen.lockCursor = !Screen.lockCursor;
+			GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MouseLook>().enabled = !GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MouseLook>().enabled;
+			GetComponent<MouseLook>().enabled = !GetComponent<MouseLook>().enabled;
 				}
 
 				if (Collider != null && Collider.gameObject.tag == "Switch") {
