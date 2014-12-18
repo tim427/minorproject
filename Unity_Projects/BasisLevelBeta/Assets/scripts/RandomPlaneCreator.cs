@@ -18,7 +18,6 @@ public class RandomPlaneCreator : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		BuildMesh ();
-
 	}
 
 	public void SetTileChances() {
