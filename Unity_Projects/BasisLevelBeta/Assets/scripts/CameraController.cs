@@ -11,6 +11,7 @@ public class CameraController : MonoBehaviour
 		public float rotationSpeed = 1f;
 		public float angleWidth = 30f;
 		public float detectionDistance = 3f;
+		private RaycastHit hitInfo;
 
 		void Update ()
 		{
@@ -30,7 +31,9 @@ public class CameraController : MonoBehaviour
 				float angle = Vector3.Angle (forward, targetDir);
 				float distance = Vector3.Distance (forward, targetDir);
 				if (angle < angleWidth && distance < detectionDistance) {
-						print ("CAMERA!!!");
+						if (Physics.Raycast (transform.position, targetDir, out hitInfo, detectionDistance) && hitInfo.transform.tag == "Player") {
+								print ("Camera detected in RANGE and ANGLE the PLAYER in SIGHT!!");
+						}
 				}
 		}
 }
