@@ -40,8 +40,7 @@ public class NavMeshPathfinder : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-		print ("state" + state);
+		
 
 		Vector3 targetDir = target.transform.position - transform.position;
 		Vector3 forward = transform.forward;
