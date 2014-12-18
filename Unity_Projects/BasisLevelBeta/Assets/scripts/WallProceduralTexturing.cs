@@ -4,6 +4,7 @@ using System.Linq;
 
 public class WallProceduralTexturing : MonoBehaviour {
 
+	public int stateLight;
 	public int numTilesX;
 	public int numTilesZ;
 	public Texture2D wallTiles;
