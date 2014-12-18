@@ -19,7 +19,9 @@ public class ColliderController : MonoBehaviour
 		public int position_switch;
 
 
-		
+		void Start() {
+			Time.timeScale = 1;			
+		}
 		void Update ()
 		{
 				if (Input.GetKeyDown (KeyCode.Tab)) {

@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class pauseMenu : MonoBehaviour {
-	public bool isPause = false;
+public class MainMenu : MonoBehaviour {
 	public bool menu;
 	public bool options;
 	private bool video;
@@ -15,24 +14,11 @@ public class pauseMenu : MonoBehaviour {
 	public int resY;
 	// Use this for initialization
 	void Start () {
-		Screen.lockCursor = true;
+		menu = true;
 	}
 	
 	// Update is called once per frame
-	void Update () {
-
-		if (Input.GetKeyDown (KeyCode.Escape) && !isPause) {
-			Time.timeScale = 0;
-			Screen.lockCursor = !Screen.lockCursor;
-			GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MouseLook>().enabled = false;
-			GetComponent<MouseLook>().enabled = false;
-			GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioListener>().enabled = false;
-			isPause = true;
-			menu = true;
-		}
-	}
-
-
+	
 	void OnGUI() {
 		if (menu) {
 			mainMenu();
@@ -54,14 +40,8 @@ public class pauseMenu : MonoBehaviour {
 	//Function that describes the main menu
 	private void mainMenu() {
 		//Start the game, view/edit Options or quit the game
-		if (GUI.Button(new Rect (Screen.width / 2 - 75, Screen.height / 2 - 50, 150, 30), "Resume game")) {
-			Time.timeScale = 1;
-			Screen.lockCursor = true;
-			GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MouseLook>().enabled = true;
-			GetComponent<MouseLook>().enabled = true;
-			GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioListener>().enabled = true;
-			isPause = false;
-			menu = false;
+		if (GUI.Button(new Rect (Screen.width / 2 - 75, Screen.height / 2 - 50, 150, 30), "Start game")) {
+			Application.LoadLevel("Hoofdscene");
 		}
 		
 		if (GUI.Button(new Rect (Screen.width / 2 - 75, Screen.height / 2, 150, 30), "Options")) {
@@ -69,8 +49,8 @@ public class pauseMenu : MonoBehaviour {
 			options = true;
 		}
 		
-		if (GUI.Button(new Rect (Screen.width / 2 - 75, Screen.height / 2 + 50, 150, 30), "Quit to main menu")) {
-			Application.LoadLevel("mainmenu");
+		if (GUI.Button(new Rect (Screen.width / 2 - 75, Screen.height / 2 + 50, 150, 30), "Quit game")) {
+			Application.Quit();
 		}
 	}
 	
