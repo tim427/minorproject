@@ -20,6 +20,10 @@ public class ColliderController : MonoBehaviour
 		
 		void Update ()
 		{
+				if (Input.GetKeyDown (KeyCode.Tab)) {
+						showCollectables = !showCollectables;
+				}
+
 				if (Collider != null && Collider.gameObject.tag == "Switch") {
 						if (Input.GetKeyDown (KeyCode.Space)) {
 								switchOn = !switchOn;
