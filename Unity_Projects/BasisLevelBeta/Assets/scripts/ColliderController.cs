@@ -83,13 +83,13 @@ public class ColliderController : MonoBehaviour
 				if (doorSubject != null) {
 						bool doorLeftFinshed = false;
 						bool doorRightFinshed = false;
-						if (doorSubject.transform.FindChild ("Deur_Links_Start").localPosition.x < 1.49) {
-								doorSubject.transform.FindChild ("Deur_Links_Start").Translate (Time.deltaTime, 0, 0);
+						if (doorSubject.transform.FindChild ("Door_Left").localPosition.x < 1.49) {
+								doorSubject.transform.FindChild ("Door_Left").Translate (Time.deltaTime, 0, 0);
 						} else {
 								doorLeftFinshed = true;
 						}
-						if (doorSubject.transform.FindChild ("Deur_Rechts_Start").localPosition.x > -1.69) {
-								doorSubject.transform.FindChild ("Deur_Rechts_Start").Translate (-Time.deltaTime, 0, 0);	
+						if (doorSubject.transform.FindChild ("Door_Right").localPosition.x > -1.69) {
+								doorSubject.transform.FindChild ("Door_Right").Translate (-Time.deltaTime, 0, 0);	
 						} else {
 								doorRightFinshed = true;
 						}
