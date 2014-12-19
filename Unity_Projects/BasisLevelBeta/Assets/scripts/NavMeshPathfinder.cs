@@ -21,7 +21,7 @@ public class NavMeshPathfinder : MonoBehaviour
 	private float startState2;
 	private float timeSinceMovingInState4;
 	private float timeSinceMovingInState5;
-	private int state;
+	public int state;
 	private Vector3 initialRot;
 	private NavMeshAgent navMesh;
 	private Vector3 initialPos;
