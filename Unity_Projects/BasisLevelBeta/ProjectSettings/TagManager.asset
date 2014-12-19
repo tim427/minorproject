@@ -3,16 +3,22 @@
 --- !u!78 &1
 TagManager:
   tags:
-  - Refrigerator
+  - 
   - Switch
-  - Door
-  - Collectable
+  - 
+  - 
   - CeilingLights
   - Guard
   - Switch_hendel
   - CollectableReusable
-  - Koelkast
+  - 
   - CollectableConsumable
+  - Cryocell
+  - DoorSwitch
+  - DoorKey
+  - DoorLift
+  - LiftLock
+  - KeyLock
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
