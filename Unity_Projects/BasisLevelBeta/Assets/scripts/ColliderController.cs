@@ -142,7 +142,15 @@ public class ColliderController : MonoBehaviour
 						}
 					}
 				}
-
+				if (Collider != null && Collider.gameObject.tag == "Cryocell") {
+					if (!PlayedGameObjects.Contains (Collider.gameObject)) {
+				if (Input.GetKeyDown (KeyCode.Space)) {
+						Collider.audio.Play ();
+						Collider.animation.Play ();
+						PlayedGameObjects.Add (Collider.gameObject);
+				}
+					}
+				}
 
 				if (Collider != null && (Collider.gameObject.tag == "CollectableConsumable" || Collider.gameObject.tag == "CollectableReusable")) {
 						if (Input.GetKeyDown (KeyCode.Space)) {
@@ -194,23 +202,19 @@ public class ColliderController : MonoBehaviour
 		{
 				Collider = collision;
 				if (Collider.gameObject.tag == "Switch") {
-						SetOnScreenText ("This is a Power Switch. To toggle the switch press the spacebar");
+						SetOnScreenText ("Press <spacebar> to toggle the power switch.");
 				}
 		
 				if (Collider.gameObject.tag == "Door") {
-						SetOnScreenText ("To open the door press the spacebar");
+						SetOnScreenText ("Press <spacebar> to open the door.");
 				}
-		
-				if (Collider.gameObject.tag == "Refrigerator") {
-						if (!PlayedGameObjects.Contains (Collider.gameObject)) {
-								Collider.audio.Play ();
-								Collider.animation.Play ();
-								PlayedGameObjects.Add (Collider.gameObject);
-						}
+				
+				if (Collider.gameObject.tag == "Cryocell") {
+					SetOnScreenText ("Press <spacebar> to open the door.");
 				}
 		
 				if (Collider.gameObject.tag == "CollectableConsumable" || Collider.gameObject.tag == "CollectableReusable") {
-						SetOnScreenText ("To collect the " + Collider.gameObject.name + " press the spacebar!");
+						SetOnScreenText ("Press <spacebar> to collect " + Collider.gameObject.name + ".");
 				}
 		}
 	
