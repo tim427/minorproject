@@ -12,6 +12,8 @@ public class ColliderController : MonoBehaviour
 		private int SwitchCounter = 0;
 		private Collider doorSubject;
 		public bool switchOn = false;
+		public bool keyUnlocked = false;
+		public bool liftUnlocked = false;
 		public bool showCollectables = false;
 		public string onScreenText;
 		public Font Font;
@@ -64,22 +66,84 @@ public class ColliderController : MonoBehaviour
 						}
 				}
 		
-				if (Collider != null && Collider.gameObject.tag == "Door") {
+				if (Collider != null && Collider.gameObject.tag == "DoorSwitch") {
 						if (Input.GetKeyDown (KeyCode.Space)) {
 								if (switchOn) {
-										// collision.animation.Play ("Door|DoorAction");
 										Collider.audio.Play ();
-										SetOnScreenText ("DOOR OPENS");
+										SetOnScreenText ("You have opened the door.");
 										doorSubject = Collider;
 
 								} else {
-										// collision.animation.Play ("Door|DoorAction");
-										// in reverse
-										SetOnScreenText ("FAILED! NO POWER ON DOOR");
+									SetOnScreenText ("The door won't open");
 								}
 						}
 				}
 				
+				if (Collider != null && Collider.gameObject.tag == "KeyLock" && !keyUnlocked) {
+						if (Input.GetKeyDown (KeyCode.Space)) {
+								bool gottem = false;
+								for (int i = 0; i < CollectedGameObjects.Count; i++) {
+										if (CollectedGameObjects [i].name == "Keycard") {
+												gottem = true;
+										}
+
+
+								}
+								if (gottem) {
+									SetOnScreenText ("You have the appropriate keycard.");	
+									keyUnlocked = true;
+								} else {
+									SetOnScreenText ("You lack the appropriate keycard.");
+								}
+						}
+				}
+
+				if (Collider != null && Collider.gameObject.tag == "DoorKey") {
+					if (Input.GetKeyDown (KeyCode.Space)) {
+						if (keyUnlocked) {
+							Collider.audio.Play ();
+							SetOnScreenText ("You have opened the door.");
+							doorSubject = Collider;
+							
+						} else {
+							SetOnScreenText ("The door won't open");
+						}
+					}
+				}
+
+				if (Collider != null && Collider.gameObject.tag == "LiftLock" && !liftUnlocked) {
+					if (Input.GetKeyDown (KeyCode.Space)) {
+						bool gottem = false;
+						for (int i = 0; i < CollectedGameObjects.Count; i++) {
+							if (CollectedGameObjects [i].name == "Liftkey") {
+								gottem = true;
+							}
+							
+							
+						}
+						if (gottem) {
+							SetOnScreenText ("You have the appropriate Lift key.");	
+							liftUnlocked = true;
+						} else {
+							SetOnScreenText ("You lack the appropriate Lift key.");
+						}
+					}
+				}
+				if (Collider != null && Collider.gameObject.tag == "DoorLift") {
+					if (Input.GetKeyDown (KeyCode.Space)) {
+						if (liftUnlocked) {
+							Collider.audio.Play ();
+							SetOnScreenText ("You have opened the door.");
+							doorSubject = Collider;
+							
+						} else {
+							// in reverse
+							SetOnScreenText ("The door won't open");
+						}
+					}
+				}
+
+
 				if (Collider != null && (Collider.gameObject.tag == "CollectableConsumable" || Collider.gameObject.tag == "CollectableReusable")) {
 						if (Input.GetKeyDown (KeyCode.Space)) {
 								SetOnScreenText ("Successfully collected the " + Collider.gameObject.name);
