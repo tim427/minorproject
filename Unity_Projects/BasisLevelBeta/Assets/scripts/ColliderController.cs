@@ -144,14 +144,19 @@ public class ColliderController : MonoBehaviour
 				}
 				if (Collider != null && Collider.gameObject.tag == "Cryocell") {
 					if (!PlayedGameObjects.Contains (Collider.gameObject)) {
-				if (Input.GetKeyDown (KeyCode.Space)) {
-						Collider.audio.Play ();
-						Collider.animation.Play ();
-						PlayedGameObjects.Add (Collider.gameObject);
-				}
+						if (Input.GetKeyDown (KeyCode.Space)) {
+								Collider.audio.Play ();
+								Collider.animation.Play ();
+								PlayedGameObjects.Add (Collider.gameObject);
+						}
 					}
 				}
-
+				
+				if (Collider != null && Collider.gameObject.tag == "Elevator") {
+					if (Input.GetKeyDown (KeyCode.Space)) {
+						Application.LoadLevel("mainmenu");
+					}
+				}
 				if (Collider != null && (Collider.gameObject.tag == "CollectableConsumable" || Collider.gameObject.tag == "CollectableReusable")) {
 						if (Input.GetKeyDown (KeyCode.Space)) {
 								SetOnScreenText ("Successfully collected the " + Collider.gameObject.name);
@@ -215,6 +220,10 @@ public class ColliderController : MonoBehaviour
 		
 				if (Collider.gameObject.tag == "CollectableConsumable" || Collider.gameObject.tag == "CollectableReusable") {
 						SetOnScreenText ("Press <spacebar> to collect " + Collider.gameObject.name + ".");
+				}
+				
+				if (Collider.gameObject.tag == "Elevator") {
+						SetOnScreenText ("Press <spacebar> to leave this floor");
 				}
 		}
 	

@@ -14,6 +14,7 @@ public class MainMenu : MonoBehaviour {
 	public int resY;
 	// Use this for initialization
 	void Start () {
+		Screen.lockCursor = false;
 		menu = true;
 	}
 	
