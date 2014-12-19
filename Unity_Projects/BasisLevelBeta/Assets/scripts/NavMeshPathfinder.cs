@@ -29,6 +29,7 @@ public class NavMeshPathfinder : MonoBehaviour
 	private int factor = -1;
 	private float initialAngle;
 	private Vector3 targetPos;
+	private RaycastHit hitInfo;
 	
 	
 	// Use this for initialization
@@ -63,17 +64,19 @@ public class NavMeshPathfinder : MonoBehaviour
 		
 		// checking if guard detects player
 		if (angle < detectionAngle && distance < detectionDistance) {
-			if (Time.time - timeSinceDetection > 2 || state == 2 || state == 4 || state == 3) {
+			if (Physics.Raycast (transform.position, targetDir, out hitInfo, detectionDistance) && hitInfo.transform.tag == "Player") {
+				if (Time.time - timeSinceDetection > 2 || state == 2 || state == 4 || state == 3) {
+					
+					state = 5;
+					
+				} else  if (state < 5) {
+					state = 1;
+				}
 				
-				state = 5;
+				detection = true;
 				
-			} else  if (state < 5) {
-				state = 1;
+				targetPos = target.position;
 			}
-			
-			detection = true;
-			
-			targetPos = target.position;
 		}
 		
 		else if (state != 5 && CameraController.x != 0) {
@@ -171,7 +174,7 @@ public class NavMeshPathfinder : MonoBehaviour
 			
 			LedColour ("red");
 
-			if (target.position.x - transform.position.x < 1F && target.position.x - transform.position.x > -1F && transform.position.z - target.position.z < 1F && transform.position.z - target.position.z > -1F) {
+			if (target.position.x - transform.position.x < 2F && target.position.x - transform.position.x > -2F && transform.position.z - target.position.z < 2F && transform.position.z - target.position.z > -2F) {
 
 				stopGame ();
 			}
@@ -248,9 +251,7 @@ public class NavMeshPathfinder : MonoBehaviour
 
 	public void stopGame() {
 
-		print ("je bent af");
-
-		Time.timeScale = 0;
+		Application.LoadLevel("endgamefailure");
 
 	}
 	
