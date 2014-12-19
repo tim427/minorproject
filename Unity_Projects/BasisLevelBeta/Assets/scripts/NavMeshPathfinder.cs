@@ -15,7 +15,8 @@ public class NavMeshPathfinder : MonoBehaviour {
 
 	private float timeSinceDetection;
 	private bool detection;
-	private float startState1;
+	private float startState2;
+	private float timeSinceMovingInState4;
 	private int state;
 	private Vector3 initialRot;
 	private NavMeshAgent navMesh;
@@ -23,6 +24,7 @@ public class NavMeshPathfinder : MonoBehaviour {
 	private Vector3 targetRot;
 	private int factor = -1;
 	private float initialAngle;
+	private Vector3 targetPos;
 
 
 	// Use this for initialization
@@ -40,7 +42,8 @@ public class NavMeshPathfinder : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+
+		print ("state" + state);
 
 		Vector3 targetDir = target.transform.position - transform.position;
 		Vector3 forward = transform.forward;
@@ -60,7 +63,7 @@ public class NavMeshPathfinder : MonoBehaviour {
 				state = 3;
 			}
 
-			else if (state == 2){
+			else if (state == 2 || state == 4){
 
 				state = 3;
 
@@ -71,14 +74,21 @@ public class NavMeshPathfinder : MonoBehaviour {
 			}
 
 			detection = true;
+
+			targetPos = target.position;
+		}
+	
+		else if( state == 4 && Time.time-timeSinceMovingInState4 > 10){
+			state = 2;
+			startState2 = Time.time;
 		}
 
 		else if ( state == 3){
-			state = 2;
-			startState1 = Time.time;
+			state = 4;
+
 		}
 
-		else if (state == 2 && Time.time-startState1 > 10){
+		else if (state == 2 && Time.time-startState2 > 10){
 			state = 0;
 		}
 
@@ -106,7 +116,7 @@ public class NavMeshPathfinder : MonoBehaviour {
 
 		case 1 :
 
-			TurnTo (target.position-transform.position);
+			TurnTo (targetPos-transform.position);
 
 			LedColour("yellow");
 
@@ -123,13 +133,35 @@ public class NavMeshPathfinder : MonoBehaviour {
 
 		case 3 : 
 
-			MoveTo (target.position);
+			MoveTo (targetPos);
 
 			LedColour("red");
 
 			break;
 
+		case 4 :
+
+			LedColour("yellow");
+
+
+			if (targetPos.x==transform.position.x && targetPos.z == targetPos.z ){
+
+				print ("targetPos bereiekt");
+
+				LookAround(170);
+
+			}
+
+			else {
+
+				timeSinceMovingInState4 = Time.time;
+				MoveTo (targetPos);
+			}
+
+			break;
 		}
+
+
 
 	}
 
@@ -137,8 +169,6 @@ public class NavMeshPathfinder : MonoBehaviour {
 	public void LookAround(float angle) {
 		float step = turnspeed * Time.deltaTime;
 
-		print ("LOOKARNOuDM");
-		print ("targetRot" + targetRot);
 		if (Vector3.Distance(transform.forward, targetRot)<0.01F){
 			transform.forward = targetRot;
 		}
