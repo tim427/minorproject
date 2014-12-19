@@ -12,6 +12,7 @@ TagManager:
   - Switch_hendel
   - CollectableReusable
   - Koelkast
+  - CollectableConsumable
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
