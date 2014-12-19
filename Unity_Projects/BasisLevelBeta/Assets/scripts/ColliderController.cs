@@ -21,12 +21,12 @@ public class ColliderController : MonoBehaviour
 	public AudioClip collectSound;
 	public int position_switch;
 	
+	
 	void Start() {
 		Time.timeScale = 1;			
 	}
 	void Update ()
 	{
-		
 		guardStateHighest = 0;
 		foreach (GameObject guard in GameObject.FindGameObjectsWithTag("Guard")) {
 			if(guard.GetComponent<NavMeshPathfinder>().state > guardStateHighest)
@@ -34,7 +34,6 @@ public class ColliderController : MonoBehaviour
 				guardStateHighest = guard.GetComponent<NavMeshPathfinder>().state;
 			}
 		}
-		print(guardStateHighest);
 		
 		if (Input.GetKeyDown (KeyCode.Tab)) {
 			showCollectables = !showCollectables;
@@ -105,7 +104,6 @@ public class ColliderController : MonoBehaviour
 				} else {
 					SetOnScreenText ("You lack the appropriate keycard.");
 				}
-				<<<<<<< HEAD
 			}
 		}
 		
@@ -128,206 +126,178 @@ public class ColliderController : MonoBehaviour
 				for (int i = 0; i < CollectedGameObjects.Count; i++) {
 					if (CollectedGameObjects [i].name == "Liftkey") {
 						gottem = true;
-						=======
-						if (Collider != null && Collider.gameObject.tag == "Cryocell") {
-							if (!PlayedGameObjects.Contains (Collider.gameObject)) {
-								if (Input.GetKeyDown (KeyCode.Space)) {
-									Collider.audio.Play ();
-									Collider.animation.Play ();
-									PlayedGameObjects.Add (Collider.gameObject);
-								}
-							}
-						}
-						
-						if (Collider != null && Collider.gameObject.tag == "Elevator") {
-							if (Input.GetKeyDown (KeyCode.Space)) {
-								Application.LoadLevel("mainmenu");
-								>>>>>>> origin/master
-							}
-							
-							
-						}
-						<<<<<<< HEAD
-						if (gottem) {
-							SetOnScreenText ("You have the appropriate Lift key.");	
-							liftUnlocked = true;
-						} else {
-							SetOnScreenText ("You lack the appropriate Lift key.");
-							=======
-							if (Collider != null && (Collider.gameObject.tag == "CollectableConsumable" || Collider.gameObject.tag == "CollectableReusable")) {
-								if (Input.GetKeyDown (KeyCode.Space)) {
-									SetOnScreenText ("Successfully collected the " + Collider.gameObject.name);
-									AudioSource.PlayClipAtPoint (collectSound, transform.position);
-									CollectedGameObjects.Add (Collider.gameObject);
-									Collider.gameObject.SetActive (false);
-									Destroy (Collider.gameObject.collider);
-									Collider = null;
-								}
-								>>>>>>> origin/master
-							}
-						}
-					}
-					if (Collider != null && Collider.gameObject.tag == "DoorLift") {
-						if (Input.GetKeyDown (KeyCode.Space)) {
-							if (liftUnlocked) {
-								Collider.audio.Play ();
-								SetOnScreenText ("You have opened the door.");
-								doorSubject = Collider;
-								
-							} else {
-								// in reverse
-								SetOnScreenText ("The door won't open");
-							}
-						}
-					}
-					if (Collider != null && Collider.gameObject.tag == "Cryocell") {
-						if (!PlayedGameObjects.Contains (Collider.gameObject)) {
-							if (Input.GetKeyDown (KeyCode.Space)) {
-								Collider.audio.Play ();
-								Collider.animation.Play ();
-								PlayedGameObjects.Add (Collider.gameObject);
-							}
-						}
 					}
 					
-					if (Collider != null && (Collider.gameObject.tag == "CollectableConsumable" || Collider.gameObject.tag == "CollectableReusable")) {
-						if (Input.GetKeyDown (KeyCode.Space)) {
-							SetOnScreenText ("Successfully collected the " + Collider.gameObject.name);
-							AudioSource.PlayClipAtPoint (collectSound, transform.position);
-							CollectedGameObjects.Add (Collider.gameObject);
-							Collider.gameObject.SetActive (false);
-							Destroy (Collider.gameObject.collider);
-							Collider = null;
-						}
-					}
 					
-					if (doorSubject != null) {
-						bool doorLeftFinshed = false;
-						bool doorRightFinshed = false;
-						if (doorSubject.transform.FindChild ("Door_Left").localPosition.x < 1.49) {
-							doorSubject.transform.FindChild ("Door_Left").Translate (Time.deltaTime, 0, 0);
-						} else {
-							doorLeftFinshed = true;
-						}
-						if (doorSubject.transform.FindChild ("Door_Right").localPosition.x > -1.69) {
-							doorSubject.transform.FindChild ("Door_Right").Translate (-Time.deltaTime, 0, 0);	
-						} else {
-							doorRightFinshed = true;
-						}
-						if (doorLeftFinshed && doorRightFinshed) {
-							Destroy (doorSubject.gameObject.collider);
-							doorSubject = null;
-						}
-					}
 				}
-				
-				void SetOnScreenText (string text)
-				{
-					onScreenText = text;
-					StartCoroutine (AutoRemoveOnScreenText (onScreenText));
-				}
-				
-				IEnumerator AutoRemoveOnScreenText (string CurrentOnScreenText)
-				{
-					if (onScreenText != "" && CurrentOnScreenText == onScreenText) {
-						yield return new WaitForSeconds (5);
-						onScreenText = "";
-					}
-				}
-				
-				// Place here all "enter" events like pop-up messages
-				void OnTriggerEnter (Collider collision)
-				{
-					Collider = collision;
-					if (Collider.gameObject.tag == "Switch") {
-						SetOnScreenText ("Press <spacebar> to toggle the power switch.");
-					}
-					
-					if (Collider.gameObject.tag == "Door") {
-						SetOnScreenText ("Press <spacebar> to open the door.");
-					}
-					
-					<<<<<<< HEAD
-					if (Collider.gameObject.tag == "Cryocell") {
-						SetOnScreenText ("Press <spacebar> to open the door.");
-						=======
-						if (Collider.gameObject.tag == "CollectableConsumable" || Collider.gameObject.tag == "CollectableReusable") {
-							SetOnScreenText ("Press <spacebar> to collect " + Collider.gameObject.name + ".");
-						}
-						
-						if (Collider.gameObject.tag == "Elevator") {
-							SetOnScreenText ("Press <spacebar> to leave this floor");
-						}
-						>>>>>>> origin/master
-					}
-					
-					if (Collider.gameObject.tag == "CollectableConsumable" || Collider.gameObject.tag == "CollectableReusable") {
-						SetOnScreenText ("Press <spacebar> to collect " + Collider.gameObject.name + ".");
-					}
-				}
-				
-				// Place here al "exit" events like removing the pop-up messages
-				void OnTriggerExit (Collider collision)
-				{
-					SetOnScreenText ("");
-					Collider = null;
-				}
-				
-				void OnGUI ()
-				{
-					GUI.skin.font = Font;
-					
-					if (onScreenText.Length > 0) {
-						string[] lines = onScreenText.Split ('\n');
-						int longestLineLength = 0;
-						for (int i = 0; i < lines.Length; i++) {
-							if (lines [i].Length > longestLineLength) {
-								longestLineLength = lines [i].Length;
-							}
-							i++;
-						}
-						int width = longestLineLength * 9 + 30;
-						int height = lines.Length * 16 + 20;
-						int x = Screen.width / 2 - width / 2;
-						int y = Screen.height / 2 - height / 2;
-						GUI.Box (new Rect (x, y, width, height), onScreenText);
-					}
-					
-					if (showCollectables) {
-						GUI.Box (new Rect (10, 10, 250, CollectedGameObjects.Count * 30 + 30), "Collected items: " + CollectedGameObjects.Count);
-						for (int i = 0; i < CollectedGameObjects.Count; i++) {
-							if (GUI.Button (new Rect (20, i * 30 + 40, 80, 20), CollectedGameObjects [i].name)) {
-								if (CollectedGameObjects [i].tag == "CollectableReusable") {
-									Reuse (CollectedGameObjects [i]);
-								}
-								if (CollectedGameObjects [i].tag == "CollectableConsumable") {
-									Consume (CollectedGameObjects [i]);
-								}
-							}
-						}
-					}
-					
-					GUI.Box (new Rect (10, 80	0, 200, 30), "Guard state: " + guardStateHighest);
-				}
-				
-				void Reuse (GameObject gameobject)
-				{
-					if (!gameobject.activeSelf) {
-						gameobject.SetActive (true);
-						gameobject.transform.position = transform.position;
-						gameobject.transform.Translate (0.4f, 0.15f, 0.75f);
-						gameobject.transform.rotation = transform.rotation;
-						gameobject.transform.Rotate (0, 90, 0);
-						gameobject.transform.parent = transform;
-					} else {
-						gameobject.SetActive (false);
-					}
-				}
-				
-				void Consume (GameObject gameobject)
-				{
-					CollectedGameObjects.Remove (gameobject);
-					Destroy (gameobject);
-					SetOnScreenText ("Wat een held ben je ook! Je hebt zojuist " + gameobject.name + " in je ...... gestoken");
+				if (gottem) {
+					SetOnScreenText ("You have the appropriate Lift key.");	
+					liftUnlocked = true;
+				} else {
+					SetOnScreenText ("You lack the appropriate Lift key.");
 				}
 			}
+		}
+		if (Collider != null && Collider.gameObject.tag == "DoorLift") {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				if (liftUnlocked) {
+					Collider.audio.Play ();
+					SetOnScreenText ("You have opened the door.");
+					doorSubject = Collider;
+					
+				} else {
+					// in reverse
+					SetOnScreenText ("The door won't open");
+				}
+			}
+		}
+		if (Collider != null && Collider.gameObject.tag == "Cryocell") {
+			if (!PlayedGameObjects.Contains (Collider.gameObject)) {
+				if (Input.GetKeyDown (KeyCode.Space)) {
+					Collider.audio.Play ();
+					Collider.animation.Play ();
+					PlayedGameObjects.Add (Collider.gameObject);
+				}
+			}
+		}
+		
+		if (Collider != null && Collider.gameObject.tag == "Elevator") {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				Application.LoadLevel("mainmenu");
+			}
+		}
+		if (Collider != null && (Collider.gameObject.tag == "CollectableConsumable" || Collider.gameObject.tag == "CollectableReusable")) {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				SetOnScreenText ("Successfully collected the " + Collider.gameObject.name);
+				AudioSource.PlayClipAtPoint (collectSound, transform.position);
+				CollectedGameObjects.Add (Collider.gameObject);
+				Collider.gameObject.SetActive (false);
+				Destroy (Collider.gameObject.collider);
+				Collider = null;
+			}
+		}
+		
+		if (doorSubject != null) {
+			bool doorLeftFinshed = false;
+			bool doorRightFinshed = false;
+			if (doorSubject.transform.FindChild ("Door_Left").localPosition.x < 1.49) {
+				doorSubject.transform.FindChild ("Door_Left").Translate (Time.deltaTime, 0, 0);
+			} else {
+				doorLeftFinshed = true;
+			}
+			if (doorSubject.transform.FindChild ("Door_Right").localPosition.x > -1.69) {
+				doorSubject.transform.FindChild ("Door_Right").Translate (-Time.deltaTime, 0, 0);	
+			} else {
+				doorRightFinshed = true;
+			}
+			if (doorLeftFinshed && doorRightFinshed) {
+				Destroy (doorSubject.gameObject.collider);
+				doorSubject = null;
+			}
+		}
+	}
+	
+	void SetOnScreenText (string text)
+	{
+		onScreenText = text;
+		StartCoroutine (AutoRemoveOnScreenText (onScreenText));
+	}
+	
+	IEnumerator AutoRemoveOnScreenText (string CurrentOnScreenText)
+	{
+		if (onScreenText != "" && CurrentOnScreenText == onScreenText) {
+			yield return new WaitForSeconds (5);
+			onScreenText = "";
+		}
+	}
+	
+	// Place here all "enter" events like pop-up messages
+	void OnTriggerEnter (Collider collision)
+	{
+		Collider = collision;
+		if (Collider.gameObject.tag == "Switch") {
+			SetOnScreenText ("Press <spacebar> to toggle the power switch.");
+		}
+		
+		if (Collider.gameObject.tag == "Door") {
+			SetOnScreenText ("Press <spacebar> to open the door.");
+		}
+		
+		if (Collider.gameObject.tag == "Cryocell") {
+			SetOnScreenText ("Press <spacebar> to open the door.");
+		}
+		
+		if (Collider.gameObject.tag == "CollectableConsumable" || Collider.gameObject.tag == "CollectableReusable") {
+			SetOnScreenText ("Press <spacebar> to collect " + Collider.gameObject.name + ".");
+		}
+		
+		if (Collider.gameObject.tag == "Elevator") {
+			SetOnScreenText ("Press <spacebar> to leave this floor");
+		}
+	}
+	
+	// Place here al "exit" events like removing the pop-up messages
+	void OnTriggerExit (Collider collision)
+	{
+		SetOnScreenText ("");
+		Collider = null;
+	}
+	
+	void OnGUI ()
+	{
+		GUI.skin.font = Font;
+		
+		if (onScreenText.Length > 0) {
+			string[] lines = onScreenText.Split ('\n');
+			int longestLineLength = 0;
+			for (int i = 0; i < lines.Length; i++) {
+				if (lines [i].Length > longestLineLength) {
+					longestLineLength = lines [i].Length;
+				}
+				i++;
+			}
+			int width = longestLineLength * 9 + 30;
+			int height = lines.Length * 16 + 20;
+			int x = Screen.width / 2 - width / 2;
+			int y = Screen.height / 2 - height / 2;
+			GUI.Box (new Rect (x, y, width, height), onScreenText);
+		}
+		
+		if (showCollectables) {
+			GUI.Box (new Rect (10, 10, 250, CollectedGameObjects.Count * 30 + 30), "Collected items: " + CollectedGameObjects.Count);
+			for (int i = 0; i < CollectedGameObjects.Count; i++) {
+				if (GUI.Button (new Rect (20, i * 30 + 40, 80, 20), CollectedGameObjects [i].name)) {
+					if (CollectedGameObjects [i].tag == "CollectableReusable") {
+						Reuse (CollectedGameObjects [i]);
+					}
+					if (CollectedGameObjects [i].tag == "CollectableConsumable") {
+						Consume (CollectedGameObjects [i]);
+					}
+				}
+			}
+		}
+		
+		GUI.Box (new Rect (10, 800, 200, 30), "Guard state: " + guardStateHighest);
+	}
+	
+	void Reuse (GameObject gameobject)
+	{
+		if (!gameobject.activeSelf) {
+			gameobject.SetActive (true);
+			gameobject.transform.position = transform.position;
+			gameobject.transform.Translate (0.4f, 0.15f, 0.75f);
+			gameobject.transform.rotation = transform.rotation;
+			gameobject.transform.Rotate (0, 90, 0);
+			gameobject.transform.parent = transform;
+		} else {
+			gameobject.SetActive (false);
+		}
+	}
+	
+	void Consume (GameObject gameobject)
+	{
+		CollectedGameObjects.Remove (gameobject);
+		Destroy (gameobject);
+		SetOnScreenText ("Wat een held ben je ook! Je hebt zojuist " + gameobject.name + " in je ...... gestoken");
+	}
+}
