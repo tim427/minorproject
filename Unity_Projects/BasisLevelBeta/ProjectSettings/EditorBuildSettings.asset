@@ -11,3 +11,7 @@ EditorBuildSettings:
     path: Assets/scenes/mainmenu.unity
   - enabled: 1
     path: Assets/scenes/Hoofdscene.unity
+  - enabled: 1
+    path: Assets/scenes/endgamefailure.unity
+  - enabled: 1
+    path: Assets/scenes/endgamesuccess.unity

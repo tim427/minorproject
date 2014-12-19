@@ -163,7 +163,7 @@ public class ColliderController : MonoBehaviour
 		
 		if (Collider != null && Collider.gameObject.tag == "Elevator") {
 			if (Input.GetKeyDown (KeyCode.Space)) {
-				Application.LoadLevel("mainmenu");
+				Application.LoadLevel("endgamesuccess");
 			}
 		}
 		if (Collider != null && (Collider.gameObject.tag == "CollectableConsumable" || Collider.gameObject.tag == "CollectableReusable")) {
