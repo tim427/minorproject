@@ -12,6 +12,10 @@ public class CameraController : MonoBehaviour
 		public float angleWidth = 30f;
 		public float detectionDistance = 3f;
 		private RaycastHit hitInfo;
+		public static RaycastHit hitInfoLast;
+		public static float x;
+		public static float y;
+		public static float z;
 
 		void Update ()
 		{
@@ -32,7 +36,11 @@ public class CameraController : MonoBehaviour
 				float distance = Vector3.Distance (forward, targetDir);
 				if (angle < angleWidth && distance < detectionDistance) {
 						if (Physics.Raycast (transform.position, targetDir, out hitInfo, detectionDistance) && hitInfo.transform.tag == "Player") {
-								print ("Camera detected in RANGE and ANGLE the PLAYER in SIGHT!!");
+//								print ("Camera detected in RANGE and ANGLE the PLAYER in SIGHT!!");
+								x = hitInfo.transform.position.x;
+								y = hitInfo.transform.position.y;
+								z = hitInfo.transform.position.z;
+								//				enemyController.triggerGuardExternal(GameObject.FindGameObjectWithTag ("Player"));
 						}
 				}
 		}
