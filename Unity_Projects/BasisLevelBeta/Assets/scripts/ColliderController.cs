@@ -50,8 +50,10 @@ public class ColliderController : MonoBehaviour
 				Collider.audio.Play ();
 				if (SwitchCounter < 20) {
 					SetOnScreenText ("You just toggled the switch " + (switchOn ? "ON" : "OFF"));
+					// change the red emergency lights to normal lamps
 					foreach (GameObject ceilingLight in GameObject.FindGameObjectsWithTag("CeilingLights")) {
 						ceilingLight.light.color = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (1F, 0F, 0F, 1F));
+						RenderSettings.ambientLight = (switchOn ? Color.gray : Color.black); //werkt niet >> Color(0.2f,0.2f,0.2f,1f);
 					}
 					GameObject.FindGameObjectWithTag ("MainCamera").camera.backgroundColor = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (0.95F, 0.25F, 0.25F, 1F));
 				} else {
