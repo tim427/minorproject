@@ -20,10 +20,13 @@ public class ColliderController : MonoBehaviour
 	public Font Font;
 	public AudioClip collectSound;
 	public int position_switch;
+	public bool switchMove;
 	
 	
 	void Start() {
-		Time.timeScale = 1;			
+		Time.timeScale = 1;	
+		switchMove = false;
+		position_switch = 0;
 	}
 	void Update ()
 	{
@@ -64,19 +67,27 @@ public class ColliderController : MonoBehaviour
 					}
 					GameObject.FindGameObjectWithTag ("DirectionalLight").light.enabled = false;
 				}
-				
-				position_switch = 10000;
+			}
+		}
+
+		if (Collider != null && Collider.gameObject.tag == "Switch") {
+			if (switchMove == true || Input.GetKeyDown (KeyCode.Space)) {
+				switchMove = true;
+
+				//position_switch = 10000;
 				
 				// Switch the switch down
-				if (switchOn == false) {
-					Collider.transform.FindChild ("Switch").Rotate (0, -position_switch, 0);
+				if (switchOn == false && position_switch > 0f) {
+					Collider.transform.FindChild ("Switch").Rotate (0, 3, 0);
+					position_switch--;
 				}
-				if (switchOn == true) {
-					Collider.transform.FindChild ("Switch").Rotate (0, position_switch, 0);
+				if (switchOn == true && position_switch < 30f) {
+					Collider.transform.FindChild ("Switch").Rotate (0, -3, 0);
+					position_switch++;
 				}
 			}
 		}
-		
+
 		if (Collider != null && Collider.gameObject.tag == "DoorSwitch") {
 			if (Input.GetKeyDown (KeyCode.Space)) {
 				if (switchOn) {
