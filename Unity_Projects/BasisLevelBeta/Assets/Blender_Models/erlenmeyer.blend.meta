@@ -1,54 +1,15 @@
 fileFormatVersion: 2
-guid: d6affd8fb1b0c1144b1106b0c4ae9ba7
+guid: 78040fc8be008474fb759f0c6b133d5f
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
     100000: //RootNode
-    100002: Camera
-    100004: Cube
-    100006: Lamp
-    100008: Armature
-    100010: Body
-    100012: foot.L
-    100014: foot.R
-    100016: hand.L
-    100018: hand.R
-    100020: head
-    100022: lowArm.L
-    100024: lowArm.R
-    100026: lowLeg.L
-    100028: lowLeg.R
-    100030: upArm.L
-    100032: upArm.R
-    100034: upLeg.L
-    100036: upLeg.R
-    100038: Lamp.001
     400000: //RootNode
-    400002: Camera
-    400004: Cube
-    400006: Lamp
-    400008: Armature
-    400010: Body
-    400012: foot.L
-    400014: foot.R
-    400016: hand.L
-    400018: hand.R
-    400020: head
-    400022: lowArm.L
-    400024: lowArm.R
-    400026: lowLeg.L
-    400028: lowLeg.R
-    400030: upArm.L
-    400032: upArm.R
-    400034: upLeg.L
-    400036: upLeg.R
-    400038: Lamp.001
-    2300000: Cube
-    3300000: Cube
+    2300000: //RootNode
+    3300000: //RootNode
     4300000: Cube
-    7400000: Armature|ArmatureAction
+    7400000: Default Take
     9500000: //RootNode
-    13700000: Cube
   materials:
     importMaterials: 1
     materialName: 0
@@ -68,7 +29,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: .00999999978
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
