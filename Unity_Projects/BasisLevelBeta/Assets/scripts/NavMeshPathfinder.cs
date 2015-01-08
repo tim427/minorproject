@@ -5,8 +5,7 @@ using System.Collections;
 
 public class NavMeshPathfinder : MonoBehaviour
 {
-	
-	
+
 	public Light stateLight;
 	public float searchAngle;
 	public float detectionAngle;
