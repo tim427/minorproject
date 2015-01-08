@@ -4,12 +4,46 @@ ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Armature
+    100004: body
+    100006: Cube
+    100008: foot_L
+    100010: foot_R
+    100012: hand_L
+    100014: hand_R
+    100016: head
+    100018: Larm_L
+    100020: Larm_R
+    100022: Lleg_L
+    100024: Lleg_R
+    100026: Uarm_L
+    100028: Uarm_R
+    100030: Uleg_L
+    100032: Uleg_R
     400000: //RootNode
+    400002: Armature
+    400004: body
+    400006: Cube
+    400008: foot_L
+    400010: foot_R
+    400012: hand_L
+    400014: hand_R
+    400016: head
+    400018: Larm_L
+    400020: Larm_R
+    400022: Lleg_L
+    400024: Lleg_R
+    400026: Uarm_L
+    400028: Uarm_R
+    400030: Uleg_L
+    400032: Uleg_R
     2300000: //RootNode
     3300000: //RootNode
     4300000: Cube
     7400000: Default Take
+    7400002: ArmatureAction
     9500000: //RootNode
+    13700000: Cube
   materials:
     importMaterials: 1
     materialName: 0
