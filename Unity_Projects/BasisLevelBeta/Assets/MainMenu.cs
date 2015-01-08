@@ -9,13 +9,19 @@ public class MainMenu : MonoBehaviour {
 	public float fieldOfView = 60f;
 	public float sfxVolume = 0.5f;
 	public float musicVolume = 0.5f;
+	public string url = "https://drproject.twi.tudelft.nl/ewi3620tu6/uploads/250x250_tim.png";
+	public Texture avatar;
 	
 	public int resX;
 	public int resY;
 	// Use this for initialization
-	void Start () {
+	IEnumerator Start() {
 		Screen.lockCursor = false;
 		menu = true;
+		WWW www = new WWW(url);
+		yield return www;
+		avatar = www.texture;
+		//GameObject.Find("Avatar").renderer.material.mainTexture = www.texture;
 	}
 	
 	// Update is called once per frame
@@ -52,6 +58,11 @@ public class MainMenu : MonoBehaviour {
 		
 		if (GUI.Button(new Rect (Screen.width / 2 - 75, Screen.height / 2 + 50, 150, 30), "Quit game")) {
 			Application.Quit();
+		}
+		
+		if (GUI.Button(new Rect (Screen.width / 2 + 150, Screen.height / 2 - 50, 250, 250), avatar, GUIStyle.none)) {
+			//Application.Quit();
+			print ("TODO: Go to upload image");
 		}
 	}
 	
