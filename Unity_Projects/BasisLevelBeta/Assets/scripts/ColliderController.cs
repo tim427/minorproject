@@ -51,6 +51,7 @@ public class ColliderController : MonoBehaviour
 			if (Input.GetKeyDown (KeyCode.Space)) {
 				switchOn = !switchOn;
 				SwitchCounter ++;
+				switchMove = true;
 				// collision.animation.Play ("Switch|SwitchAction");
 				Collider.audio.Play ();
 				if (SwitchCounter < 20) {
@@ -74,24 +75,6 @@ public class ColliderController : MonoBehaviour
 						ceilingLight.light.enabled = false;
 					}
 					GameObject.FindGameObjectWithTag ("DirectionalLight").light.enabled = false;
-				}
-			}
-		}
-
-		if (Collider != null && Collider.gameObject.tag == "Switch") {
-			if (switchMove == true || Input.GetKeyDown (KeyCode.Space)) {
-				switchMove = true;
-
-				//position_switch = 10000;
-				
-				// Switch the switch down
-				if (switchOn == false && position_switch > 0f) {
-					Collider.transform.FindChild ("Switch").Rotate (0, 3, 0);
-					position_switch--;
-				}
-				if (switchOn == true && position_switch < 30f) {
-					Collider.transform.FindChild ("Switch").Rotate (0, -3, 0);
-					position_switch++;
 				}
 			}
 		}
@@ -217,7 +200,24 @@ public class ColliderController : MonoBehaviour
 				doorSubject = null;
 			}
 		}
-	}
+
+		if (switchMove == true) {
+			
+			// Switch the switch upwards
+			if (switchOn == false && position_switch > 0f) {
+				Collider.transform.FindChild ("Switch").Rotate (0, 3, 0);
+				position_switch--;
+			}
+			//Switch the switch downwards
+			if (switchOn == true && position_switch < 30f) {
+				Collider.transform.FindChild ("Switch").Rotate (0, -3, 0);
+				position_switch++;
+			}
+			if (position_switch > 30f || position_switch < 0f){
+				switchMove = false;
+			}
+		}
+}
 	
 	void SetOnScreenText (string text)
 	{
