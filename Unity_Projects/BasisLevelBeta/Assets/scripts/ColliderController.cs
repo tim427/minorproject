@@ -12,6 +12,7 @@ public class ColliderController : MonoBehaviour
 	private int SwitchCounter = 0;
 	private Collider doorSubject;
 	private int guardStateHighest;
+	private string updateUrl = "https://drproject.twi.tudelft.nl/ewi3620tu6/update.php";
 	public bool switchOn = false;
 	public bool keyUnlocked = false;
 	public bool liftUnlocked = false;
@@ -21,12 +22,13 @@ public class ColliderController : MonoBehaviour
 	public AudioClip collectSound;
 	public int position_switch;
 	public bool switchMove;
-	
+	public string userName = "tim";
 	
 	void Start() {
 		Time.timeScale = 1;	
 		switchMove = false;
 		position_switch = 0;
+		UpdateCollectables();
 	}
 	void Update ()
 	{
@@ -190,6 +192,7 @@ public class ColliderController : MonoBehaviour
 				SetOnScreenText ("Successfully collected the " + Collider.gameObject.name);
 				AudioSource.PlayClipAtPoint (collectSound, transform.position);
 				CollectedGameObjects.Add (Collider.gameObject);
+				UpdateCollectables();
 				Collider.gameObject.SetActive (false);
 				Destroy (Collider.gameObject.collider);
 				Collider = null;
@@ -299,6 +302,44 @@ public class ColliderController : MonoBehaviour
 		GUI.Box (new Rect (10, 800, 200, 30), "Guard state: " + guardStateHighest);
 	}
 	
+	void UpdateCollectables() {
+		string postData = "{";
+		for (int i = 0; i < CollectedGameObjects.Count; i++) {
+			postData = postData + "\"" + CollectedGameObjects[i].name + "\": \""+CollectedGameObjects[i].tag+"\"";
+			if(i != CollectedGameObjects.Count - 1){
+				postData = postData + ", ";
+			}
+		}
+		postData = postData + "}";
+		sendData(postData, "collectables");
+	}
+	
+	void sendData (string postData, string type) {
+		
+		WWWForm form = new WWWForm();
+		form.AddField("data", postData );
+		
+		Hashtable header = new Hashtable();
+		
+		header.Add("Content-Type", "application/x-www-form-urlencoded");
+		
+		WWW www = new WWW(updateUrl+"?username="+userName+"&type="+type, form.data, header);
+		
+		StartCoroutine( WaitForRequest( www ) );
+	}
+	
+	IEnumerator WaitForRequest(WWW www)
+	{
+		yield return www;
+		// check for errors
+		if (www.error == null)
+		{
+			print("WWW Ok!: " + www.data);
+		} else {
+			print("WWW Error: "+ www.error);
+		}    
+	}  
+	
 	void Reuse (GameObject gameobject)
 	{
 		if (!gameobject.activeSelf) {
@@ -316,6 +357,7 @@ public class ColliderController : MonoBehaviour
 	void Consume (GameObject gameobject)
 	{
 		CollectedGameObjects.Remove (gameobject);
+		UpdateCollectables();
 		Destroy (gameobject);
 		SetOnScreenText ("Wat een held ben je ook! Je hebt zojuist " + gameobject.name + " in je ...... gestoken");
 	}
