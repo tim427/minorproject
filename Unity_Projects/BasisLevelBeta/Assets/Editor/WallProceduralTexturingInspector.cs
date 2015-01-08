@@ -15,7 +15,7 @@ public class WallProceduralTexturingInspector : Editor {
 
 		if (GUILayout.Button("Regenerate")) {
 			WallProceduralTexturing builder = (WallProceduralTexturing)target;
-			builder.BuildTexture();
+			builder.Start();
 		}
 	}
 	
