@@ -60,6 +60,10 @@ public class ColliderController : MonoBehaviour
 						ceilingLight.light.range = (switchOn ? 20.0F : 25.0F );
 						RenderSettings.ambientLight = (switchOn ? Color.black : Color.black); //werkt niet >> Color(0.2f,0.2f,0.2f,1f);
 					}
+					foreach (GameObject DirLights in GameObject.FindGameObjectsWithTag("VerticalLights")){
+						DirLights.light.color = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (1F, 0F, 0F, 1F));
+						DirLights.light.intensity = (switchOn ? 0.1F : 0.2F );
+					}
 					GameObject.FindGameObjectWithTag ("MainCamera").camera.backgroundColor = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (0.95F, 0.25F, 0.25F, 1F));
 				} else {
 					SetOnScreenText ("The lights are malfunctioning due to excessive usage!");
