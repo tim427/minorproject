@@ -1,20 +1,50 @@
 fileFormatVersion: 2
-guid: d7bbbc88dfef64e428b4f44d3c3411de
+guid: 0345d04e70be17240ae9550490ebb16b
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
-    100000: Camera
-    100002: Cube
-    100004: Lamp
-    100006: //RootNode
-    400000: Camera
-    400002: Cube
-    400004: Lamp
-    400006: //RootNode
-    2300000: Cube
-    3300000: Cube
+    100000: Armature
+    100002: body
+    100004: Camera
+    100006: Cube
+    100008: foot.L
+    100010: foot.R
+    100012: //RootNode
+    100014: hand.L
+    100016: hand.R
+    100018: head
+    100020: Lamp
+    100022: Larm.L
+    100024: Larm.R
+    100026: Lleg.L
+    100028: Lleg.R
+    100030: Uarm.L
+    100032: Uarm.R
+    100034: Uleg.L
+    100036: Uleg.R
+    400000: Armature
+    400002: body
+    400004: Camera
+    400006: Cube
+    400008: foot.L
+    400010: foot.R
+    400012: //RootNode
+    400014: hand.L
+    400016: hand.R
+    400018: head
+    400020: Lamp
+    400022: Larm.L
+    400024: Larm.R
+    400026: Lleg.L
+    400028: Lleg.R
+    400030: Uarm.L
+    400032: Uarm.R
+    400034: Uleg.L
+    400036: Uleg.R
     4300000: Cube
+    7400000: Armature|ArmatureAction
     9500000: //RootNode
+    13700000: Cube
   materials:
     importMaterials: 1
     materialName: 0
