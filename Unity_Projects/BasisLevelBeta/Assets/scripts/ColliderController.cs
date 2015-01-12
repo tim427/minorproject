@@ -23,12 +23,14 @@ public class ColliderController : MonoBehaviour
 	public int position_switch;
 	public bool switchMove;
 	public string userName = "tim";
+	public int HighScore;
 	
 	void Start() {
 		Time.timeScale = 1;	
 		switchMove = false;
 		position_switch = 0;
 		UpdateCollectables();
+		HighScore = 0;
 	}
 	void Update ()
 	{
@@ -81,6 +83,7 @@ public class ColliderController : MonoBehaviour
 		if (Collider != null && Collider.gameObject.tag == "DoorSwitch") {
 			if (Input.GetKeyDown (KeyCode.Space)) {
 				if (switchOn) {
+					HighScore= HighScore + 5;
 					Collider.audio.Play ();
 					SetOnScreenText ("You have opened the door.");
 					doorSubject = Collider;
@@ -104,6 +107,7 @@ public class ColliderController : MonoBehaviour
 				if (gottem) {
 					SetOnScreenText ("You have the appropriate keycard.");	
 					keyUnlocked = true;
+					HighScore = HighScore + 5;
 				} else {
 					SetOnScreenText ("You lack the appropriate keycard.");
 				}
@@ -116,6 +120,7 @@ public class ColliderController : MonoBehaviour
 					Collider.audio.Play ();
 					SetOnScreenText ("You have opened the door.");
 					doorSubject = Collider;
+					HighScore = HighScore + 5;
 					
 				} else {
 					SetOnScreenText ("The door won't open");
@@ -136,6 +141,7 @@ public class ColliderController : MonoBehaviour
 				if (gottem) {
 					SetOnScreenText ("You have the appropriate Lift key.");	
 					liftUnlocked = true;
+					HighScore = HighScore + 5;
 				} else {
 					SetOnScreenText ("You lack the appropriate Lift key.");
 				}
@@ -300,8 +306,12 @@ public class ColliderController : MonoBehaviour
 				}
 			}
 		}
-		
+
+		// GUI Box which shows the guard state
 		GUI.Box (new Rect (10, 800, 200, 30), "Guard state: " + guardStateHighest);
+
+		// GUI Box which shows the score of the player
+		GUI.Box (new Rect (10, 770, 200, 30), "Score: " + HighScore);
 	}
 	
 	void UpdateCollectables() {
