@@ -55,7 +55,15 @@ TagManager:
   User Layer 30: 
   User Layer 31: 
   m_SortingLayers:
+  - name: particle layer
+    userID: 1
+    uniqueID: 4225768547
+    locked: 0
   - name: Default
     userID: 0
     uniqueID: 0
+    locked: 0
+  - name: sprites
+    userID: 2
+    uniqueID: 3152096795
     locked: 0
