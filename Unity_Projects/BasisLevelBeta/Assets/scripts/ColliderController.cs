@@ -74,7 +74,6 @@ public class ColliderController : MonoBehaviour
 					foreach (GameObject ceilingLight in GameObject.FindGameObjectsWithTag("CeilingLights")) {
 						ceilingLight.light.enabled = false;
 					}
-					GameObject.FindGameObjectWithTag ("DirectionalLight").light.enabled = false;
 				}
 			}
 		}
@@ -167,7 +166,10 @@ public class ColliderController : MonoBehaviour
 		
 		if (Collider != null && Collider.gameObject.tag == "Elevator") {
 			if (Input.GetKeyDown (KeyCode.Space)) {
-				Application.LoadLevel("endgamesuccess");
+				Vector3 newPos = new Vector3(2.5f,1f,100f);
+				transform.position = newPos;
+
+				transform.eulerAngles = new Vector3(0f,270f,0f);
 			}
 		}
 		if (Collider != null && (Collider.gameObject.tag == "CollectableConsumable" || Collider.gameObject.tag == "CollectableReusable")) {
