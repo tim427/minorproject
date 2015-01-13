@@ -4,9 +4,17 @@ using System.Collections;
 public class GameStarter : MonoBehaviour {
 
 	// Use this for initialization
-	void OnMouseOver () {
+	void OnMouseDown () {
 		print ("mouse click");
 		Application.LoadLevel ("Hoofdscene");
 	}
 
+	void OnMouseOver(){
+		print ("Hovering");
+		transform.localScale = new Vector3 (0.5f, 0.5f, 0.5f);
+		}
+
+	void OnMouseExit(){
+		transform.localScale = new Vector3 (0.3f, 0.3f, 0.3f);
+		}
 }
