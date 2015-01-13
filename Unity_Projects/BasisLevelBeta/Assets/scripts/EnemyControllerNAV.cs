@@ -88,7 +88,7 @@ public class EnemyControllerNAV : MonoBehaviour
 			initialWeightUpdate = true;
 		}
 
-		ForgetWeights();
+		InvokeRepeating("ForgetWeights",0, 1);
 		StateDefiner(targetDir, angle, distance);
 		GuardAction(state);
 	}
