@@ -10,7 +10,8 @@ public class ColliderController : MonoBehaviour
 	private List<GameObject> CollectedGameObjects = new List<GameObject> ();
 	private List<GameObject> PlayedGameObjects = new List<GameObject> ();
 	private int SwitchCounter = 0;
-	private Collider doorSubject;
+	private Collider tempCollider;
+	private Collider tempColliderSwitch;
 	private int guardStateHighest;
 	private string updateUrl = "https://drproject.twi.tudelft.nl/ewi3620tu6/update.php";
 	public bool switchOn = false;
@@ -23,12 +24,14 @@ public class ColliderController : MonoBehaviour
 	public int position_switch;
 	public bool switchMove;
 	public string userName = "tim";
+	public int HighScore;
 	
 	void Start() {
 		Time.timeScale = 1;	
 		switchMove = false;
 		position_switch = 0;
 		UpdateCollectables();
+		HighScore = 0;
 	}
 	void Update ()
 	{
@@ -52,6 +55,7 @@ public class ColliderController : MonoBehaviour
 				switchOn = !switchOn;
 				SwitchCounter ++;
 				switchMove = true;
+				tempColliderSwitch = Collider;
 				// collision.animation.Play ("Switch|SwitchAction");
 				Collider.audio.Play ();
 				if (SwitchCounter < 20) {
@@ -74,7 +78,6 @@ public class ColliderController : MonoBehaviour
 					foreach (GameObject ceilingLight in GameObject.FindGameObjectsWithTag("CeilingLights")) {
 						ceilingLight.light.enabled = false;
 					}
-					GameObject.FindGameObjectWithTag ("DirectionalLight").light.enabled = false;
 				}
 			}
 		}
@@ -82,9 +85,10 @@ public class ColliderController : MonoBehaviour
 		if (Collider != null && Collider.gameObject.tag == "DoorSwitch") {
 			if (Input.GetKeyDown (KeyCode.Space)) {
 				if (switchOn) {
+					HighScore = HighScore + 5;
 					Collider.audio.Play ();
 					SetOnScreenText ("You have opened the door.");
-					doorSubject = Collider;
+					tempCollider = Collider;
 					
 				} else {
 					SetOnScreenText ("The door won't open");
@@ -105,6 +109,7 @@ public class ColliderController : MonoBehaviour
 				if (gottem) {
 					SetOnScreenText ("You have the appropriate keycard.");	
 					keyUnlocked = true;
+					HighScore = HighScore + 5;
 				} else {
 					SetOnScreenText ("You lack the appropriate keycard.");
 				}
@@ -116,7 +121,8 @@ public class ColliderController : MonoBehaviour
 				if (keyUnlocked) {
 					Collider.audio.Play ();
 					SetOnScreenText ("You have opened the door.");
-					doorSubject = Collider;
+					tempCollider = Collider;
+					HighScore = HighScore + 5;
 					
 				} else {
 					SetOnScreenText ("The door won't open");
@@ -137,6 +143,7 @@ public class ColliderController : MonoBehaviour
 				if (gottem) {
 					SetOnScreenText ("You have the appropriate Lift key.");	
 					liftUnlocked = true;
+					HighScore = HighScore + 5;
 				} else {
 					SetOnScreenText ("You lack the appropriate Lift key.");
 				}
@@ -147,7 +154,7 @@ public class ColliderController : MonoBehaviour
 				if (liftUnlocked) {
 					Collider.audio.Play ();
 					SetOnScreenText ("You have opened the door.");
-					doorSubject = Collider;
+					tempCollider = Collider;
 					
 				} else {
 					// in reverse
@@ -167,7 +174,10 @@ public class ColliderController : MonoBehaviour
 		
 		if (Collider != null && Collider.gameObject.tag == "Elevator") {
 			if (Input.GetKeyDown (KeyCode.Space)) {
-				Application.LoadLevel("endgamesuccess");
+				Vector3 newPos = new Vector3(2.5f,1f,100f);
+				transform.position = newPos;
+
+				transform.eulerAngles = new Vector3(0f,270f,0f);
 			}
 		}
 		if (Collider != null && (Collider.gameObject.tag == "CollectableConsumable" || Collider.gameObject.tag == "CollectableReusable")) {
@@ -182,39 +192,40 @@ public class ColliderController : MonoBehaviour
 			}
 		}
 		
-		if (doorSubject != null) {
+		if (tempCollider != null) {
 			bool doorLeftFinshed = false;
 			bool doorRightFinshed = false;
-			if (doorSubject.transform.FindChild ("Door_Left").localPosition.x < 1.49) {
-				doorSubject.transform.FindChild ("Door_Left").Translate (Time.deltaTime, 0, 0);
+			if (tempCollider.transform.FindChild ("Door_Left").localPosition.x < 1.49) {
+				tempCollider.transform.FindChild ("Door_Left").Translate (Time.deltaTime, 0, 0);
 			} else {
 				doorLeftFinshed = true;
 			}
-			if (doorSubject.transform.FindChild ("Door_Right").localPosition.x > -1.69) {
-				doorSubject.transform.FindChild ("Door_Right").Translate (-Time.deltaTime, 0, 0);	
+			if (tempCollider.transform.FindChild ("Door_Right").localPosition.x > -1.69) {
+				tempCollider.transform.FindChild ("Door_Right").Translate (-Time.deltaTime, 0, 0);	
 			} else {
 				doorRightFinshed = true;
 			}
 			if (doorLeftFinshed && doorRightFinshed) {
-				Destroy (doorSubject.gameObject.collider);
-				doorSubject = null;
+				Destroy (tempCollider.gameObject.collider);
+				tempCollider = null;
 			}
 		}
 
-		if (switchMove == true) {
+		if (switchMove == true && tempColliderSwitch != null) {
 			
 			// Switch the switch upwards
 			if (switchOn == false && position_switch > 0f) {
-				Collider.transform.FindChild ("Switch").Rotate (0, 3, 0);
+				tempColliderSwitch.transform.FindChild ("Switch").Rotate (0, 3, 0);
 				position_switch--;
 			}
 			//Switch the switch downwards
 			if (switchOn == true && position_switch < 30f) {
-				Collider.transform.FindChild ("Switch").Rotate (0, -3, 0);
+				tempColliderSwitch.transform.FindChild ("Switch").Rotate (0, -3, 0);
 				position_switch++;
 			}
 			if (position_switch > 30f || position_switch < 0f){
 				switchMove = false;
+				tempColliderSwitch = null;
 			}
 		}
 }
@@ -298,8 +309,12 @@ public class ColliderController : MonoBehaviour
 				}
 			}
 		}
-		
+
+		// GUI Box which shows the guard state
 		GUI.Box (new Rect (10, 800, 200, 30), "Guard state: " + guardStateHighest);
+
+		// GUI Box which shows the score of the player
+		GUI.Box (new Rect (10, 770, 200, 30), "Score: " + HighScore);
 	}
 	
 	void UpdateCollectables() {
