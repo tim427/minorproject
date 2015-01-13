@@ -37,9 +37,9 @@ public class ColliderController : MonoBehaviour
 	{
 		guardStateHighest = 0;
 		foreach (GameObject guard in GameObject.FindGameObjectsWithTag("Guard")) {
-			if(guard.GetComponent<NavMeshPathfinder>().state > guardStateHighest)
+			if(guard.GetComponent<EnemyControllerNAV>().state > guardStateHighest)
 			{
-				guardStateHighest = guard.GetComponent<NavMeshPathfinder>().state;
+				guardStateHighest = guard.GetComponent<EnemyControllerNAV>().state;
 			}
 		}
 		
