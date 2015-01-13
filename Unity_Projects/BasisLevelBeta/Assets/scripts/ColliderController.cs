@@ -10,7 +10,8 @@ public class ColliderController : MonoBehaviour
 	private List<GameObject> CollectedGameObjects = new List<GameObject> ();
 	private List<GameObject> PlayedGameObjects = new List<GameObject> ();
 	private int SwitchCounter = 0;
-	private Collider doorSubject;
+	private Collider tempCollider;
+	private Collider tempColliderSwitch;
 	private int guardStateHighest;
 	private string updateUrl = "https://drproject.twi.tudelft.nl/ewi3620tu6/update.php";
 	public bool switchOn = false;
@@ -54,6 +55,7 @@ public class ColliderController : MonoBehaviour
 				switchOn = !switchOn;
 				SwitchCounter ++;
 				switchMove = true;
+				tempColliderSwitch = Collider;
 				// collision.animation.Play ("Switch|SwitchAction");
 				Collider.audio.Play ();
 				if (SwitchCounter < 20) {
@@ -83,10 +85,10 @@ public class ColliderController : MonoBehaviour
 		if (Collider != null && Collider.gameObject.tag == "DoorSwitch") {
 			if (Input.GetKeyDown (KeyCode.Space)) {
 				if (switchOn) {
-					HighScore= HighScore + 5;
+					HighScore = HighScore + 5;
 					Collider.audio.Play ();
 					SetOnScreenText ("You have opened the door.");
-					doorSubject = Collider;
+					tempCollider = Collider;
 					
 				} else {
 					SetOnScreenText ("The door won't open");
@@ -119,7 +121,7 @@ public class ColliderController : MonoBehaviour
 				if (keyUnlocked) {
 					Collider.audio.Play ();
 					SetOnScreenText ("You have opened the door.");
-					doorSubject = Collider;
+					tempCollider = Collider;
 					HighScore = HighScore + 5;
 					
 				} else {
@@ -152,7 +154,7 @@ public class ColliderController : MonoBehaviour
 				if (liftUnlocked) {
 					Collider.audio.Play ();
 					SetOnScreenText ("You have opened the door.");
-					doorSubject = Collider;
+					tempCollider = Collider;
 					
 				} else {
 					// in reverse
@@ -190,39 +192,40 @@ public class ColliderController : MonoBehaviour
 			}
 		}
 		
-		if (doorSubject != null) {
+		if (tempCollider != null) {
 			bool doorLeftFinshed = false;
 			bool doorRightFinshed = false;
-			if (doorSubject.transform.FindChild ("Door_Left").localPosition.x < 1.49) {
-				doorSubject.transform.FindChild ("Door_Left").Translate (Time.deltaTime, 0, 0);
+			if (tempCollider.transform.FindChild ("Door_Left").localPosition.x < 1.49) {
+				tempCollider.transform.FindChild ("Door_Left").Translate (Time.deltaTime, 0, 0);
 			} else {
 				doorLeftFinshed = true;
 			}
-			if (doorSubject.transform.FindChild ("Door_Right").localPosition.x > -1.69) {
-				doorSubject.transform.FindChild ("Door_Right").Translate (-Time.deltaTime, 0, 0);	
+			if (tempCollider.transform.FindChild ("Door_Right").localPosition.x > -1.69) {
+				tempCollider.transform.FindChild ("Door_Right").Translate (-Time.deltaTime, 0, 0);	
 			} else {
 				doorRightFinshed = true;
 			}
 			if (doorLeftFinshed && doorRightFinshed) {
-				Destroy (doorSubject.gameObject.collider);
-				doorSubject = null;
+				Destroy (tempCollider.gameObject.collider);
+				tempCollider = null;
 			}
 		}
 
-		if (switchMove == true) {
+		if (switchMove == true && tempColliderSwitch != null) {
 			
 			// Switch the switch upwards
 			if (switchOn == false && position_switch > 0f) {
-				Collider.transform.FindChild ("Switch").Rotate (0, 3, 0);
+				tempColliderSwitch.transform.FindChild ("Switch").Rotate (0, 3, 0);
 				position_switch--;
 			}
 			//Switch the switch downwards
 			if (switchOn == true && position_switch < 30f) {
-				Collider.transform.FindChild ("Switch").Rotate (0, -3, 0);
+				tempColliderSwitch.transform.FindChild ("Switch").Rotate (0, -3, 0);
 				position_switch++;
 			}
 			if (position_switch > 30f || position_switch < 0f){
 				switchMove = false;
+				tempColliderSwitch = null;
 			}
 		}
 }
