@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GameStarter : MonoBehaviour {
-
+public class GameQuitter : MonoBehaviour {
+	
 	// Use this for initialization
 	void OnMouseOver () {
 		print ("mouse click");
-		Application.LoadLevel ("Hoofdscene");
+		Application.Quit();
 	}
-
+	
 }
