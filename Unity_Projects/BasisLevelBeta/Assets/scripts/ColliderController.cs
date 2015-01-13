@@ -238,8 +238,8 @@ public class ColliderController : MonoBehaviour
 	
 	IEnumerator AutoRemoveOnScreenText (string CurrentOnScreenText)
 	{
-		if (onScreenText != "" && CurrentOnScreenText == onScreenText) {
-			yield return new WaitForSeconds (5);
+		if (onScreenText != "" && CurrentOnScreenText == onScreenText && Collider == null) {
+			yield return new WaitForSeconds (0);
 			onScreenText = "";
 		}
 	}
