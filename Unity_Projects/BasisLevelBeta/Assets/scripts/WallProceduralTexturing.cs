@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEditor;
 using System.Collections;
 using System.Linq;
 
@@ -17,10 +18,12 @@ public class WallProceduralTexturing : MonoBehaviour {
 	private Vector2[] uvs;
 	private float frontbound;
 	private float sidebound;
+	private Material wallMaterial;
 	
 	
 	// Use this for initialization
 	public void Start () {
+
 		BuildTexture();
 		
 		UVMapping();
@@ -109,14 +112,15 @@ public class WallProceduralTexturing : MonoBehaviour {
 		
 		
 		// benodigde texture instellingen
+
+
 		texture.filterMode = FilterMode.Bilinear;
 		texture.Apply ();
-		
+
+
 		MeshRenderer mesh_renderer = GetComponent<MeshRenderer>();
 		mesh_renderer.sharedMaterials[0].mainTexture = texture;
-		
-		
-		
+
 	}
 	
 	public void UVMapping(){
@@ -179,4 +183,5 @@ public class WallProceduralTexturing : MonoBehaviour {
 		
 		mesh.uv = uvs;
 	}
+	
 }
