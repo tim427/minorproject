@@ -7,7 +7,8 @@ public class pauseMenu : MonoBehaviour {
 	public bool options;
 	private bool video;
 	private bool audiosettings;
-	public float fieldOfView = 60f;
+	private Camera maincamera;
+	public float fieldOfView;
 	public float sfxVolume = 0.5f;
 	public float musicVolume = 0.5f;
 	
@@ -16,11 +17,12 @@ public class pauseMenu : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Screen.lockCursor = true;
+		maincamera = Camera.main;
+		fieldOfView = maincamera.fieldOfView;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
 		if (Input.GetKeyDown (KeyCode.Escape) && !isPause) {
 			Time.timeScale = 0;
 			Screen.lockCursor = !Screen.lockCursor;
@@ -128,8 +130,9 @@ public class pauseMenu : MonoBehaviour {
 		}
 		
 		//Slider to adjust the field of view
-		float tempFoV = GUI.HorizontalSlider(new Rect(Screen.width/2 + 75, Screen.height/2 + 40, 150, 30), fieldOfView, 60f, 110f);
+		float tempFoV = GUI.HorizontalSlider(new Rect(Screen.width/2 + 75, Screen.height/2 + 40, 150, 30), fieldOfView, 60f, 105f);
 		fieldOfView = (int)tempFoV;
+		maincamera.fieldOfView = fieldOfView;
 		GUI.Label(new Rect (Screen.width / 2 + 105, Screen.height/2 + 50, 150, 30), "Field of view: " + fieldOfView);
 		
 		
