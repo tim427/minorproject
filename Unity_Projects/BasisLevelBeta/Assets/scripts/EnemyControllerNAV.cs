@@ -41,6 +41,7 @@ public class EnemyControllerNAV : MonoBehaviour
 	private int patrolTargetMemory;
 	private int patrolPositionNum = 0;
 	private bool initialWeightUpdate = true;
+	private bool moves;
 	
 	
 	// Use this for initialization
@@ -91,6 +92,10 @@ public class EnemyControllerNAV : MonoBehaviour
 		InvokeRepeating("ForgetWeights",0, 1);
 		StateDefiner(targetDir, angle, distance);
 		GuardAction(state);
+
+		if (moves == true) {
+			GameObject.animation.Play ();
+		}
 	}
 
 	// method to make enemy look arnoud with variable searchangle
