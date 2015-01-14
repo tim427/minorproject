@@ -15,6 +15,6 @@ public class GameStarter : MonoBehaviour {
 		}
 
 	void OnMouseExit(){
-		transform.localScale = new Vector3 (0.3f, 0.3f, 0.3f);
+		transform.localScale = new Vector3 (0.4f, 0.4f, 0.4f);
 		}
 }

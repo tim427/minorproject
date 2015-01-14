@@ -430,15 +430,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: b29d3f5445542f14f9a9d0ba71fda5e6, type: 3}
       propertyPath: m_LocalScale.x
-      value: .383314759
+      value: .400000006
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: b29d3f5445542f14f9a9d0ba71fda5e6, type: 3}
       propertyPath: m_LocalScale.y
-      value: .38331461
+      value: .400000006
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: b29d3f5445542f14f9a9d0ba71fda5e6, type: 3}
       propertyPath: m_LocalScale.z
-      value: .38331461
+      value: .400000006
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: b29d3f5445542f14f9a9d0ba71fda5e6, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1152,7 +1152,7 @@ Transform:
   m_GameObject: {fileID: 969652379}
   m_LocalRotation: {x: 0, y: -.11649017, z: 0, w: .993191838}
   m_LocalPosition: {x: -.778999984, y: 1.39400005, z: -8.12100029}
-  m_LocalScale: {x: .383314759, y: .38331461, z: .38331461}
+  m_LocalScale: {x: .400000006, y: .400000006, z: .400000006}
   m_Children:
   - {fileID: 506000193}
   - {fileID: 1221655248}
@@ -1266,15 +1266,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: b29d3f5445542f14f9a9d0ba71fda5e6, type: 3}
       propertyPath: m_LocalScale.x
-      value: .383314759
+      value: .400000006
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: b29d3f5445542f14f9a9d0ba71fda5e6, type: 3}
       propertyPath: m_LocalScale.y
-      value: .38331461
+      value: .400000006
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: b29d3f5445542f14f9a9d0ba71fda5e6, type: 3}
       propertyPath: m_LocalScale.z
-      value: .38331461
+      value: .400000006
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: b29d3f5445542f14f9a9d0ba71fda5e6, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -3104,7 +3104,7 @@ Renderer:
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
   - {fileID: 2100000, guid: 7d4f9f51ea1e6e84681f8a952b435871, type: 2}
-  - {fileID: 2100000, guid: 60fbc78cac5c6d84ab5a7e1e961b17b1, type: 2}
+  - {fileID: 2100000, guid: dbe23a94995feb640adfd1572562c13f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -3161,15 +3161,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: b29d3f5445542f14f9a9d0ba71fda5e6, type: 3}
       propertyPath: m_LocalScale.x
-      value: .383314759
+      value: .400000006
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: b29d3f5445542f14f9a9d0ba71fda5e6, type: 3}
       propertyPath: m_LocalScale.y
-      value: .38331461
+      value: .400000006
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: b29d3f5445542f14f9a9d0ba71fda5e6, type: 3}
       propertyPath: m_LocalScale.z
-      value: .38331461
+      value: .400000006
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: b29d3f5445542f14f9a9d0ba71fda5e6, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -4350,7 +4350,7 @@ Transform:
   m_GameObject: {fileID: 1877872239}
   m_LocalRotation: {x: 0, y: -.11649017, z: 0, w: .993191838}
   m_LocalPosition: {x: -.888000011, y: .514999986, z: -8.14700031}
-  m_LocalScale: {x: .383314759, y: .38331461, z: .38331461}
+  m_LocalScale: {x: .400000006, y: .400000006, z: .400000006}
   m_Children:
   - {fileID: 977764254}
   - {fileID: 1913019777}
@@ -4399,7 +4399,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: c327c47e4d8a0bb44b786d9a6fdb79c9, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -4617,7 +4617,7 @@ Transform:
   m_GameObject: {fileID: 2019240793}
   m_LocalRotation: {x: 0, y: -.11649017, z: 0, w: .993191838}
   m_LocalPosition: {x: -.832000017, y: .958999991, z: -8.13399982}
-  m_LocalScale: {x: .383314759, y: .38331461, z: .38331461}
+  m_LocalScale: {x: .400000006, y: .400000006, z: .400000006}
   m_Children:
   - {fileID: 1688506774}
   - {fileID: 2074502651}
