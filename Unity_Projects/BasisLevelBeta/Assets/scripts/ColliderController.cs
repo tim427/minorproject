@@ -587,10 +587,10 @@ public class ColliderController : MonoBehaviour
 			if (!gameobject.activeSelf) {
 				gameobject.SetActive (true);
 				gameobject.transform.position = transform.position;
-				gameobject.transform.Translate (0.3f, 0.2f, 0.2f);
+				gameobject.transform.Translate (0.3f, 0.4f, 0.2f);
 				gameobject.transform.rotation = transform.rotation;
 				gameobject.transform.Rotate (0, 270, 0);
-				gameobject.transform.parent = transform;
+				gameobject.transform.parent = GameObject.FindGameObjectWithTag("MainCamera").transform;
 			} else {
 				gameobject.SetActive (false);
 			}
