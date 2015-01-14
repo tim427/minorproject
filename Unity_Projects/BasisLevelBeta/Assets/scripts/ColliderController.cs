@@ -15,6 +15,8 @@ public class ColliderController : MonoBehaviour
 	private int guardStateHighest;
 	private string url = "https://drproject.twi.tudelft.nl/ewi3620tu6/";
 	private bool reusableLocked = false;
+	private bool startTimer;
+	public float timeLeft;
 	public bool switchOn = false;
 	public bool keyUnlocked = false;
 	public bool liftUnlocked = false;
@@ -26,6 +28,7 @@ public class ColliderController : MonoBehaviour
 	public bool switchMove;
 	public string userName = "tim";
 	public int HighScore;
+
 	
 	void Start() {
 		Time.timeScale = 1;	
@@ -33,6 +36,7 @@ public class ColliderController : MonoBehaviour
 		position_switch = 0;
 		UpdateCollectables();
 		HighScore = 0;
+		timeLeft = 15f;
 	}
 	
 	void FixedUpdate ()
@@ -164,8 +168,9 @@ public class ColliderController : MonoBehaviour
 					
 				}
 				if (gottem) {
-					SetOnScreenText ("You have the appropriate Lift key.");	
+					SetOnScreenText ("You have the appropriate Lift key. 15 seconds are left, to leave this floor.");	
 					liftUnlocked = true;
+					startTimer = true;
 					HighScore = HighScore + 5;
 				} else {
 					SetOnScreenText ("You lack the appropriate Lift key.");
@@ -194,12 +199,20 @@ public class ColliderController : MonoBehaviour
 				}
 			}
 		}
+		if (Collider != null && Collider.gameObject.tag == "simple_door") {
+			if (!PlayedGameObjects.Contains (Collider.gameObject)) {
+				if (Input.GetKeyDown (KeyCode.Space)) {
+					Collider.animation.Play ();
+					PlayedGameObjects.Add (Collider.gameObject);
+				}
+			}
+		}
 		
 		if (Collider != null && Collider.gameObject.tag == "Elevator") {
 			if (Input.GetKeyDown (KeyCode.Space)) {
 				Vector3 newPos = new Vector3(2.5f,1f,100f);
 				transform.position = newPos;
-
+				startTimer = false;
 				transform.eulerAngles = new Vector3(0f,270f,0f);
 			}
 		}
@@ -249,6 +262,14 @@ public class ColliderController : MonoBehaviour
 			if (position_switch > 30f || position_switch < 0f){
 				switchMove = false;
 				tempColliderSwitch = null;
+			}
+		}
+
+		// Race against clock
+		if (startTimer == true) {
+			timeLeft -= Time.deltaTime;
+			if (timeLeft < 0f){
+				Application.LoadLevel(2);
 			}
 		}
 }
@@ -338,6 +359,11 @@ public class ColliderController : MonoBehaviour
 
 		// GUI Box which shows the score of the player
 		GUI.Box (new Rect (10, 770, 200, 30), "Score: " + HighScore);
+
+		// GUI Box which shows the time of the player
+		if (startTimer == true){
+			GUI.Box (new Rect (10, 740, 200, 30), timeLeft + " seconds");
+		}
 	}
 	
 	void UpdateCollectables() {

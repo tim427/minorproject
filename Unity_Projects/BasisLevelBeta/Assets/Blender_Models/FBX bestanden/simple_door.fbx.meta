@@ -14,6 +14,9 @@ ModelImporter:
     2300000: Cube
     3300000: Cube
     4300000: Cube
+    7400000: Cube|CubeAction
+    7400002: Lamp|CubeAction
+    7400004: Camera|CubeAction
     9500000: //RootNode
   materials:
     importMaterials: 1
