@@ -240,6 +240,40 @@ public class ColliderController : MonoBehaviour
 			}
 		}
 
+		if (Collider != null && Collider.gameObject.tag == "OfficeLock" && !officeUnlocked) {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				bool gottem = false;
+				for (int i = 0; i < CollectedGameObjects.Count; i++) {
+					if (CollectedGameObjects [i].name == "OfficeKey") {
+						gottem = true;
+					}
+					
+					
+				}
+				if (gottem) {
+					SetOnScreenText ("You have the appropriate keycard.");	
+					officeUnlocked = true;
+					HighScore = HighScore + 5;
+				} else {
+					SetOnScreenText ("You lack the appropriate keycard.");
+				}
+			}
+		}
+		
+		if (Collider != null && Collider.gameObject.tag == "OfficeDoor") {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				if (officeUnlocked) {
+					Collider.audio.Play ();
+					SetOnScreenText ("You have opened the door.");
+					tempCollider = Collider;
+					HighScore = HighScore + 5;
+					
+				} else {
+					SetOnScreenText ("The door won't open");
+				}
+			}
+		}
+
 		if (Collider != null && Collider.gameObject.tag == "SecondElevatorLock" && !secondLiftUnlocked) {
 			if (Input.GetKeyDown (KeyCode.Space)) {
 				bool gottem = false;
@@ -260,9 +294,9 @@ public class ColliderController : MonoBehaviour
 			}
 		}
 		
-		if (Collider != null && Collider.gameObject.tag == "ArmoryDoor") {
+		if (Collider != null && Collider.gameObject.tag == "SecondLiftDoor") {
 			if (Input.GetKeyDown (KeyCode.Space)) {
-				if (armoryUnlocked) {
+				if (secondLiftUnlocked) {
 					Collider.audio.Play ();
 					SetOnScreenText ("You have opened the door.");
 					tempCollider = Collider;
@@ -341,6 +375,15 @@ public class ColliderController : MonoBehaviour
 				transform.eulerAngles = new Vector3(0f,270f,0f);
 			}
 		}
+
+
+		if (Collider != null && Collider.gameObject.tag == "SecondElevator") {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				Application.LoadLevel("endgamesuccess");
+			}
+		}
+
+
 		if (Collider != null && (Collider.gameObject.tag == "CollectableConsumable" || Collider.gameObject.tag == "CollectableReusable")) {
 			if (Input.GetKeyDown (KeyCode.Space)) {
 				SetOnScreenText ("Successfully collected the " + Collider.gameObject.name);
@@ -444,6 +487,9 @@ public class ColliderController : MonoBehaviour
 		
 		if (Collider.gameObject.tag == "Elevator") {
 			SetOnScreenText ("Press <spacebar> to leave this floor");
+		}
+		if (Collider.gameObject.tag == "SecondElevator") {
+			SetOnScreenText ("Press <spacebar> to finish the game");
 		}
 	}
 	
