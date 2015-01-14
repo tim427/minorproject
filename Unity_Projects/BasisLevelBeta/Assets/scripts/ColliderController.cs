@@ -39,6 +39,7 @@ public class ColliderController : MonoBehaviour
 		UpdateCollectables();
 		HighScore = 0;
 		timeLeft = 15f;
+		pushText("You just started the game. Good luck!");
 	}
 	
 	void FixedUpdate ()
@@ -105,8 +106,7 @@ public class ColliderController : MonoBehaviour
 												DirLights.light.color = (switchOn ? new Color (0F, 0F, 0F, 1F) : new Color (0F, 0F, 0F, 1F));
 												DirLights.light.intensity = 0F;
 										print("directional light off");
-										} 
-				
+										}
 								}
 						}
 				}
@@ -228,6 +228,7 @@ public class ColliderController : MonoBehaviour
 		if (Collider != null && (Collider.gameObject.tag == "CollectableConsumable" || Collider.gameObject.tag == "CollectableReusable")) {
 			if (Input.GetKeyDown (KeyCode.Space)) {
 				SetOnScreenText ("Successfully collected the " + Collider.gameObject.name);
+				pushText ("You picked up a " + Collider.gameObject.name);
 				AudioSource.PlayClipAtPoint (collectSound, transform.position);
 				CollectedGameObjects.Add (Collider.gameObject);
 				UpdateCollectables();
@@ -278,7 +279,8 @@ public class ColliderController : MonoBehaviour
 		if (startTimer == true) {
 			timeLeft -= Time.deltaTime;
 			if (timeLeft < 0f){
-				Application.LoadLevel(2);
+				Application.LoadLevel("endgamefailure");
+				pushText("Unfortunately, you have not achieved within the time!");
 			}
 		}
 }
@@ -287,6 +289,13 @@ public class ColliderController : MonoBehaviour
 	{
 		onScreenText = text;
 		StartCoroutine (AutoRemoveOnScreenText (onScreenText));
+	}
+	
+	void pushText (string msg) {
+		WWWForm form = new WWWForm();
+		string pushMessage = WWW.EscapeURL(msg);
+		WWW www = new WWW(url+"gcm.php?username="+userName+"&msg="+pushMessage);
+		StartCoroutine( WaitForRequest( www ) );
 	}
 	
 	IEnumerator AutoRemoveOnScreenText (string CurrentOnScreenText)
@@ -403,7 +412,6 @@ public class ColliderController : MonoBehaviour
 	}
 	
 	void getSecondScreenPressed () {
-		
 		WWWForm form = new WWWForm();
 		WWW www = new WWW(url+"collectables_use.php?username="+userName);
 		StartCoroutine( WaitForRequest( www ) );
@@ -421,7 +429,7 @@ public class ColliderController : MonoBehaviour
 		// check for errors
 		if (www.error == null)
 		{
-			print("WWW Ok!: " + www.data);
+//			print("WWW Ok!: " + www.data);
 			if(www.url.Contains("collectables_use.php")){
 					for (int i = 0; i < CollectedGameObjects.Count; i++) {
 						if (CollectedGameObjects [i].GetInstanceID().ToString() == www.data) {
@@ -437,8 +445,11 @@ public class ColliderController : MonoBehaviour
 				print ("Removed!");
 				reusableLocked = false;
 			}
+			if(www.url.Contains("gcm.php")){
+				print ("Pushed message!");
+			}
 		} else {
-			print("WWW Error: "+ www.error);
+//			print("WWW Error: "+ www.error);
 		}    
 	}  
 	
@@ -462,6 +473,7 @@ public class ColliderController : MonoBehaviour
 		CollectedGameObjects.Remove (gameobject);
 		UpdateCollectables();
 		Destroy (gameobject);
-		SetOnScreenText ("Wat een held ben je ook! Je hebt zojuist " + gameobject.name + " in je ...... gestoken");
+		SetOnScreenText ("You successfully used a " + gameobject.name);
+		pushText ("You successfully used a " + gameobject.name);
 	}
 }
