@@ -161,7 +161,7 @@ public class ColliderController : MonoBehaviour
 					
 				}
 				if (gottem) {
-					SetOnScreenText ("You have the appropriate Lift key.");	
+					SetOnScreenText ("You have the appropriate Lift key. 15 seconds are left, to leave this floor.");	
 					liftUnlocked = true;
 					startTimer = true;
 					HighScore = HighScore + 5;
@@ -352,6 +352,11 @@ public class ColliderController : MonoBehaviour
 
 		// GUI Box which shows the score of the player
 		GUI.Box (new Rect (10, 770, 200, 30), "Score: " + HighScore);
+
+		// GUI Box which shows the time of the player
+		if (startTimer == true){
+			GUI.Box (new Rect (10, 740, 200, 30), timeLeft + " seconds");
+		}
 	}
 	
 	void UpdateCollectables() {
