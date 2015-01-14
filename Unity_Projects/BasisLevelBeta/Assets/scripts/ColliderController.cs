@@ -478,17 +478,19 @@ public class ColliderController : MonoBehaviour
 	
 	void Reuse (GameObject gameobject)
 	{
-		if (!gameobject.activeSelf) {
-			gameobject.SetActive (true);
-			gameobject.transform.position = transform.position;
-			gameobject.transform.Translate (0.3f, 0.2f, 0.2f);
-			gameobject.transform.rotation = transform.rotation;
-			gameobject.transform.Rotate (0, 270, 0);
-			gameobject.transform.parent = transform;
-		} else {
-			gameobject.SetActive (false);
+		if(gameobject.name == "Flashlight"){
+			if (!gameobject.activeSelf) {
+				gameobject.SetActive (true);
+				gameobject.transform.position = transform.position;
+				gameobject.transform.Translate (0.3f, 0.2f, 0.2f);
+				gameobject.transform.rotation = transform.rotation;
+				gameobject.transform.Rotate (0, 270, 0);
+				gameobject.transform.parent = transform;
+			} else {
+				gameobject.SetActive (false);
+			}
+			UpdateCollectables();
 		}
-		UpdateCollectables();
 	}
 	
 	void Consume (GameObject gameobject) {	
