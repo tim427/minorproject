@@ -16,6 +16,8 @@ public class ColliderController : MonoBehaviour
 	private string url = "https://drproject.twi.tudelft.nl/ewi3620tu6/";
 	private bool reusableLocked = false;
 	private bool startTimer;
+	private static Texture2D _staticRectTexture;
+	private static GUIStyle _staticRectStyle;
 	private Collider tempColliderSimpleDoor;
 	private int tempIntSimpleDoor;
 	public float timeLeft;
@@ -382,7 +384,14 @@ public class ColliderController : MonoBehaviour
 		}
 
 		// GUI Box which shows the guard state
-		GUI.Box (new Rect (10, 800, 200, 30), "Guard state: " + guardStateHighest);
+		int colorBoxHeight = 10;
+		if (guardStateHighest == 0){
+			CreateColorBox(new Rect (0, 0, Screen.width, colorBoxHeight), Color.green);
+		} else if (guardStateHighest == 5){
+			CreateColorBox(new Rect (0, 0, Screen.width, colorBoxHeight), Color.red);
+		}else {
+			CreateColorBox(new Rect (0, 0, Screen.width, colorBoxHeight), Color.yellow);
+		}
 
 		// GUI Box which shows the score of the player
 		GUI.Box (new Rect (10, 770, 200, 30), "Score: " + HighScore);
@@ -505,4 +514,24 @@ public class ColliderController : MonoBehaviour
 			SetOnScreenText ("Wat een held ben je ook! Je hebt zojuist " + gameobject.name + " in je ...... gestoken");
 		}
 	}
+
+	static void CreateColorBox(Rect position, Color color) 
+	{
+		if(_staticRectTexture == null){
+			_staticRectTexture = new Texture2D(1,1);
+		}
+		
+		if (_staticRectStyle == null) {
+			_staticRectStyle = new GUIStyle();
+		}
+		
+		_staticRectTexture.SetPixel(0,0,color);
+		_staticRectTexture.Apply();
+		
+		_staticRectStyle.normal.background = _staticRectTexture;
+		
+		GUI.Box (position,GUIContent.none, _staticRectStyle);
+		
+	}
+
 }
