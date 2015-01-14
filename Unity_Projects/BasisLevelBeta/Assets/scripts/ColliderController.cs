@@ -51,36 +51,52 @@ public class ColliderController : MonoBehaviour
 		}
 		
 		if (Collider != null && Collider.gameObject.tag == "Switch") {
-			if (Input.GetKeyDown (KeyCode.Space)) {
-				switchOn = !switchOn;
-				SwitchCounter ++;
-				switchMove = true;
-				tempColliderSwitch = Collider;
-				// collision.animation.Play ("Switch|SwitchAction");
-				Collider.audio.Play ();
-				if (SwitchCounter < 20) {
-					SetOnScreenText ("You just toggled the switch " + (switchOn ? "ON" : "OFF"));
-					// change the red emergency lights to normal lamps
-					foreach (GameObject ceilingLight in GameObject.FindGameObjectsWithTag("CeilingLights")) {
-						ceilingLight.light.color = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (1F, 0F, 0F, 1F));
-						ceilingLight.light.intensity = (switchOn ? 0.3F : 0.4F );
-						ceilingLight.light.range = (switchOn ? 20.0F : 25.0F );
-						RenderSettings.ambientLight = (switchOn ? Color.black : Color.black); //werkt niet >> Color(0.2f,0.2f,0.2f,1f);
-					}
-					foreach (GameObject DirLights in GameObject.FindGameObjectsWithTag("VerticalLights")){
-						DirLights.light.color = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (1F, 0F, 0F, 1F));
-						DirLights.light.intensity = (switchOn ? 0.1F : 0.2F );
-					}
-					GameObject.FindGameObjectWithTag ("MainCamera").camera.backgroundColor = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (0.95F, 0.25F, 0.25F, 1F));
-				} else {
-					SetOnScreenText ("The lights are malfunctioning due to excessive usage!");
-					GameObject.FindGameObjectWithTag ("MainCamera").camera.backgroundColor = new Color (0F, 0F, 0F, 0F);
-					foreach (GameObject ceilingLight in GameObject.FindGameObjectsWithTag("CeilingLights")) {
-						ceilingLight.light.enabled = false;
-					}
+						if (Input.GetKeyDown (KeyCode.Space)) {
+								switchOn = !switchOn;
+								SwitchCounter ++;
+								switchMove = true;
+								tempColliderSwitch = Collider;
+								// collision.animation.Play ("Switch|SwitchAction");
+								Collider.audio.Play ();
+								if (SwitchCounter < 20) {
+										SetOnScreenText ("You just toggled the switch " + (switchOn ? "ON" : "OFF"));
+										// change the red emergency lights to normal lamps
+										foreach (GameObject ceilingLight in GameObject.FindGameObjectsWithTag("CeilingLights")) {
+												ceilingLight.light.color = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (1F, 0F, 0F, 1F));
+												ceilingLight.light.intensity = (switchOn ? 0.3F : 0.4F);
+												ceilingLight.light.range = (switchOn ? 20.0F : 25.0F);
+												RenderSettings.ambientLight = (switchOn ? Color.black : Color.black);
+										} //werkt niet >> Color(0.2f,0.2f,0.2f,1f);
+
+										foreach (GameObject Ceiling_Lamp in GameObject.FindGameObjectsWithTag("ceilLamp")) {
+												Ceiling_Lamp.light.color = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (1F, 0F, 0F, 1F));
+												Ceiling_Lamp.light.intensity = (switchOn ? 0.5F : 0.1F);
+						
+										}
+										foreach (GameObject DirLights in GameObject.FindGameObjectsWithTag("VerticalLights")) {
+												DirLights.light.color = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (1F, 0F, 0F, 1F));
+												DirLights.light.intensity = (switchOn ? 0.1F : 0.2F);
+										}
+										GameObject.FindGameObjectWithTag ("MainCamera").camera.backgroundColor = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (0.95F, 0.25F, 0.25F, 1F));
+								} else { // turn off all lights
+										SetOnScreenText ("The lights are malfunctioning due to excessive usage!");
+										GameObject.FindGameObjectWithTag ("MainCamera").camera.backgroundColor = new Color (0F, 0F, 0F, 0F);
+										foreach (GameObject ceilingLight in GameObject.FindGameObjectsWithTag("CeilingLights")) {
+												ceilingLight.light.enabled = false; 
+										}
+										foreach (GameObject Ceiling_Lamp in GameObject.FindGameObjectsWithTag("ceilLamp")) {
+												Ceiling_Lamp.light.color = (switchOn ? new Color (0F, 0F, 0F, 1F) : new Color (0F, 0F, 0F, 1F));
+												Ceiling_Lamp.light.intensity = 0F;
+										}
+										foreach (GameObject DirLights in GameObject.FindGameObjectsWithTag("VerticalLights")) {
+												DirLights.light.color = (switchOn ? new Color (0F, 0F, 0F, 1F) : new Color (0F, 0F, 0F, 1F));
+												DirLights.light.intensity = 0F;
+										print("directional light off");
+										} 
+				
+								}
+						}
 				}
-			}
-		}
 
 		if (Collider != null && Collider.gameObject.tag == "DoorSwitch") {
 			if (Input.GetKeyDown (KeyCode.Space)) {
