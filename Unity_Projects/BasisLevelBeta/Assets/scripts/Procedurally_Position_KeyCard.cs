@@ -37,7 +37,7 @@ public class Procedurally_Position_KeyCard : MonoBehaviour {
 			transform.Rotate (0, 0, 180);
 		}
 
-		if (randomDoubleKeyCard >= 0.75 /*&& randomDoubleKeyCard < 0.875*/) {
+		if (randomDoubleKeyCard >= 0.75 && randomDoubleKeyCard < 0.875) {
 			transform.Translate(-26.2f, -0.15f, 19.361f);
 			transform.Rotate (0, 0, 180);
 		}
