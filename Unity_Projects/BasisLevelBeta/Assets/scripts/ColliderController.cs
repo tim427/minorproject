@@ -187,6 +187,14 @@ public class ColliderController : MonoBehaviour
 				}
 			}
 		}
+		if (Collider != null && Collider.gameObject.tag == "simple_door") {
+			if (!PlayedGameObjects.Contains (Collider.gameObject)) {
+				if (Input.GetKeyDown (KeyCode.Space)) {
+					Collider.animation.Play ();
+					PlayedGameObjects.Add (Collider.gameObject);
+				}
+			}
+		}
 		
 		if (Collider != null && Collider.gameObject.tag == "Elevator") {
 			if (Input.GetKeyDown (KeyCode.Space)) {
