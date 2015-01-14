@@ -14,6 +14,7 @@ public class RandomPlaneCreator : MonoBehaviour {
 	public Texture2D terrainTiles;
 	public int tileResolution;
 	public int[] tileChance;
+	public bool arnoudSetsTileChances = false;
 
 	// Use this for initialization
 	void Start () {
@@ -28,6 +29,20 @@ public class RandomPlaneCreator : MonoBehaviour {
 			tileChance[c] = 1;
 		}
 
+	}
+
+	public void SetTileChancesByHand()
+	{
+		tileChance[0] = 10;
+		tileChance[1] = 6;
+		tileChance[2] = 6;
+		tileChance[3] = 6;
+		tileChance[4] = 6;
+		tileChance[5] = 3;
+		tileChance[6] = 6;
+		tileChance[7] = 6;
+		tileChance[8] = 3;
+		tileChance[9] = 1;
 	}
 
 	Color[][] ChopUpTiles() {
@@ -46,6 +61,10 @@ public class RandomPlaneCreator : MonoBehaviour {
 		return tiles;
 	}
 	void Builtexture () {
+
+		if (arnoudSetsTileChances){
+			SetTileChancesByHand();
+		}
 
 		int numTilesPerRow = terrainTiles.width / tileResolution;
 		int numRows = terrainTiles.height / tileResolution;
