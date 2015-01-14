@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a185048c739e16841be7268bb7907d29
+guid: 0f29e83263b99ae4f94f35977b87c6be
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
@@ -14,13 +14,10 @@ ModelImporter:
     2300000: Cube
     3300000: Cube
     4300000: Cube
-    7400000: Cube|CubeAction
-    7400002: Lamp|CubeAction
-    7400004: Camera|CubeAction
     9500000: //RootNode
   materials:
     importMaterials: 1
-    materialName: 2
+    materialName: 0
     materialSearch: 1
   animations:
     legacyGenerateAnimations: 4
@@ -37,7 +34,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: .00999999978
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
