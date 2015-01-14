@@ -25,6 +25,10 @@ public class ColliderController : MonoBehaviour
 	public bool keyUnlocked = false;
 	public bool liftUnlocked = false;
 	public bool showCollectables = false;
+	public bool securityUnlocked = false;
+	public bool armoryUnlocked = false;
+	public bool officeUnlocked = false;
+	public bool secondLiftUnlocked = false;
 	public string onScreenText;
 	public Font Font;
 	public AudioClip collectSound;
@@ -32,8 +36,6 @@ public class ColliderController : MonoBehaviour
 	public bool switchMove;
 	public string userName = "tim";
 	public int HighScore;
-	private List<GameObject> allDrones = new List<GameObject> ();
-	public GameObject explosion;
 	public AudioClip explosionSound;
 
 	
@@ -169,7 +171,110 @@ public class ColliderController : MonoBehaviour
 				}
 			}
 		}
+
+		if (Collider != null && Collider.gameObject.tag == "SecurityLock" && !securityUnlocked) {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				bool gottem = false;
+				for (int i = 0; i < CollectedGameObjects.Count; i++) {
+					if (CollectedGameObjects [i].name == "SecurityKey") {
+						gottem = true;
+					}
+					
+					
+				}
+				if (gottem) {
+					SetOnScreenText ("You have the appropriate keycard.");	
+					securityUnlocked = true;
+					HighScore = HighScore + 5;
+				} else {
+					SetOnScreenText ("You lack the appropriate keycard.");
+				}
+			}
+		}
 		
+		if (Collider != null && Collider.gameObject.tag == "SecurityDoor") {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				if (securityUnlocked) {
+					Collider.audio.Play ();
+					SetOnScreenText ("You have opened the door.");
+					tempCollider = Collider;
+					HighScore = HighScore + 5;
+					
+				} else {
+					SetOnScreenText ("The door won't open");
+				}
+			}
+		}
+
+		if (Collider != null && Collider.gameObject.tag == "ArmoryLock" && !armoryUnlocked) {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				bool gottem = false;
+				for (int i = 0; i < CollectedGameObjects.Count; i++) {
+					if (CollectedGameObjects [i].name == "ArmoryKey") {
+						gottem = true;
+					}
+					
+					
+				}
+				if (gottem) {
+					SetOnScreenText ("You have the appropriate keycard.");	
+					armoryUnlocked = true;
+					HighScore = HighScore + 5;
+				} else {
+					SetOnScreenText ("You lack the appropriate keycard.");
+				}
+			}
+		}
+		
+		if (Collider != null && Collider.gameObject.tag == "ArmoryDoor") {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				if (armoryUnlocked) {
+					Collider.audio.Play ();
+					SetOnScreenText ("You have opened the door.");
+					tempCollider = Collider;
+					HighScore = HighScore + 5;
+					
+				} else {
+					SetOnScreenText ("The door won't open");
+				}
+			}
+		}
+
+		if (Collider != null && Collider.gameObject.tag == "SecondElevatorLock" && !secondLiftUnlocked) {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				bool gottem = false;
+				for (int i = 0; i < CollectedGameObjects.Count; i++) {
+					if (CollectedGameObjects [i].name == "SecondElevatorKey") {
+						gottem = true;
+					}
+					
+					
+				}
+				if (gottem) {
+					SetOnScreenText ("You have the appropriate keycard.");	
+					secondLiftUnlocked = true;
+					HighScore = HighScore + 5;
+				} else {
+					SetOnScreenText ("You lack the appropriate keycard.");
+				}
+			}
+		}
+		
+		if (Collider != null && Collider.gameObject.tag == "ArmoryDoor") {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				if (armoryUnlocked) {
+					Collider.audio.Play ();
+					SetOnScreenText ("You have opened the door.");
+					tempCollider = Collider;
+					HighScore = HighScore + 5;
+					
+				} else {
+					SetOnScreenText ("The door won't open");
+				}
+			}
+		}
+
+
 		if (Collider != null && Collider.gameObject.tag == "LiftLock" && !liftUnlocked) {
 			if (Input.GetKeyDown (KeyCode.Space)) {
 				bool gottem = false;
