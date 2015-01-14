@@ -25,6 +25,12 @@ TagManager:
   - simple_door
   - Device
   - Drone
+  - LabLock
+  - LabDoor
+  - SecurityLock
+  - SecurityDoor
+  - ArmoryLock
+  - ArmoryDoor
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
