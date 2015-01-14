@@ -23,6 +23,7 @@ TagManager:
   - VerticalLights
   - ceilLamp
   - simple_door
+  - Device
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
