@@ -5,9 +5,9 @@ using System.Linq;
 
 public class WallProceduralTexturing : MonoBehaviour {
 	
-	
-	public int numTilesX;
-	public int numTilesZ;
+	public float tileSize = 0.8f;
+	private int numTilesX;
+	private int numTilesZ;
 	public Texture2D wallTiles;
 	public int tilePixelWidth;
 	public int tilePixelHeight;
@@ -56,7 +56,13 @@ public class WallProceduralTexturing : MonoBehaviour {
 	}
 	
 	public void BuildTexture () {
-		
+
+		numTilesX = (int)(transform.localScale.z/tileSize);
+		numTilesZ = (int)(transform.localScale.y/tileSize);
+
+		print("numTilesX" + numTilesX);
+		print("numTilesZ" + numTilesZ);
+
 		int numTilesPerRow = wallTiles.width / tilePixelWidth;
 		int numRows = wallTiles.height / tilePixelHeight;
 		
@@ -126,7 +132,6 @@ public class WallProceduralTexturing : MonoBehaviour {
 	public void UVMapping(){
 		
 
-		print ("test");
 
 		mf = GetComponent<MeshFilter> ();
 		if (mf != null){
@@ -137,20 +142,20 @@ public class WallProceduralTexturing : MonoBehaviour {
 		sidebound=1.0f;
 		
 		
-		
+		print ("localscale_x" + transform.localScale.x);
+		print ("localscale_z" + transform.localScale.z);
 		if (transform.localScale.x<transform.localScale.z){
 			frontbound = transform.localScale.x/transform.localScale.z;
-			print ("frontbound = " + frontbound);
+			//print ("frontbound = " + frontbound);
 		}
 		
 		if (transform.localScale.z<transform.localScale.x){
 			sidebound = transform.localScale.z/transform.localScale.x;
-			print ("sidebound = " + sidebound);
+			//print ("sidebound = " + sidebound);
 		}
 		
 		
 		if (mesh == null || mesh.uv.Length != 24) {
-			print ("script needs toMainMenu Behaviour attached toMainMenu built-int Cube");
 			return;
 		}
 		
