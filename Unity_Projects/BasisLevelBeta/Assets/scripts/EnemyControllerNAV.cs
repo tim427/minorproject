@@ -149,7 +149,11 @@ public class EnemyControllerNAV : MonoBehaviour
 		case "yellow":
 			stateLight.color = Color.yellow;
 			break;
+		case "grey":
+			stateLight.color = Color.grey;
+			break;
 		}
+
 	}
 	
 	
