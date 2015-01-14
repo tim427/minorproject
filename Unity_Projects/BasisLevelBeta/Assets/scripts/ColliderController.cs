@@ -13,7 +13,8 @@ public class ColliderController : MonoBehaviour
 	private Collider tempCollider;
 	private Collider tempColliderSwitch;
 	private int guardStateHighest;
-	private string updateUrl = "https://drproject.twi.tudelft.nl/ewi3620tu6/update.php";
+	private string url = "https://drproject.twi.tudelft.nl/ewi3620tu6/";
+	private bool reusableLocked = false;
 	public bool switchOn = false;
 	public bool keyUnlocked = false;
 	public bool liftUnlocked = false;
@@ -33,6 +34,12 @@ public class ColliderController : MonoBehaviour
 		UpdateCollectables();
 		HighScore = 0;
 	}
+	
+	void FixedUpdate ()
+	{
+		getSecondScreenPressed();
+	}
+	
 	void Update ()
 	{
 		guardStateHighest = 0;
@@ -336,12 +343,13 @@ public class ColliderController : MonoBehaviour
 	void UpdateCollectables() {
 		string postData = "{";
 		for (int i = 0; i < CollectedGameObjects.Count; i++) {
-			postData = postData + "\"" + CollectedGameObjects[i].name + "\": \""+CollectedGameObjects[i].tag+"\"";
+			postData = postData + "\"" + CollectedGameObjects[i].name + "\": {\"type\": \""+CollectedGameObjects[i].tag+"\", \"identifier\": \""+CollectedGameObjects[i].GetInstanceID()+"\"}";
 			if(i != CollectedGameObjects.Count - 1){
 				postData = postData + ", ";
 			}
 		}
 		postData = postData + "}";
+//		print (postData);
 		sendData(postData, "collectables");
 	}
 	
@@ -354,8 +362,21 @@ public class ColliderController : MonoBehaviour
 		
 		header.Add("Content-Type", "application/x-www-form-urlencoded");
 		
-		WWW www = new WWW(updateUrl+"?username="+userName+"&type="+type, form.data, header);
+		WWW www = new WWW(url+"update.php?username="+userName+"&type="+type, form.data, header);
 		
+		StartCoroutine( WaitForRequest( www ) );
+	}
+	
+	void getSecondScreenPressed () {
+		
+		WWWForm form = new WWWForm();
+		WWW www = new WWW(url+"collectables_use.php?username="+userName);
+		StartCoroutine( WaitForRequest( www ) );
+	}
+	
+	void removeSecondScreenPressed (string id) {
+		WWWForm form = new WWWForm();
+		WWW www = new WWW(url+"collectables_use_remove.php?id="+id);
 		StartCoroutine( WaitForRequest( www ) );
 	}
 	
@@ -366,6 +387,21 @@ public class ColliderController : MonoBehaviour
 		if (www.error == null)
 		{
 			print("WWW Ok!: " + www.data);
+			if(www.url.Contains("collectables_use.php")){
+					for (int i = 0; i < CollectedGameObjects.Count; i++) {
+						if (CollectedGameObjects [i].GetInstanceID().ToString() == www.data) {
+							if(!reusableLocked){
+								reusableLocked = true;
+								removeSecondScreenPressed(www.data);
+								Reuse (CollectedGameObjects [i]);
+							}
+						}
+					}
+			}
+			if(www.url.Contains("collectables_use_remove.php")){
+				print ("Removed!");
+				reusableLocked = false;
+			}
 		} else {
 			print("WWW Error: "+ www.error);
 		}    
@@ -383,6 +419,7 @@ public class ColliderController : MonoBehaviour
 		} else {
 			gameobject.SetActive (false);
 		}
+		UpdateCollectables();
 	}
 	
 	void Consume (GameObject gameobject)
