@@ -9,8 +9,7 @@ public class pauseMenu : MonoBehaviour {
 	private bool audiosettings;
 	private Camera maincamera;
 	public float fieldOfView;
-	public float sfxVolume = 0.5f;
-	public float musicVolume = 0.5f;
+	public float soundVolume = 1f;
 	
 	public int resX;
 	public int resY;
@@ -219,16 +218,13 @@ public class pauseMenu : MonoBehaviour {
 	
 	//Function that describes the audio options menu 
 	private void audioOptions() {
-		//Slider for the Sound Effects volume
-		sfxVolume = GUI.HorizontalSlider(new Rect(Screen.width/2 - 75, Screen.height/2 - 60, 150, 45), sfxVolume, 0.0f, 1.0f); 
-		GUI.Label(new Rect(Screen.width/2 - 30, Screen.height/2 - 40, 150, 30), "SFX; " + sfxVolume);
-		
 		//Slider for the Music volume
-		musicVolume = GUI.HorizontalSlider(new Rect(Screen.width/2 - 75, Screen.height/2 - 10, 150, 45), musicVolume, 0.0f, 1.0f); 
-		GUI.Label(new Rect(Screen.width/2 - 35, Screen.height/2 + 10, 150, 30), "Music; " + musicVolume);
+		soundVolume = GUI.HorizontalSlider(new Rect(Screen.width/2 - 75, Screen.height/2 - 10, 150, 45), soundVolume, 0.0f, 1.0f); 
+		GUI.Label(new Rect(Screen.width/2 - 35, Screen.height/2 + 10, 150, 30), "Volume; " + soundVolume);
 		
 		//Button to return to the previous menu
 		if (GUI.Button (new Rect (Screen.width / 2 - 75, Screen.height / 2 + 60, 150, 30), "Back")) {
+			AudioListener.volume = soundVolume;
 			audiosettings = false;
 			options = true;
 		}
