@@ -5,7 +5,7 @@ using System.Linq;
 
 public class WallProceduralTexturing : MonoBehaviour {
 	
-	public float tileSize = 0.8f;
+	public float tileSize = 1.0f;
 	private int numTilesX;
 	private int numTilesZ;
 	public Texture2D wallTiles;
@@ -57,13 +57,25 @@ public class WallProceduralTexturing : MonoBehaviour {
 	
 	public void BuildTexture () {
 
-		numTilesX = (int)(transform.localScale.z/tileSize);
+
+		if (transform.localScale.z>transform.localScale.x){
+			numTilesX = (int)(transform.localScale.z/tileSize);
+		} else {
+			numTilesX = (int)(transform.localScale.x/tileSize);
+		}
+
+		print ("building texture..");
+
 		numTilesZ = (int)(transform.localScale.y/tileSize);
 
-		print("numTilesX" + numTilesX);
-		print("numTilesZ" + numTilesZ);
-
-		int numTilesPerRow = wallTiles.width / tilePixelWidth;
+		if (numTilesX<1){
+			numTilesX =1;
+		}
+		if (numTilesZ<1){
+			numTilesZ =1;
+        }
+        
+        int numTilesPerRow = wallTiles.width / tilePixelWidth;
 		int numRows = wallTiles.height / tilePixelHeight;
 		
 		int texWidth = numTilesX * tilePixelWidth;
@@ -140,10 +152,7 @@ public class WallProceduralTexturing : MonoBehaviour {
 		
 		frontbound=1.0f;
 		sidebound=1.0f;
-		
-		
-		print ("localscale_x" + transform.localScale.x);
-		print ("localscale_z" + transform.localScale.z);
+
 		if (transform.localScale.x<transform.localScale.z){
 			frontbound = transform.localScale.x/transform.localScale.z;
 			//print ("frontbound = " + frontbound);
