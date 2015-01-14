@@ -18,8 +18,8 @@ public class EnemyControllerNAV : MonoBehaviour
 	public bool intelligentPatrolling;
 	public Vector3[] patrolPositions = new Vector3[5];
 	
-	private float weightFactor = 1.005f;
-	private float forgettingFactor = 1.00005f;
+	private float weightFactor = 1.0005f;
+	private float forgettingFactor = 1.00000005f;
 	private Vector3 inCameraPos;
 	private float timeSinceDetection;
 	private bool detection;
@@ -272,7 +272,7 @@ public class EnemyControllerNAV : MonoBehaviour
 		
 		if (angle < detectionAngle && distance < detectionDistance && Physics.Raycast (transform.position, targetDir, out hitInfo, detectionDistance) && hitInfo.transform.tag == "Player") {
 
-			if (Time.time - timeSinceDetection > 2 || state == 2 || state == 4 || state == 3 || state == 0 && intelligentPatrolling) {
+			if ((Time.time - timeSinceDetection)/(distance*0.15) > 2 || state == 2 || state == 4 || state == 3 || state == 0 && intelligentPatrolling) {
 				state = 5;	
 			} else  if (state < 5) {
 				state = 1;
