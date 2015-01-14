@@ -41,8 +41,7 @@ public class EnemyControllerNAV : MonoBehaviour
 	private int patrolTargetMemory;
 	private int patrolPositionNum = 0;
 	private bool initialWeightUpdate = true;
-	private bool moves;
-	
+	private Animator animatoriation;
 	
 	// Use this for initialization
 	void Start ()
@@ -58,6 +57,7 @@ public class EnemyControllerNAV : MonoBehaviour
 				patrolPathsWeight[i,j]=1;
 			}
 		}
+
 
 		// determine initial data
 		initialRot = transform.forward;
@@ -89,13 +89,11 @@ public class EnemyControllerNAV : MonoBehaviour
 			initialWeightUpdate = true;
 		}
 
+		Animation ();
 		InvokeRepeating("ForgetWeights",0, 1);
 		StateDefiner(targetDir, angle, distance);
 		GuardAction(state);
 
-		if (moves == true) {
-			GameObject.animation.Play ();
-		}
 	}
 
 	// method to make enemy look arnoud with variable searchangle
@@ -342,4 +340,26 @@ public class EnemyControllerNAV : MonoBehaviour
 
 		return res;
 	}
+
+	bool IsMoving()
+	{
+		bool res = true;
+
+		if(!intelligentPatrolling && state == 0 || state == 1){
+			res = false;
+		}
+		return res;
+	}
+
+	void Animation(){
+
+		if (GetComponent<Animator>() != null){
+			if(IsMoving()){
+				GetComponent<Animator>().enabled = true;
+			} else {
+				GetComponent<Animator>().enabled = false;
+	        }
+		}
+        
+    }
 }
