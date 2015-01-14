@@ -24,6 +24,7 @@ TagManager:
   - ceilLamp
   - simple_door
   - Device
+  - Drone
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
