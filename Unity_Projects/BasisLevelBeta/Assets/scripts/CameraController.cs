@@ -11,8 +11,8 @@ public class CameraController : MonoBehaviour
 	public int maxLeft = 270;
 	public int maxRight = 90;
 	public float rotationSpeed = 1f;
-	public float angleWidth = 30f;
-	public float detectionDistance = 3f;
+	public float angleWidth = 60f;
+	public float detectionDistance = 8f;
 	private RaycastHit hitInfo;
 	public static RaycastHit hitInfoLast;
 	public static float x;
@@ -36,21 +36,28 @@ public class CameraController : MonoBehaviour
 		Vector3 forward = transform.FindChild ("Body").up;
 		float angle = Vector3.Angle (forward, targetDir);
 		float distance = Vector3.Distance (forward, targetDir);
+		bool playerInSight = false;
 		if (angle < angleWidth && distance < detectionDistance) {
 			if (Physics.Raycast (transform.position, targetDir, out hitInfo, detectionDistance) && hitInfo.transform.tag == "Player") {
 				//								print ("Camera detected in RANGE and ANGLE the PLAYER in SIGHT!!");
+				playerInSight = true;
 				x = hitInfo.transform.position.x;
 				y = hitInfo.transform.position.y;
 				z = hitInfo.transform.position.z;
 				//				enemyController.triggerGuardExternal(GameObject.FindGameObjectWithTag ("Player"));
-			
-			
-				// light control
 
-
-
-			
 			}
+		}
+
+		UpdateLightColor(playerInSight);
+	}
+
+	void UpdateLightColor(bool playerDetected)
+	{
+		if(playerDetected){
+			cameraLed.color = Color.red;
+		} else {
+			cameraLed.color = Color.green;
 		}
 	}
 }
