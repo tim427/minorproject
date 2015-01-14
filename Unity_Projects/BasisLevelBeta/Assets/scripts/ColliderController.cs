@@ -30,6 +30,9 @@ public class ColliderController : MonoBehaviour
 	public bool switchMove;
 	public string userName = "tim";
 	public int HighScore;
+	private List<GameObject> allDrones = new List<GameObject> ();
+	public GameObject explosion;
+	public AudioClip explosionSound;
 
 	
 	void Start() {
@@ -51,6 +54,12 @@ public class ColliderController : MonoBehaviour
 	{
 		guardStateHighest = 0;
 		foreach (GameObject guard in GameObject.FindGameObjectsWithTag("Guard")) {
+			if(guard.GetComponent<EnemyControllerNAV>().state > guardStateHighest)
+			{
+				guardStateHighest = guard.GetComponent<EnemyControllerNAV>().state;
+			}
+		}
+		foreach (GameObject guard in GameObject.FindGameObjectsWithTag("Drone")) {
 			if(guard.GetComponent<EnemyControllerNAV>().state > guardStateHighest)
 			{
 				guardStateHighest = guard.GetComponent<EnemyControllerNAV>().state;
@@ -436,7 +445,12 @@ public class ColliderController : MonoBehaviour
 							if(!reusableLocked){
 								reusableLocked = true;
 								removeSecondScreenPressed(www.data);
-								Reuse (CollectedGameObjects [i]);
+								if (CollectedGameObjects [i].tag == "CollectableReusable") {
+									Reuse (CollectedGameObjects [i]);
+								}
+								if (CollectedGameObjects [i].tag == "CollectableConsumable") {
+									Consume (CollectedGameObjects [i]);
+								}
 							}
 						}
 					}
@@ -468,12 +482,27 @@ public class ColliderController : MonoBehaviour
 		UpdateCollectables();
 	}
 	
-	void Consume (GameObject gameobject)
-	{
-		CollectedGameObjects.Remove (gameobject);
-		UpdateCollectables();
-		Destroy (gameobject);
-		SetOnScreenText ("You successfully used a " + gameobject.name);
-		pushText ("You successfully used a " + gameobject.name);
+	void Consume (GameObject gameobject) {	
+		if (gameobject.name == "EMPDevice") {
+			CollectedGameObjects.Remove (gameobject);
+			UpdateCollectables();
+			Destroy (gameobject);	
+			GameObject[] dronesList = GameObject.FindGameObjectsWithTag("Drone");
+			AudioSource.PlayClipAtPoint(explosionSound, transform.position);
+			SetOnScreenText("The EMP explosion causes all drones to go offline");
+			pushText ("You successfully used a " + gameobject.name);
+			for (int i = 0;i<dronesList.Length;i++) {
+				if (Vector3.Distance(dronesList[i].transform.position,transform.position)<15) {
+					dronesList[i].GetComponent<EnemyControllerNAV>().LedColour("grey");
+					dronesList[i].GetComponent<EnemyControllerNAV>().enabled = false;
+				}
+			}
+		}
+		else {
+			CollectedGameObjects.Remove (gameobject);
+			UpdateCollectables();
+			Destroy (gameobject);
+			SetOnScreenText ("Wat een held ben je ook! Je hebt zojuist " + gameobject.name + " in je ...... gestoken");
+		}
 	}
 }
