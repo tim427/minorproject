@@ -47,6 +47,9 @@ public class ColliderController : MonoBehaviour
 		HighScore = 0;
 		timeLeft = 15f;
 		pushText("You just started the game. Good luck!");
+		foreach (GameObject Ceiling_Lamp in GameObject.FindGameObjectsWithTag("ceilLamp")) {
+			Ceiling_Lamp.light.enabled = false;
+				}
 	}
 	
 	void FixedUpdate ()
@@ -87,22 +90,23 @@ public class ColliderController : MonoBehaviour
 								Collider.audio.Play ();
 								if (SwitchCounter < 20) {
 										SetOnScreenText ("You just toggled the switch " + (switchOn ? "ON" : "OFF"));
-										// change the red emergency lights to normal lamps
+										// change the red directional lights to normal lamps
 										foreach (GameObject ceilingLight in GameObject.FindGameObjectsWithTag("CeilingLights")) {
 												ceilingLight.light.color = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (1F, 0F, 0F, 1F));
 												ceilingLight.light.intensity = (switchOn ? 0.3F : 0.4F);
-												ceilingLight.light.range = (switchOn ? 20.0F : 25.0F);
+												ceilingLight.light.range = (switchOn ? 30.0F : 40.0F); // old: 20.0F : 25.0F
 												RenderSettings.ambientLight = (switchOn ? Color.black : Color.black);
 										} //werkt niet >> Color(0.2f,0.2f,0.2f,1f);
-
+										// Lamp objects
 										foreach (GameObject Ceiling_Lamp in GameObject.FindGameObjectsWithTag("ceilLamp")) {
 												Ceiling_Lamp.light.color = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (1F, 0F, 0F, 1F));
 												Ceiling_Lamp.light.intensity = (switchOn ? 0.5F : 0.1F);
 						
 										}
+										// Directional lights
 										foreach (GameObject DirLights in GameObject.FindGameObjectsWithTag("VerticalLights")) {
 												DirLights.light.color = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (1F, 0F, 0F, 1F));
-												DirLights.light.intensity = (switchOn ? 0.1F : 0.2F);
+												DirLights.light.intensity = (switchOn ? 0.1F : 0.1F);
 										}
 										GameObject.FindGameObjectWithTag ("MainCamera").camera.backgroundColor = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (0.95F, 0.25F, 0.25F, 1F));
 								} else { // turn off all lights
