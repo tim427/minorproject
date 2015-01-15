@@ -7,7 +7,7 @@ public class Procedural_Position_SecurityKey : MonoBehaviour {
 	void Start () {
 		double randomDoubleSecurityKey = Random.value;
 		if (randomDoubleSecurityKey >= 0 && randomDoubleSecurityKey < 0.16666) {
-			transform.Translate(2.25f, 0.39f, 20.5f);
+			transform.Translate(2.25f, 0.91f, 20.5f);
 			transform.Rotate (0, 0, 180);
 		}
 		
@@ -22,7 +22,7 @@ public class Procedural_Position_SecurityKey : MonoBehaviour {
 		}
 		
 		if (randomDoubleSecurityKey >= 0.50 && randomDoubleSecurityKey < 0.6666) {
-			transform.Translate(-15.2f, 1.27f, 19.8f);
+			transform.Translate(-15.2f, 1.25f, 19.8f);
 			transform.Rotate (0, 0, 180);
 		}
 		

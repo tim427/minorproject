@@ -17,7 +17,7 @@ public class Procedural_OfficeKey : MonoBehaviour {
 		}
 			
 		if (randomDoubleOfficeKey >= 0.4 && randomDoubleOfficeKey < 0.6) {
-			transform.Translate(-2.4f, 1.05f, -31f);
+			transform.Translate(-2.341f, 1.05f, -31f);
 			transform.Rotate (0, 0, 180);
 		}
 			

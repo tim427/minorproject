@@ -21,7 +21,7 @@ public class Procedural_ArmoryKey : MonoBehaviour {
 		}
 		
 		if (randomDoubleArmoryKey >= 0.6 && randomDoubleArmoryKey < 0.8) {
-			transform.Translate(-66f, 0f, 40f);
+			transform.Translate(-66f, 0.01f, 40f);
 			transform.Rotate (0, 0, 180);
 		}
 		
