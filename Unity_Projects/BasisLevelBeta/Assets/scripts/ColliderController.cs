@@ -361,6 +361,7 @@ public class ColliderController : MonoBehaviour
 			tempColliderSimpleDoor.transform.Translate (0.8f * Time.deltaTime, 0, 0.0001f * Time.deltaTime);
 			tempIntSimpleDoor += 1;
 			if (tempIntSimpleDoor > 100){
+				Destroy (tempColliderSimpleDoor.gameObject.collider);
 				tempColliderSimpleDoor = null;
 				tempIntSimpleDoor = 0;
 			}
