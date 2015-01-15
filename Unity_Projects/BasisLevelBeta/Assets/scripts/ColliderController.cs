@@ -298,7 +298,7 @@ public class ColliderController : MonoBehaviour
 			}
 		}
 		
-		if (Collider != null && Collider.gameObject.tag == "SecondLiftDoor") {
+		if (Collider != null && Collider.gameObject.tag == "SecondElevatorDoor") {
 			if (Input.GetKeyDown (KeyCode.Space)) {
 				if (secondLiftUnlocked) {
 					Collider.audio.Play ();
