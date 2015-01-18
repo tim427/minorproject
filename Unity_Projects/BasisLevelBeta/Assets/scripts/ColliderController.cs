@@ -16,6 +16,9 @@ public class ColliderController : MonoBehaviour
 	private string url = "https://drproject.twi.tudelft.nl/ewi3620tu6/";
 	private bool reusableLocked = false;
 	private bool startTimer;
+	private bool openCryoCell;
+	private int moveCryoCell;
+	private Collider tempColliderCryoCell;
 	private static Texture2D _staticRectTexture;
 	private static GUIStyle _staticRectStyle;
 	private Collider tempColliderSimpleDoor;
@@ -46,6 +49,7 @@ public class ColliderController : MonoBehaviour
 		UpdateCollectables();
 		HighScore = 0;
 		timeLeft = 15f;
+		moveCryoCell = 0;
 		pushText("You just started the game. Good luck!");
 		foreach (GameObject Ceiling_Lamp in GameObject.FindGameObjectsWithTag("ceilLamp")) {
 			Ceiling_Lamp.light.enabled = false;
@@ -346,13 +350,34 @@ public class ColliderController : MonoBehaviour
 				}
 			}
 		}
-		if (Collider != null && Collider.gameObject.tag == "Cryocell") {
-			if (!PlayedGameObjects.Contains (Collider.gameObject)) {
+
+		if (Collider != null && Collider.gameObject.tag == "Cryocell" && openCryoCell != true) {
+			//if (!PlayedGameObjects.Contains (Collider.gameObject)) {
 				if (Input.GetKeyDown (KeyCode.Space)) {
 					Collider.audio.Play ();
-					Collider.animation.Play ();
-					PlayedGameObjects.Add (Collider.gameObject);
+					//Collider.animation.Play ();
+					//PlayedGameObjects.Add (Collider.gameObject);
+					openCryoCell = true;
+					tempColliderCryoCell = Collider;
 				}
+			//}
+		}
+
+		if (openCryoCell == true) {
+			moveCryoCell += 1;
+			print (moveCryoCell);
+			if (moveCryoCell < 25 ) {
+				tempColliderCryoCell.transform.FindChild("Cylinder").Translate(0, -0.002f, 0);
+			}
+			if (moveCryoCell >= 25 && moveCryoCell < 240 ) {
+				tempColliderCryoCell.transform.FindChild("Cylinder").Translate( 0.0035f, 0, 0);
+				tempColliderCryoCell.transform.FindChild ("Cylinder").Rotate (0, 0, 0.4f);
+			}
+			if (moveCryoCell >= 240 ) {
+				openCryoCell = false;
+				moveCryoCell = 0;
+				Destroy (tempColliderCryoCell.gameObject.collider);
+				tempColliderCryoCell = null;
 			}
 		}
 
@@ -361,8 +386,8 @@ public class ColliderController : MonoBehaviour
 		}
 		
 		if (tempColliderSimpleDoor != null) {
-			tempColliderSimpleDoor.transform.Rotate (0, -50 * Time.deltaTime, 0);
-			tempColliderSimpleDoor.transform.Translate (-0.8f * Time.deltaTime, 0, -0.0001f * Time.deltaTime);
+			tempColliderSimpleDoor.transform.Rotate (0, -2f, 0);
+			tempColliderSimpleDoor.transform.Translate (-0.033f, 0, -0.001f);
 			tempIntSimpleDoor += 1;
 			if (tempIntSimpleDoor > 70){
 				Destroy (tempColliderSimpleDoor.gameObject.collider);
