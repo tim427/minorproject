@@ -366,14 +366,14 @@ public class ColliderController : MonoBehaviour
 		if (openCryoCell == true) {
 			moveCryoCell += 1;
 			print (moveCryoCell);
-			if (moveCryoCell < 25 ) {
-				tempColliderCryoCell.transform.FindChild("Cylinder").Translate(0, -0.002f, 0);
+			if (moveCryoCell < 12 ) {
+				tempColliderCryoCell.transform.FindChild("Cylinder").Translate(0, -0.006f, 0);
 			}
-			if (moveCryoCell >= 25 && moveCryoCell < 240 ) {
-				tempColliderCryoCell.transform.FindChild("Cylinder").Translate( 0.0035f, 0, 0);
-				tempColliderCryoCell.transform.FindChild ("Cylinder").Rotate (0, 0, 0.4f);
+			if (moveCryoCell >= 12 && moveCryoCell < 120 ) {
+				tempColliderCryoCell.transform.FindChild("Cylinder").Translate( 0.0105f, 0, 0);
+				tempColliderCryoCell.transform.FindChild ("Cylinder").Rotate (0, 0, 1.2f);
 			}
-			if (moveCryoCell >= 240 ) {
+			if (moveCryoCell >= 120 ) {
 				openCryoCell = false;
 				moveCryoCell = 0;
 				Destroy (tempColliderCryoCell.gameObject.collider);
