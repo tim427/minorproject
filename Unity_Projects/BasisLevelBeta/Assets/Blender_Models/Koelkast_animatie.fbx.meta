@@ -8,21 +8,33 @@ ModelImporter:
     100004: //RootNode
     100006: Lamp
     100008: Walls
+    100010: Cylinder
+    100012: Left_wall
     400000: Camera
     400002: Door
     400004: //RootNode
     400006: Lamp
     400008: Walls
+    400010: Cylinder
+    400012: Left_wall
     2300000: Door
     2300002: Walls
+    2300004: Cylinder
+    2300006: Left_wall
     3300000: Door
     3300002: Walls
+    3300004: Cylinder
+    3300006: Left_wall
     4300000: Door
     4300002: Walls
+    4300004: Cylinder
+    4300006: Left_wall
     7400000: Door|CylinderAction
     7400002: Lamp|CylinderAction
     7400004: Camera|CylinderAction
     7400006: Walls|CylinderAction
+    7400008: Cylinder|CylinderAction
+    7400010: Left_wall|CylinderAction
     9500000: //RootNode
   materials:
     importMaterials: 1
