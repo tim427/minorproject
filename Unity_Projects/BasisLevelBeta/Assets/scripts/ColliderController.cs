@@ -51,9 +51,18 @@ public class ColliderController : MonoBehaviour
 		timeLeft = 15f;
 		moveCryoCell = 0;
 		pushText("You just started the game. Good luck!");
+		// Disable ceiling lights for now...
 		foreach (GameObject Ceiling_Lamp in GameObject.FindGameObjectsWithTag("ceilLamp")) {
 			Ceiling_Lamp.light.enabled = false;
 				}
+		// Change collider size of doors (NOT WORKING :(   )
+		/*
+		 * foreach (GameObject Door in GameObject.FindGameObjectsWithTag("DoorSwitch")){
+			BoxCollider boxCollider = (BoxCollider)GetComponent(typeof(BoxCollider));
+			 boxCollider.size = new Vector3(1.0f, 1.0f, 1.9f);
+			} 
+			*/
+
 	}
 	
 	void FixedUpdate ()
@@ -141,7 +150,7 @@ public class ColliderController : MonoBehaviour
 					tempCollider = Collider;
 					
 				} else {
-					SetOnScreenText ("The door won't open");
+					SetOnScreenText ("The door won't open, if only I had a key...");
 				}
 			}
 		}
@@ -157,7 +166,7 @@ public class ColliderController : MonoBehaviour
 					
 				}
 				if (gottem) {
-					SetOnScreenText ("You have the appropriate keycard.");	
+					SetOnScreenText ("You have the appropriate keycard, the door is unlocked.");	
 					keyUnlocked = true;
 					HighScore = HighScore + 5;
 				} else {
@@ -191,7 +200,7 @@ public class ColliderController : MonoBehaviour
 					
 				}
 				if (gottem) {
-					SetOnScreenText ("You have the appropriate keycard.");	
+					SetOnScreenText ("You have the appropriate keycard, the door is unlocked.");	
 					securityUnlocked = true;
 					HighScore = HighScore + 5;
 				} else {
@@ -209,7 +218,7 @@ public class ColliderController : MonoBehaviour
 					HighScore = HighScore + 5;
 					
 				} else {
-					SetOnScreenText ("The door won't open");
+					SetOnScreenText ("The door won't open, if only I had a key...");
 				}
 			}
 		}
@@ -225,7 +234,7 @@ public class ColliderController : MonoBehaviour
 					
 				}
 				if (gottem) {
-					SetOnScreenText ("You have the appropriate keycard.");	
+					SetOnScreenText ("You have the appropriate keycard, the door is unlocked.");	
 					armoryUnlocked = true;
 					HighScore = HighScore + 5;
 				} else {
@@ -243,7 +252,7 @@ public class ColliderController : MonoBehaviour
 					HighScore = HighScore + 5;
 					
 				} else {
-					SetOnScreenText ("The door won't open");
+					SetOnScreenText ("The door won't open, if only I had a key...");
 				}
 			}
 		}
@@ -259,7 +268,7 @@ public class ColliderController : MonoBehaviour
 					
 				}
 				if (gottem) {
-					SetOnScreenText ("You have the appropriate keycard.");	
+					SetOnScreenText ("You have the appropriate keycard, the door is unlocked.");	
 					officeUnlocked = true;
 					HighScore = HighScore + 5;
 				} else {
@@ -277,7 +286,7 @@ public class ColliderController : MonoBehaviour
 					HighScore = HighScore + 5;
 					
 				} else {
-					SetOnScreenText ("The door won't open");
+					SetOnScreenText ("The door won't open, if only I had a key...");
 				}
 			}
 		}
@@ -293,7 +302,7 @@ public class ColliderController : MonoBehaviour
 					
 				}
 				if (gottem) {
-					SetOnScreenText ("You have the appropriate keycard.");	
+					SetOnScreenText ("You have the appropriate keycard, the door is unlocked.");	
 					secondLiftUnlocked = true;
 					HighScore = HighScore + 5;
 				} else {
@@ -311,7 +320,7 @@ public class ColliderController : MonoBehaviour
 					HighScore = HighScore + 5;
 					
 				} else {
-					SetOnScreenText ("The door won't open");
+					SetOnScreenText ("The door won't open, if only I had a key...");
 				}
 			}
 		}
@@ -346,7 +355,7 @@ public class ColliderController : MonoBehaviour
 					
 				} else {
 					// in reverse
-					SetOnScreenText ("The door won't open");
+					SetOnScreenText ("The door won't open, if only I had a key...");
 				}
 			}
 		}
