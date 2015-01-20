@@ -553,7 +553,7 @@ public class ColliderController : MonoBehaviour
 		if (showCollectables) {
 			GUI.Box (new Rect (10, 10, 250, CollectedGameObjects.Count * 30 + 30), "Collected items: " + CollectedGameObjects.Count);
 			for (int i = 0; i < CollectedGameObjects.Count; i++) {
-				if (GUI.Button (new Rect (20, i * 30 + 40, 80, 20), CollectedGameObjects [i].name)) {
+				if (GUI.Button (new Rect (20, i * 30 + 40, 150, 20), CollectedGameObjects [i].name)) {
 					if (CollectedGameObjects [i].tag == "CollectableReusable") {
 						Reuse (CollectedGameObjects [i]);
 					}
@@ -683,12 +683,15 @@ public class ColliderController : MonoBehaviour
 			AudioSource.PlayClipAtPoint(explosionSound, transform.position);
 			SetOnScreenText("The EMP explosion causes all drones to go offline");
 			pushText ("You successfully used a " + gameobject.name);
+			int countDrones = 0;
 			for (int i = 0;i<dronesList.Length;i++) {
 				if (Vector3.Distance(dronesList[i].transform.position,transform.position)<15) {
 					dronesList[i].GetComponent<EnemyControllerNAV>().LedColour("grey");
 					dronesList[i].GetComponent<EnemyControllerNAV>().enabled = false;
+					countDrones++;
 				}
 			}
+			HighScore = HighScore + countDrones*10;
 		}
 		else {
 			CollectedGameObjects.Remove (gameobject);
