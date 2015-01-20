@@ -26,6 +26,7 @@ public class EnemyControllerNAV : MonoBehaviour
 	private float startState2;
 	private float timeSinceMovingInState4;
 	private float timeSinceMovingInState5;
+	private float timeSinceMoving;
 	private Vector3 initialRot;
 	private NavMeshAgent navMesh;
 	private Vector3 initialPos;
@@ -42,6 +43,8 @@ public class EnemyControllerNAV : MonoBehaviour
 	private int patrolPositionNum = 0;
 	private bool initialWeightUpdate = true;
 	private Animator animatoriation;
+	private Vector3 currentPosition;
+	private Vector3 previousPosition;
 	
 	// Use this for initialization
 	void Start ()
@@ -64,13 +67,15 @@ public class EnemyControllerNAV : MonoBehaviour
 		targetRot = initialRot;
 		initialAngle = Vector3.Angle (Vector3.forward, initialRot);
 		initialPos = transform.position;
+		currentPosition = transform.position;
+		previousPosition = transform.position;
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
 		
-		//print ("state" + state);
+		print ("state" + state);
 		
 		// Retrieve info of target every frame
 		Vector3 targetDir = target.transform.position - transform.position;
@@ -173,7 +178,6 @@ public class EnemyControllerNAV : MonoBehaviour
 			patrolTargetMemory = patrolPositionNum;
 			patrolPositionNum = TargetChooser();
 			patrolTarget = patrolTargets[patrolPositionNum];
-			print ("patrolPositionNum = " + patrolPositionNum);
 			needNewPatrolTarget = false;
 		}
 		
@@ -279,6 +283,9 @@ public class EnemyControllerNAV : MonoBehaviour
 		
 		if (angle < detectionAngle && distance < detectionDistance && Physics.Raycast (transform.position, targetDir, out hitInfo, detectionDistance) && hitInfo.transform.tag == "Player") {
 
+
+			print ("Time.time - timeSinceDetection)/(distance*0.15" + (Time.time - timeSinceDetection)/(distance*0.15));
+
 			if ((Time.time - timeSinceDetection)/(distance*0.15) > 2 || state == 2 || state == 4 || state == 3 || state == 0 && intelligentPatrolling) {
 				state = 5;	
 			} else  if (state < 5) {
@@ -302,7 +309,7 @@ public class EnemyControllerNAV : MonoBehaviour
 
 		} else if (state == 5) {
 			state = 4;
-		} else if (state == 2 && Time.time - startState2 > 10 || state == 1) {
+		} else if (state == 2 && Time.time - startState2 > 10 || state == 1 || isNotMoving()) {
 			state = 0;
 		} 
 	}
@@ -321,7 +328,6 @@ public class EnemyControllerNAV : MonoBehaviour
 		}
 
 		float treshold = Random.Range(0.0f,sumWeights);
-		print ("treshold" + treshold);
 		bool stopPickingTarget = false;
 
 		for (int i = 0; i<patrolPositionNum; i++){
@@ -366,4 +372,20 @@ public class EnemyControllerNAV : MonoBehaviour
 		}
         
     }
+
+	bool isNotMoving(){
+		bool res = false;
+		previousPosition = currentPosition;
+		currentPosition = transform.position;
+
+		if (Vector3.Distance(currentPosition, previousPosition) < 0.01f){
+			if (Time.time - timeSinceMoving > 3) {
+				res = true;
+			}
+		} else {
+			timeSinceMoving = Time.time;
+		}
+
+		return res;
+	}
 }
