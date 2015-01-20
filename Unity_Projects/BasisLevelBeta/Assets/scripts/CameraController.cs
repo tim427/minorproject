@@ -18,9 +18,12 @@ public class CameraController : MonoBehaviour
 	public static float x;
 	public static float y;
 	public static float z;
+	public AudioClip camera_detect;
+	private bool canplaysound = true;
 	
 	void Update ()
 	{
+		print (canplaysound);
 		float degrees = transform.FindChild ("Body").rotation.eulerAngles.z;
 		if ((degrees >= maxRight - 1 && degrees <= maxRight + 1) || !started) {
 			started = true;
@@ -56,8 +59,13 @@ public class CameraController : MonoBehaviour
 	{
 		if(playerDetected){
 			cameraLed.color = Color.red;
+			if (canplaysound == true){
+			audio.PlayOneShot (camera_detect,1.0f);
+			canplaysound = false;
+			}
 		} else {
 			cameraLed.color = Color.green;
+			canplaysound = true;
 		}
 	}
 }
