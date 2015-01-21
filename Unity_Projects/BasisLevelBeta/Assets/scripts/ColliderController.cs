@@ -23,6 +23,7 @@ public class ColliderController : MonoBehaviour
 	private static GUIStyle _staticRectStyle;
 	private Collider tempColliderSimpleDoor;
 	private int tempIntSimpleDoor;
+	public bool onlineMode = true;
 	public float timeLeft;
 	public bool switchOn = false;
 	public bool keyUnlocked = false;
@@ -48,6 +49,7 @@ public class ColliderController : MonoBehaviour
 		position_switch = 0;
 		UpdateCollectables();
 		HighScore = 0;
+		addHighscore(0);
 		timeLeft = 15f;
 		moveCryoCell = 0;
 		pushText("You just started the game. Good luck!");
@@ -142,9 +144,9 @@ public class ColliderController : MonoBehaviour
 				}
 
 		if (Collider != null && Collider.gameObject.tag == "DoorSwitch") {
-			//if (Input.GetKeyDown (KeyCode.Space)) {
+			if (Input.GetKeyDown (KeyCode.Space)) {
 				if (switchOn) {
-					HighScore = HighScore + 5;
+					addHighscore(5);
 					Collider.audio.Play ();
 					SetOnScreenText ("You have opened the door.");
 					tempCollider = Collider;
@@ -152,7 +154,7 @@ public class ColliderController : MonoBehaviour
 				} else {
 					SetOnScreenText ("The door won't open, if only I had a key...");
 				}
-			//}
+			}
 		}
 		
 		if (Collider != null && Collider.gameObject.tag == "KeyLock" && !keyUnlocked) {
@@ -162,13 +164,11 @@ public class ColliderController : MonoBehaviour
 					if (CollectedGameObjects [i].name == "Keycard") {
 						gottem = true;
 					}
-					
-					
 				}
 				if (gottem) {
 					SetOnScreenText ("You have the appropriate keycard, the door is unlocked.");	
 					keyUnlocked = true;
-					HighScore = HighScore + 5;
+					addHighscore(5);
 				} else {
 					SetOnScreenText ("You lack the appropriate keycard.");
 				}
@@ -181,8 +181,7 @@ public class ColliderController : MonoBehaviour
 					Collider.audio.Play ();
 					SetOnScreenText ("You have opened the door.");
 					tempCollider = Collider;
-					HighScore = HighScore + 5;
-					
+					addHighscore(5);	
 				} else {
 					SetOnScreenText ("The door won't open");
 				}
@@ -202,7 +201,7 @@ public class ColliderController : MonoBehaviour
 				if (gottem) {
 					SetOnScreenText ("You have the appropriate keycard, the door is unlocked.");	
 					securityUnlocked = true;
-					HighScore = HighScore + 5;
+					addHighscore(5);
 				} else {
 					SetOnScreenText ("You lack the appropriate keycard.");
 				}
@@ -215,7 +214,7 @@ public class ColliderController : MonoBehaviour
 					Collider.audio.Play ();
 					SetOnScreenText ("You have opened the door.");
 					tempCollider = Collider;
-					HighScore = HighScore + 5;
+					addHighscore(5);
 					
 				} else {
 					SetOnScreenText ("The door won't open, if only I had a key...");
@@ -236,7 +235,7 @@ public class ColliderController : MonoBehaviour
 				if (gottem) {
 					SetOnScreenText ("You have the appropriate keycard, the door is unlocked.");	
 					armoryUnlocked = true;
-					HighScore = HighScore + 5;
+					addHighscore(5);
 				} else {
 					SetOnScreenText ("You lack the appropriate keycard.");
 				}
@@ -249,7 +248,7 @@ public class ColliderController : MonoBehaviour
 					Collider.audio.Play ();
 					SetOnScreenText ("You have opened the door.");
 					tempCollider = Collider;
-					HighScore = HighScore + 5;
+					addHighscore(5);
 					
 				} else {
 					SetOnScreenText ("The door won't open, if only I had a key...");
@@ -270,7 +269,7 @@ public class ColliderController : MonoBehaviour
 				if (gottem) {
 					SetOnScreenText ("You have the appropriate keycard, the door is unlocked.");	
 					officeUnlocked = true;
-					HighScore = HighScore + 5;
+					addHighscore(5);
 				} else {
 					SetOnScreenText ("You lack the appropriate keycard.");
 				}
@@ -283,7 +282,7 @@ public class ColliderController : MonoBehaviour
 					Collider.audio.Play ();
 					SetOnScreenText ("You have opened the door.");
 					tempCollider = Collider;
-					HighScore = HighScore + 5;
+					addHighscore(5);
 					
 				} else {
 					SetOnScreenText ("The door won't open, if only I had a key...");
@@ -304,7 +303,7 @@ public class ColliderController : MonoBehaviour
 				if (gottem) {
 					SetOnScreenText ("You have the appropriate keycard, the door is unlocked.");	
 					secondLiftUnlocked = true;
-					HighScore = HighScore + 5;
+					addHighscore(5);
 				} else {
 					SetOnScreenText ("You lack the appropriate keycard.");
 				}
@@ -317,7 +316,7 @@ public class ColliderController : MonoBehaviour
 					Collider.audio.Play ();
 					SetOnScreenText ("You have opened the door.");
 					tempCollider = Collider;
-					HighScore = HighScore + 5;
+					addHighscore(5);
 					
 				} else {
 					SetOnScreenText ("The door won't open, if only I had a key...");
@@ -340,7 +339,7 @@ public class ColliderController : MonoBehaviour
 					SetOnScreenText ("You have the appropriate Lift key. 15 seconds are left, to leave this floor.");	
 					liftUnlocked = true;
 					startTimer = true;
-					HighScore = HighScore + 5;
+					addHighscore(5);
 				} else {
 					SetOnScreenText ("You lack the appropriate Lift key.");
 				}
@@ -633,12 +632,13 @@ public class ColliderController : MonoBehaviour
 	
 	IEnumerator WaitForRequest(WWW www)
 	{
-		yield return www;
-		// check for errors
-		if (www.error == null)
-		{
-//			print("WWW Ok!: " + www.data);
-			if(www.url.Contains("collectables_use.php")){
+		if(onlineMode){
+			yield return www;
+			// check for errors
+			if (www.error == null)
+			{
+				//			print("WWW Ok!: " + www.data);
+				if(www.url.Contains("collectables_use.php")){
 					for (int i = 0; i < CollectedGameObjects.Count; i++) {
 						if (CollectedGameObjects [i].GetInstanceID().ToString() == www.data) {
 							if(!reusableLocked){
@@ -653,17 +653,18 @@ public class ColliderController : MonoBehaviour
 							}
 						}
 					}
-			}
-			if(www.url.Contains("collectables_use_remove.php")){
-				print ("Removed!");
-				reusableLocked = false;
-			}
-			if(www.url.Contains("gcm.php")){
-				print ("Pushed message!");
-			}
-		} else {
-//			print("WWW Error: "+ www.error);
-		}    
+				}
+				if(www.url.Contains("collectables_use_remove.php")){
+					print ("Removed!");
+					reusableLocked = false;
+				}
+				if(www.url.Contains("gcm.php")){
+					print ("Pushed message!");
+				}
+			} else {
+				//			print("WWW Error: "+ www.error);
+			}    
+		}
 	}  
 	
 	void Reuse (GameObject gameobject)
@@ -700,7 +701,7 @@ public class ColliderController : MonoBehaviour
 					countDrones++;
 				}
 			}
-			HighScore = HighScore + countDrones*10;
+			addHighscore(countDrones*10);
 		}
 		else {
 			CollectedGameObjects.Remove (gameobject);
@@ -708,6 +709,13 @@ public class ColliderController : MonoBehaviour
 			Destroy (gameobject);
 			SetOnScreenText ("Wat een held ben je ook! Je hebt zojuist " + gameobject.name + " in je ...... gestoken");
 		}
+	}
+	
+	void addHighscore(int points) {
+		HighScore += points;
+		string postData = "{\"Highscore\": ";
+		postData += HighScore+ "}";
+		sendData(postData, "highscore");
 	}
 
 	static void CreateColorBox(Rect position, Color color) 
