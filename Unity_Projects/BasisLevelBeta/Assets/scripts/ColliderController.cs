@@ -901,7 +901,7 @@ public class ColliderController : MonoBehaviour
 			SetOnScreenText ("Press <spacebar> to open the door");
 		}
 		if (Collider.gameObject.tag == "Computer") {
-			SetOnScreenText ("Press <spacebar> to open the door");
+			SetOnScreenText ("Press <spacebar> to disable all cameras");
 		}
 
 	}
