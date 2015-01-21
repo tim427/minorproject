@@ -26,7 +26,6 @@ public class ColliderController : MonoBehaviour
 	private static GUIStyle _staticRectStyle;
 	private Collider tempColliderSimpleDoor;
 	private int tempIntSimpleDoor;
-	public bool onlineMode = true;
 	public float timeLeft;
 	public bool switchOn = false;
 	public bool timeOn = false;
@@ -47,9 +46,16 @@ public class ColliderController : MonoBehaviour
 	public string userName = "tim";
 	public int HighScore;
 	public AudioClip explosionSound;
+	private bool timeConfirm;
+	private bool startConfirm;
+	private bool liftConfirm;
+	private GameObject[] camerasList;
 
 	
 	void Start() {
+		timeConfirm = false;
+		startConfirm = true;
+		liftConfirm = false;
 		Time.timeScale = 1;	
 		switchMove = false;
 		timeMove = false;
@@ -62,7 +68,6 @@ public class ColliderController : MonoBehaviour
 		moveCryoCell = 0;
 		SwitchCounter = 0;
 		switchSwitch = false;
-		pushText("You just started the game. Good luck!");
 		// Disable ceiling lights for now...
 		foreach (GameObject Ceiling_Lamp in GameObject.FindGameObjectsWithTag("ceilLamp")) {
 			Ceiling_Lamp.light.enabled = false;
@@ -83,7 +88,8 @@ public class ColliderController : MonoBehaviour
 	}
 	
 	void Update ()
-	{
+	{	
+		colliders ();
 		guardStateHighest = 0;
 		foreach (GameObject guard in GameObject.FindGameObjectsWithTag("Guard")) {
 			if(guard.GetComponent<EnemyControllerNAV>().state > guardStateHighest)
@@ -105,450 +111,10 @@ public class ColliderController : MonoBehaviour
 			GetComponent<MouseLook>().enabled = !GetComponent<MouseLook>().enabled;
 		}
 		
-		if ((Collider != null && Collider.gameObject.tag == "Switch")) {
-			if (Input.GetKeyDown (KeyCode.Space)) {
-				switchOn = !switchOn;
-				SwitchCounter ++;
-				switchMove = true;
-				tempColliderSwitch = Collider;
-				switchSwitch = false;
-				// collision.animation.Play ("Switch|SwitchAction");
-				Collider.audio.Play ();
-				if (SwitchCounter < 20) {
-					SetOnScreenText ("You just toggled the switch " + (switchOn ? "ON" : "OFF"));
-					// change the red directional lights to normal lamps
-					foreach (GameObject ceilingLight in GameObject.FindGameObjectsWithTag("CeilingLights")) {
-					ceilingLight.light.color = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (1F, 0F, 0F, 1F));
-					ceilingLight.light.intensity = (switchOn ? 0.3F : 0.4F);
-					ceilingLight.light.range = (switchOn ? 30.0F : 40.0F); // old: 20.0F : 25.0F
-					RenderSettings.ambientLight = (switchOn ? Color.black : Color.black);
-					} //werkt niet >> Color(0.2f,0.2f,0.2f,1f);
-					// Lamp objects
-				foreach (GameObject Ceiling_Lamp in GameObject.FindGameObjectsWithTag("ceilLamp")) {
-					Ceiling_Lamp.light.color = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (1F, 0F, 0F, 1F));
-					Ceiling_Lamp.light.intensity = (switchOn ? 0.5F : 0.1F);
-				}
-				// Directional lights
-				foreach (GameObject DirLights in GameObject.FindGameObjectsWithTag("VerticalLights")) {
-					DirLights.light.color = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (1F, 0F, 0F, 1F));
-					DirLights.light.intensity = (switchOn ? 0.1F : 0.1F);
-				}
-				GameObject.FindGameObjectWithTag ("MainCamera").camera.backgroundColor = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (0.95F, 0.25F, 0.25F, 1F));
-				} else { // turn off all lights
-					SetOnScreenText ("The lights are malfunctioning due to excessive usage!");
-					GameObject.FindGameObjectWithTag ("MainCamera").camera.backgroundColor = new Color (0F, 0F, 0F, 0F);
-					foreach (GameObject ceilingLight in GameObject.FindGameObjectsWithTag("CeilingLights")) {
-						ceilingLight.light.enabled = false; 
-					}
-					foreach (GameObject Ceiling_Lamp in GameObject.FindGameObjectsWithTag("ceilLamp")) {
-						Ceiling_Lamp.light.color = (switchOn ? new Color (0F, 0F, 0F, 1F) : new Color (0F, 0F, 0F, 1F));
-						Ceiling_Lamp.light.intensity = 0F;
-					}
-					foreach (GameObject DirLights in GameObject.FindGameObjectsWithTag("VerticalLights")) {
-						DirLights.light.color = (switchOn ? new Color (0F, 0F, 0F, 1F) : new Color (0F, 0F, 0F, 1F));
-						DirLights.light.intensity = 0F;
-						print("directional light off");
-					}
-				}
-			}
+
 	}
 
-		if (Collider != null && Collider.gameObject.tag == "DoorSwitch") {
-			if (Input.GetKeyDown (KeyCode.Space)) {
-				if (switchOn) {
-					addHighscore(5);
-					Collider.audio.Play ();
-					SetOnScreenText ("You have opened the door.");
-					tempCollider = Collider;
-					
-				} else {
-					SetOnScreenText ("The door won't open, if only I had a key...");
-				}
-			}
-		}
-		
-		if (Collider != null && Collider.gameObject.tag == "KeyLock" && !keyUnlocked) {
-			if (Input.GetKeyDown (KeyCode.Space)) {
-				bool gottem = false;
-				for (int i = 0; i < CollectedGameObjects.Count; i++) {
-					if (CollectedGameObjects [i].name == "Keycard") {
-						gottem = true;
-					}
-				}
-				if (gottem) {
-					SetOnScreenText ("You have the appropriate keycard, the door is unlocked.");	
-					keyUnlocked = true;
-					addHighscore(5);
-				} else {
-					SetOnScreenText ("You lack the appropriate keycard.");
-				}
-			}
-		}
-		
-		if (Collider != null && Collider.gameObject.tag == "DoorKey") {
-			if (Input.GetKeyDown (KeyCode.Space)) {
-				if (keyUnlocked) {
-					Collider.audio.Play ();
-					SetOnScreenText ("You have opened the door.");
-					tempCollider = Collider;
-					addHighscore(5);	
-				} else {
-					SetOnScreenText ("The door won't open");
-				}
-			}
-		}
 
-		if (Collider != null && Collider.gameObject.tag == "SecurityLock" && !securityUnlocked) {
-			if (Input.GetKeyDown (KeyCode.Space)) {
-				bool gottem = false;
-				for (int i = 0; i < CollectedGameObjects.Count; i++) {
-					if (CollectedGameObjects [i].name == "SecurityKey") {
-						gottem = true;
-					}
-					
-					
-				}
-				if (gottem) {
-					SetOnScreenText ("You have the appropriate keycard, the door is unlocked.");	
-					securityUnlocked = true;
-					addHighscore(5);
-				} else {
-					SetOnScreenText ("You lack the appropriate keycard.");
-				}
-			}
-		}
-		
-		if (Collider != null && Collider.gameObject.tag == "SecurityDoor") {
-			if (Input.GetKeyDown (KeyCode.Space)) {
-				if (securityUnlocked) {
-					Collider.audio.Play ();
-					SetOnScreenText ("You have opened the door.");
-					tempCollider = Collider;
-					addHighscore(5);
-					
-				} else {
-					SetOnScreenText ("The door won't open, if only I had a key...");
-				}
-			}
-		}
-
-		if (Collider != null && Collider.gameObject.tag == "ArmoryLock" && !armoryUnlocked) {
-			if (Input.GetKeyDown (KeyCode.Space)) {
-				bool gottem = false;
-				for (int i = 0; i < CollectedGameObjects.Count; i++) {
-					if (CollectedGameObjects [i].name == "ArmoryKey") {
-						gottem = true;
-					}
-					
-					
-				}
-				if (gottem) {
-					SetOnScreenText ("You have the appropriate keycard, the door is unlocked.");	
-					armoryUnlocked = true;
-					addHighscore(5);
-				} else {
-					SetOnScreenText ("You lack the appropriate keycard.");
-				}
-			}
-		}
-		
-		if (Collider != null && Collider.gameObject.tag == "ArmoryDoor") {
-			if (Input.GetKeyDown (KeyCode.Space)) {
-				if (armoryUnlocked) {
-					Collider.audio.Play ();
-					SetOnScreenText ("You have opened the door.");
-					tempCollider = Collider;
-					addHighscore(5);
-					
-				} else {
-					SetOnScreenText ("The door won't open, if only I had a key...");
-				}
-			}
-		}
-
-		if (Collider != null && Collider.gameObject.tag == "OfficeLock" && !officeUnlocked) {
-			if (Input.GetKeyDown (KeyCode.Space)) {
-				bool gottem = false;
-				for (int i = 0; i < CollectedGameObjects.Count; i++) {
-					if (CollectedGameObjects [i].name == "OfficeKey") {
-						gottem = true;
-					}
-					
-					
-				}
-				if (gottem) {
-					SetOnScreenText ("You have the appropriate keycard, the door is unlocked.");	
-					officeUnlocked = true;
-					addHighscore(5);
-				} else {
-					SetOnScreenText ("You lack the appropriate keycard.");
-				}
-			}
-		}
-		
-		if (Collider != null && Collider.gameObject.tag == "OfficeDoor") {
-			if (Input.GetKeyDown (KeyCode.Space)) {
-				if (officeUnlocked) {
-					Collider.audio.Play ();
-					SetOnScreenText ("You have opened the door.");
-					tempCollider = Collider;
-					addHighscore(5);
-					
-				} else {
-					SetOnScreenText ("The door won't open, if only I had a key...");
-				}
-			}
-		}
-
-		if (Collider != null && Collider.gameObject.tag == "SecondElevatorLock" && !secondLiftUnlocked) {
-			if (Input.GetKeyDown (KeyCode.Space)) {
-				bool gottem = false;
-				for (int i = 0; i < CollectedGameObjects.Count; i++) {
-					if (CollectedGameObjects [i].name == "SecondElevatorKey") {
-						gottem = true;
-					}
-					
-					
-				}
-				if (gottem) {
-					SetOnScreenText ("You have the appropriate keycard, the door is unlocked.");	
-					secondLiftUnlocked = true;
-					addHighscore(5);
-				} else {
-					SetOnScreenText ("You lack the appropriate keycard.");
-				}
-			}
-		}
-		
-		if (Collider != null && Collider.gameObject.tag == "SecondElevatorDoor") {
-			if (Input.GetKeyDown (KeyCode.Space)) {
-				if (secondLiftUnlocked) {
-					Collider.audio.Play ();
-					SetOnScreenText ("You have opened the door.");
-					tempCollider = Collider;
-					addHighscore(5);
-					
-				} else {
-					SetOnScreenText ("The door won't open, if only I had a key...");
-				}
-			}
-		}
-
-
-		if (Collider != null && Collider.gameObject.tag == "LiftLock" && !liftUnlocked) {
-			if (Input.GetKeyDown (KeyCode.Space)) {
-				bool gottem = false;
-				for (int i = 0; i < CollectedGameObjects.Count; i++) {
-					if (CollectedGameObjects [i].name == "Liftkey") {
-						gottem = true;
-					}
-					
-					
-				}
-				if (gottem) {
-					SetOnScreenText ("You have the appropriate Lift key. 15 seconds are left, to leave this floor.");	
-					liftUnlocked = true;
-					startTimer = true;
-					addHighscore(5);
-				} else {
-					SetOnScreenText ("You lack the appropriate Lift key.");
-				}
-			}
-		}
-		if (Collider != null && Collider.gameObject.tag == "DoorLift") {
-			if (Input.GetKeyDown (KeyCode.Space)) {
-				if (liftUnlocked) {
-					Collider.audio.Play ();
-					SetOnScreenText ("You have opened the door.");
-					tempCollider = Collider;
-					
-				} else {
-					// in reverse
-					SetOnScreenText ("The door won't open, if only I had a key...");
-				}
-			}
-		}
-
-		if (Collider != null && Collider.gameObject.tag == "Cryocell" && openCryoCell != true) {
-			//if (!PlayedGameObjects.Contains (Collider.gameObject)) {
-				if (Input.GetKeyDown (KeyCode.Space)) {
-					Collider.audio.Play ();
-					//Collider.animation.Play ();
-					//PlayedGameObjects.Add (Collider.gameObject);
-					openCryoCell = true;
-					tempColliderCryoCell = Collider;
-				}
-			//}
-		}
-
-		if (openCryoCell == true) {
-			moveCryoCell += 1;
-			print (moveCryoCell);
-			if (moveCryoCell < 12 ) {
-				tempColliderCryoCell.transform.FindChild("Cylinder").Translate(0, -0.006f, 0);
-			}
-			if (moveCryoCell >= 12 && moveCryoCell < 120 ) {
-				tempColliderCryoCell.transform.FindChild("Cylinder").Translate( 0.0105f, 0, 0);
-				tempColliderCryoCell.transform.FindChild ("Cylinder").Rotate (0, 0, 1.2f);
-			}
-			if (moveCryoCell >= 120 ) {
-				openCryoCell = false;
-				moveCryoCell = 0;
-				Destroy (tempColliderCryoCell.gameObject.collider);
-				tempColliderCryoCell = null;
-			}
-		}
-
-		if (Collider != null && Collider.gameObject.tag == "simple_door" && Input.GetKeyDown (KeyCode.Space)) {
-			tempColliderSimpleDoor = Collider;
-		}
-		
-		if (tempColliderSimpleDoor != null) {
-			tempColliderSimpleDoor.transform.Rotate (0, -2f, 0);
-			tempColliderSimpleDoor.transform.Translate (-0.033f, 0, -0.001f);
-			tempIntSimpleDoor += 1;
-			if (tempIntSimpleDoor > 70){
-				Destroy (tempColliderSimpleDoor.gameObject.collider);
-				tempColliderSimpleDoor = null;
-				tempIntSimpleDoor = 0;
-			}
-			
-		}
-		
-		if (Collider != null && Collider.gameObject.tag == "Elevator") {
-			if (Input.GetKeyDown (KeyCode.Space)) {
-				Vector3 newPos = new Vector3(2.5f,1f,100f);
-				transform.position = newPos;
-				startTimer = false;
-				transform.eulerAngles = new Vector3(0f,270f,0f);
-			}
-		}
-
-
-		if (Collider != null && Collider.gameObject.tag == "SecondElevator") {
-			if (Input.GetKeyDown (KeyCode.Space)) {
-				Application.LoadLevel("endgamesuccess");
-			}
-		}
-
-
-		if (Collider != null && (Collider.gameObject.tag == "CollectableConsumable" || Collider.gameObject.tag == "CollectableReusable")) {
-			if (Input.GetKeyDown (KeyCode.Space)) {
-				SetOnScreenText ("Successfully collected the " + Collider.gameObject.name);
-				pushText ("You picked up a " + Collider.gameObject.name);
-				AudioSource.PlayClipAtPoint (collectSound, transform.position);
-				CollectedGameObjects.Add (Collider.gameObject);
-				UpdateCollectables();
-				Collider.gameObject.SetActive (false);
-				Destroy (Collider.gameObject.collider);
-				Collider = null;
-			}
-		}
-		
-		if (tempCollider != null) {
-			bool doorLeftFinshed = false;
-			bool doorRightFinshed = false;
-			if (tempCollider.transform.FindChild ("Door_Left").localPosition.x < 1.49) {
-				tempCollider.transform.FindChild ("Door_Left").Translate (Time.deltaTime, 0, 0);
-			} else {
-				doorLeftFinshed = true;
-			}
-			if (tempCollider.transform.FindChild ("Door_Right").localPosition.x > -1.69) {
-				tempCollider.transform.FindChild ("Door_Right").Translate (-Time.deltaTime, 0, 0);	
-			} else {
-				doorRightFinshed = true;
-			}
-			if (doorLeftFinshed && doorRightFinshed) {
-				Destroy (tempCollider.gameObject.collider);
-				tempCollider = null;
-			}
-		}
-
-		if (switchMove == true && tempColliderSwitch != null) {
-			
-			// Switch the switch upwards
-			if (switchOn == false && position_switch > 0f) {
-				tempColliderSwitch.transform.FindChild ("Switch").Rotate (0, 3, 0);
-				position_switch--;
-			}
-			//Switch the switch downwards
-			if (switchOn == true && position_switch < 30f) {
-				tempColliderSwitch.transform.FindChild ("Switch").Rotate (0, -3, 0);
-				position_switch++;
-			}
-			if (position_switch > 30f || position_switch < 0f){
-				switchMove = false;
-				tempColliderSwitch = null;
-			}
-		}
-
-		if (timeMove == true && tempTimeCollider != null) {
-			
-			// Switch the switch upwards
-			if (timeOn == false && position_time > 0f) {
-				tempTimeCollider.transform.FindChild ("Switch").Rotate (0, 3, 0);
-				position_time--;
-			}
-			//Switch the switch downwards
-			if (timeOn == true && position_time < 30f) {
-				tempTimeCollider.transform.FindChild ("Switch").Rotate (0, -3, 0);
-				position_time++;
-			}
-			if (position_time > 30f || position_time < 0f){
-				timeMove = false;
-				tempTimeCollider = null;
-			}
-		}
-
-		if ((Collider != null && Collider.gameObject.tag == "TimeSwitch")) {
-			if (Input.GetKeyDown (KeyCode.Space)) {
-				timeOn = !timeOn;
-				timeMove = true;
-				tempTimeCollider = Collider;
-				timeSwitch = false;
-				// collision.animation.Play ("Switch|SwitchAction");
-				Collider.audio.Play ();
-				startTimer = true;
-			}
-		}
-
-		if (Collider != null && Collider.gameObject.tag == "TimeDoor") {
-			if (Input.GetKeyDown (KeyCode.Space)) {
-				if (timeOn) {
-					Collider.audio.Play ();
-					SetOnScreenText ("You have opened the door.");
-					tempCollider = Collider;
-					startTimer = false;
-					
-				} else {
-					// in reverse
-					SetOnScreenText ("The door won't open, if only there was a switch nearby...");
-				}
-			}
-		}
-
-		// Race against clock
-		if (startTimer == true) {
-			timeLeft -= Time.deltaTime;
-			if (timeLeft < 0f){
-				startTimer = false;
-				timeOn = !timeOn;
-				timeMove = true;
-				tempTimeCollider = GameObject.FindGameObjectWithTag("TimeSwitch").collider;
-				timeSwitch = false;
-				timeLeft = 7.5f;
-				pushText("You hear the door lock in place, and the switch reset. ");
-			}
-		}
-
-		// Cheat to go to the second level
-		if (Input.GetKeyDown (KeyCode.F2)) {
-			transform.position = new Vector3(0, 1, 100);
-			transform.Rotate(0, 270, 0);
-			switchSwitch = true;
-		}
-}
-	
 	void SetOnScreenText (string text)
 	{
 		onScreenText = text;
@@ -570,36 +136,7 @@ public class ColliderController : MonoBehaviour
 		}
 	}
 	
-	// Place here all "enter" events like pop-up messages
-	void OnTriggerEnter (Collider collision)
-	{
-		Collider = collision;
-		if (Collider.gameObject.tag == "Switch") {
-			SetOnScreenText ("Press <spacebar> to toggle the power switch.");
-		}
-		
-		if (Collider.gameObject.tag == "Door") {
-			SetOnScreenText ("Press <spacebar> to open the door.");
-		}
-		
-		if (Collider.gameObject.tag == "Cryocell") {
-			SetOnScreenText ("Press <spacebar> to open the door.");
-		}
-		
-		if (Collider.gameObject.tag == "CollectableConsumable" || Collider.gameObject.tag == "CollectableReusable") {
-			SetOnScreenText ("Press <spacebar> to collect " + Collider.gameObject.name + ".");
-		}
-		
-		if (Collider.gameObject.tag == "Elevator") {
-			SetOnScreenText ("Press <spacebar> to leave this floor");
-		}
-		if (Collider.gameObject.tag == "SecondElevator") {
-			SetOnScreenText ("Press <spacebar> to finish the game");
-		}
-		if (Collider.gameObject.tag == "TimeDoor") {
-			SetOnScreenText ("Press <spacebar> to open the door");
-		}
-	}
+
 	
 	// Place here al "exit" events like removing the pop-up messages
 	void OnTriggerExit (Collider collision)
@@ -610,6 +147,7 @@ public class ColliderController : MonoBehaviour
 	
 	void OnGUI ()
 	{
+		popups ();
 		GUI.skin.font = Font;
 		
 		if (onScreenText.Length > 0) {
@@ -708,7 +246,7 @@ public class ColliderController : MonoBehaviour
 	
 	IEnumerator WaitForRequest(WWW www)
 	{
-		if(onlineMode){
+		if(userName != ""){
 			yield return www;
 			// check for errors
 			if (www.error == null)
@@ -814,4 +352,541 @@ public class ColliderController : MonoBehaviour
 		
 	}
 
+	void popups() {
+
+		if (startConfirm) {
+			GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MouseLook>().enabled = false;
+			GetComponent<MouseLook>().enabled = false;
+			Screen.lockCursor = false;
+			Time.timeScale = 0;
+			SetOnScreenText("You awaken feeling cold, locked up in a cell. This might be a chance to escape...");
+			if (GUI.Button(new Rect(Screen.width/2 - 75, Screen.height/2 + 30, 150, 30), "Continue")) {
+				Time.timeScale = 1f;
+				startConfirm = false;
+				Screen.lockCursor = true;
+				GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MouseLook>().enabled = true;
+				GetComponent<MouseLook>().enabled = true;
+			}
+
+		}
+
+		if (timeConfirm) {
+			GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MouseLook>().enabled = false;
+			GetComponent<MouseLook>().enabled = false;
+			Screen.lockCursor = false;
+			Time.timeScale = 0;
+			SetOnScreenText("The switch budges. You feel like you have to be quick to open the door.");
+			if (GUI.Button(new Rect(Screen.width/2 - 75, Screen.height/2 + 30, 150, 30), "Continue")) {
+				Time.timeScale = 1f;
+				timeConfirm = false;
+				Screen.lockCursor = true;
+				GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MouseLook>().enabled = true;
+				GetComponent<MouseLook>().enabled = true;
+			}
+		}
+
+		if (liftConfirm) {
+			GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MouseLook>().enabled = false;
+			GetComponent<MouseLook>().enabled = false;
+			Screen.lockCursor = false;
+			Time.timeScale = 0;
+			SetOnScreenText("You take the elevator up and arrive on the second floor. Maybe the exit is here");
+			if (GUI.Button(new Rect(Screen.width/2 - 75, Screen.height/2 + 30, 150, 30), "Continue")) {
+				Time.timeScale = 1f;
+				liftConfirm = false;
+				Screen.lockCursor = true;
+				GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MouseLook>().enabled = true;
+				GetComponent<MouseLook>().enabled = true;
+			}
+		}
+	}
+
+	void colliders() {
+		// Place here all "enter" events like pop-up messages
+		if ((Collider != null && Collider.gameObject.tag == "Switch")) {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				switchOn = !switchOn;
+				SwitchCounter ++;
+				switchMove = true;
+				tempColliderSwitch = Collider;
+				switchSwitch = false;
+				// collision.animation.Play ("Switch|SwitchAction");
+				Collider.audio.Play ();
+				if (SwitchCounter < 20) {
+					SetOnScreenText ("You just toggled the switch " + (switchOn ? "ON" : "OFF"));
+					// change the red directional lights to normal lamps
+					foreach (GameObject ceilingLight in GameObject.FindGameObjectsWithTag("CeilingLights")) {
+						ceilingLight.light.color = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (1F, 0F, 0F, 1F));
+						ceilingLight.light.intensity = (switchOn ? 0.3F : 0.4F);
+						ceilingLight.light.range = (switchOn ? 30.0F : 40.0F); // old: 20.0F : 25.0F
+						RenderSettings.ambientLight = (switchOn ? Color.black : Color.black);
+					} //werkt niet >> Color(0.2f,0.2f,0.2f,1f);
+					// Lamp objects
+					foreach (GameObject Ceiling_Lamp in GameObject.FindGameObjectsWithTag("ceilLamp")) {
+						Ceiling_Lamp.light.color = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (1F, 0F, 0F, 1F));
+						Ceiling_Lamp.light.intensity = (switchOn ? 0.5F : 0.1F);
+					}
+					// Directional lights
+					foreach (GameObject DirLights in GameObject.FindGameObjectsWithTag("VerticalLights")) {
+						DirLights.light.color = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (1F, 0F, 0F, 1F));
+						DirLights.light.intensity = (switchOn ? 0.1F : 0.1F);
+					}
+					GameObject.FindGameObjectWithTag ("MainCamera").camera.backgroundColor = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (0.95F, 0.25F, 0.25F, 1F));
+				} else { // turn off all lights
+					SetOnScreenText ("The lights are malfunctioning due to excessive usage!");
+					GameObject.FindGameObjectWithTag ("MainCamera").camera.backgroundColor = new Color (0F, 0F, 0F, 0F);
+					foreach (GameObject ceilingLight in GameObject.FindGameObjectsWithTag("CeilingLights")) {
+						ceilingLight.light.enabled = false; 
+					}
+					foreach (GameObject Ceiling_Lamp in GameObject.FindGameObjectsWithTag("ceilLamp")) {
+						Ceiling_Lamp.light.color = (switchOn ? new Color (0F, 0F, 0F, 1F) : new Color (0F, 0F, 0F, 1F));
+						Ceiling_Lamp.light.intensity = 0F;
+					}
+					foreach (GameObject DirLights in GameObject.FindGameObjectsWithTag("VerticalLights")) {
+						DirLights.light.color = (switchOn ? new Color (0F, 0F, 0F, 1F) : new Color (0F, 0F, 0F, 1F));
+						DirLights.light.intensity = 0F;
+						print("directional light off");
+					}
+				}
+			}
+		}
+		
+		if (Collider != null && Collider.gameObject.tag == "DoorSwitch") {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				if (switchOn) {
+					addHighscore(5);
+					Collider.audio.Play ();
+					SetOnScreenText ("You have opened the door.");
+					tempCollider = Collider;
+					
+				} else {
+					SetOnScreenText ("The door won't open, there is no power on the door.");
+				}
+			}
+		}
+		
+		if (Collider != null && Collider.gameObject.tag == "KeyLock" && !keyUnlocked) {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				bool gottem = false;
+				for (int i = 0; i < CollectedGameObjects.Count; i++) {
+					if (CollectedGameObjects [i].name == "Keycard") {
+						gottem = true;
+					}
+				}
+				if (gottem) {
+					SetOnScreenText ("You have the appropriate keycard, the door is unlocked.");	
+					keyUnlocked = true;
+					addHighscore(5);
+				} else {
+					SetOnScreenText ("You lack the appropriate keycard.");
+				}
+			}
+		}
+		
+		if (Collider != null && Collider.gameObject.tag == "DoorKey") {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				if (keyUnlocked) {
+					Collider.audio.Play ();
+					SetOnScreenText ("You have opened the door.");
+					tempCollider = Collider;
+					addHighscore(5);	
+				} else {
+					SetOnScreenText ("The door won't open");
+				}
+			}
+		}
+		
+		if (Collider != null && Collider.gameObject.tag == "SecurityLock" && !securityUnlocked) {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				bool gottem = false;
+				for (int i = 0; i < CollectedGameObjects.Count; i++) {
+					if (CollectedGameObjects [i].name == "SecurityKey") {
+						gottem = true;
+					}
+					
+					
+				}
+				if (gottem) {
+					SetOnScreenText ("You have the appropriate keycard, the door is unlocked.");	
+					securityUnlocked = true;
+					addHighscore(5);
+				} else {
+					SetOnScreenText ("You lack the appropriate keycard.");
+				}
+			}
+		}
+		
+		if (Collider != null && Collider.gameObject.tag == "SecurityDoor") {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				if (securityUnlocked) {
+					Collider.audio.Play ();
+					SetOnScreenText ("You have opened the door.");
+					tempCollider = Collider;
+					addHighscore(5);
+					
+				} else {
+					SetOnScreenText ("The door won't open, if only I had a key...");
+				}
+			}
+		}
+		
+		if (Collider != null && Collider.gameObject.tag == "ArmoryLock" && !armoryUnlocked) {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				bool gottem = false;
+				for (int i = 0; i < CollectedGameObjects.Count; i++) {
+					if (CollectedGameObjects [i].name == "ArmoryKey") {
+						gottem = true;
+					}
+					
+					
+				}
+				if (gottem) {
+					SetOnScreenText ("You have the appropriate keycard, the door is unlocked.");	
+					armoryUnlocked = true;
+					addHighscore(5);
+				} else {
+					SetOnScreenText ("You lack the appropriate keycard.");
+				}
+			}
+		}
+		
+		if (Collider != null && Collider.gameObject.tag == "ArmoryDoor") {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				if (armoryUnlocked) {
+					Collider.audio.Play ();
+					SetOnScreenText ("You have opened the door.");
+					tempCollider = Collider;
+					addHighscore(5);
+					
+				} else {
+					SetOnScreenText ("The door won't open, if only I had a key...");
+				}
+			}
+		}
+		
+		if (Collider != null && Collider.gameObject.tag == "OfficeLock" && !officeUnlocked) {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				bool gottem = false;
+				for (int i = 0; i < CollectedGameObjects.Count; i++) {
+					if (CollectedGameObjects [i].name == "OfficeKey") {
+						gottem = true;
+					}
+					
+					
+				}
+				if (gottem) {
+					SetOnScreenText ("You have the appropriate keycard, the door is unlocked.");	
+					officeUnlocked = true;
+					addHighscore(5);
+				} else {
+					SetOnScreenText ("You lack the appropriate keycard.");
+				}
+			}
+		}
+		
+		if (Collider != null && Collider.gameObject.tag == "OfficeDoor") {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				if (officeUnlocked) {
+					Collider.audio.Play ();
+					SetOnScreenText ("You have opened the door.");
+					tempCollider = Collider;
+					addHighscore(5);
+					
+				} else {
+					SetOnScreenText ("The door won't open, if only I had a key...");
+				}
+			}
+		}
+		
+		if (Collider != null && Collider.gameObject.tag == "SecondElevatorLock" && !secondLiftUnlocked) {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				bool gottem = false;
+				for (int i = 0; i < CollectedGameObjects.Count; i++) {
+					if (CollectedGameObjects [i].name == "SecondElevatorKey") {
+						gottem = true;
+					}
+					
+					
+				}
+				if (gottem) {
+					SetOnScreenText ("You have the appropriate keycard, the door is unlocked.");	
+					secondLiftUnlocked = true;
+					addHighscore(5);
+				} else {
+					SetOnScreenText ("You lack the appropriate keycard.");
+				}
+			}
+		}
+		
+		if (Collider != null && Collider.gameObject.tag == "SecondElevatorDoor") {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				if (secondLiftUnlocked) {
+					Collider.audio.Play ();
+					SetOnScreenText ("You have opened the door.");
+					tempCollider = Collider;
+					addHighscore(5);
+					
+				} else {
+					SetOnScreenText ("The door won't open, if only I had a key...");
+				}
+			}
+		}
+		
+		
+		if (Collider != null && Collider.gameObject.tag == "LiftLock" && !liftUnlocked) {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				bool gottem = false;
+				for (int i = 0; i < CollectedGameObjects.Count; i++) {
+					if (CollectedGameObjects [i].name == "Liftkey") {
+						gottem = true;
+					}
+					
+					
+				}
+				if (gottem) {
+					SetOnScreenText ("You have the appropriate Lift key and the door is unlocked.");	
+					liftUnlocked = true;
+					addHighscore(5);
+				} else {
+					SetOnScreenText ("You lack the appropriate Lift key.");
+				}
+			}
+		}
+		if (Collider != null && Collider.gameObject.tag == "DoorLift") {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				if (liftUnlocked) {
+					Collider.audio.Play ();
+					SetOnScreenText ("You have opened the door.");
+					tempCollider = Collider;
+					
+				} else {
+					// in reverse
+					SetOnScreenText ("The door won't open, if only I had a key...");
+				}
+			}
+		}
+		
+		if (Collider != null && Collider.gameObject.tag == "Cryocell" && openCryoCell != true) {
+			//if (!PlayedGameObjects.Contains (Collider.gameObject)) {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				Collider.audio.Play ();
+				//Collider.animation.Play ();
+				//PlayedGameObjects.Add (Collider.gameObject);
+				openCryoCell = true;
+				tempColliderCryoCell = Collider;
+			}
+			//}
+		}
+		
+		if (openCryoCell == true) {
+			moveCryoCell += 1;
+			print (moveCryoCell);
+			if (moveCryoCell < 12 ) {
+				tempColliderCryoCell.transform.FindChild("Cylinder").Translate(0, -0.006f, 0);
+			}
+			if (moveCryoCell >= 12 && moveCryoCell < 120 ) {
+				tempColliderCryoCell.transform.FindChild("Cylinder").Translate( 0.0105f, 0, 0);
+				tempColliderCryoCell.transform.FindChild ("Cylinder").Rotate (0, 0, 1.2f);
+			}
+			if (moveCryoCell >= 120 ) {
+				openCryoCell = false;
+				moveCryoCell = 0;
+				Destroy (tempColliderCryoCell.gameObject.collider);
+				tempColliderCryoCell = null;
+			}
+		}
+		
+		if (Collider != null && Collider.gameObject.tag == "simple_door" && Input.GetKeyDown (KeyCode.Space)) {
+			tempColliderSimpleDoor = Collider;
+		}
+		
+		if (tempColliderSimpleDoor != null) {
+			tempColliderSimpleDoor.transform.Rotate (0, -2f, 0);
+			tempColliderSimpleDoor.transform.Translate (-0.033f, 0, -0.001f);
+			tempIntSimpleDoor += 1;
+			if (tempIntSimpleDoor > 70){
+				Destroy (tempColliderSimpleDoor.gameObject.collider);
+				tempColliderSimpleDoor = null;
+				tempIntSimpleDoor = 0;
+			}
+			
+		}
+		
+		if (Collider != null && Collider.gameObject.tag == "Elevator") {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				Vector3 newPos = new Vector3(2.5f,1f,100f);
+				liftConfirm = true;
+				transform.position = newPos;
+				startTimer = false;
+				transform.eulerAngles = new Vector3(0f,270f,0f);
+			}
+		}
+		
+		
+		if (Collider != null && Collider.gameObject.tag == "SecondElevator") {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				Application.LoadLevel("endgamesuccess");
+			}
+		}
+		
+		
+		if (Collider != null && (Collider.gameObject.tag == "CollectableConsumable" || Collider.gameObject.tag == "CollectableReusable")) {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				SetOnScreenText ("Successfully collected the " + Collider.gameObject.name);
+				pushText ("You picked up a " + Collider.gameObject.name);
+				AudioSource.PlayClipAtPoint (collectSound, transform.position);
+				CollectedGameObjects.Add (Collider.gameObject);
+				UpdateCollectables();
+				Collider.gameObject.SetActive (false);
+				Destroy (Collider.gameObject.collider);
+				Collider = null;
+			}
+		}
+		
+		if (tempCollider != null) {
+			bool doorLeftFinshed = false;
+			bool doorRightFinshed = false;
+			if (tempCollider.transform.FindChild ("Door_Left").localPosition.x < 1.49) {
+				tempCollider.transform.FindChild ("Door_Left").Translate (Time.deltaTime, 0, 0);
+			} else {
+				doorLeftFinshed = true;
+			}
+			if (tempCollider.transform.FindChild ("Door_Right").localPosition.x > -1.69) {
+				tempCollider.transform.FindChild ("Door_Right").Translate (-Time.deltaTime, 0, 0);	
+			} else {
+				doorRightFinshed = true;
+			}
+			if (doorLeftFinshed && doorRightFinshed) {
+				Destroy (tempCollider.gameObject.collider);
+				tempCollider = null;
+			}
+		}
+		
+		if (switchMove == true && tempColliderSwitch != null) {
+			
+			// Switch the switch upwards
+			if (switchOn == false && position_switch > 0f) {
+				tempColliderSwitch.transform.FindChild ("Switch").Rotate (0, 3, 0);
+				position_switch--;
+			}
+			//Switch the switch downwards
+			if (switchOn == true && position_switch < 30f) {
+				tempColliderSwitch.transform.FindChild ("Switch").Rotate (0, -3, 0);
+				position_switch++;
+			}
+			if (position_switch > 30f || position_switch < 0f){
+				switchMove = false;
+				tempColliderSwitch = null;
+			}
+		}
+		
+		if (timeMove == true && tempTimeCollider != null) {
+			
+			// Switch the switch upwards
+			if (timeOn == false && position_time > 0f) {
+				tempTimeCollider.transform.FindChild ("Switch").Rotate (0, 3, 0);
+				position_time--;
+			}
+			//Switch the switch downwards
+			if (timeOn == true && position_time < 30f) {
+				tempTimeCollider.transform.FindChild ("Switch").Rotate (0, -3, 0);
+				position_time++;
+			}
+			if (position_time > 30f || position_time < 0f){
+				timeMove = false;
+				tempTimeCollider = null;
+			}
+		}
+		
+		if ((Collider != null && Collider.gameObject.tag == "TimeSwitch")) {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				timeOn = !timeOn;
+				timeMove = true;
+				tempTimeCollider = Collider;
+				timeSwitch = false;
+				// collision.animation.Play ("Switch|SwitchAction");
+				Collider.audio.Play ();
+				startTimer = true;
+				timeConfirm = true;
+			}
+		}
+		
+		if (Collider != null && Collider.gameObject.tag == "TimeDoor") {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				if (timeOn) {
+					Collider.audio.Play ();
+					SetOnScreenText ("You have opened the door.");
+					tempCollider = Collider;
+					startTimer = false;
+					
+				} else {
+					// in reverse
+					SetOnScreenText ("The door won't open, if only there was a switch nearby...");
+				}
+			}
+		}
+		
+		// Race against clock
+		if (startTimer == true) {
+			timeLeft -= Time.deltaTime;
+			if (timeLeft < 0f){
+				startTimer = false;
+				timeOn = !timeOn;
+				timeMove = true;
+				tempTimeCollider = GameObject.FindGameObjectWithTag("TimeSwitch").collider;
+				timeSwitch = false;
+				timeLeft = 7.5f;
+				pushText("You hear the door lock in place, and the switch reset. ");
+			}
+		}
+
+		if (Collider != null && Collider.gameObject.tag == "Computer") {
+			camerasList = GameObject.FindGameObjectsWithTag("Camera");
+			for (int i = 0; i < camerasList.Length; i++) {
+				camerasList[i].GetComponent<CameraController>().enabled = false;
+			}
+		}
+
+		// Cheat to go to the second level
+		if (Input.GetKeyDown (KeyCode.F2)) {
+			transform.position = new Vector3(0, 1, 100);
+			transform.Rotate(0, 270, 0);
+			switchSwitch = true;
+		}
+	}
+
+	void OnTriggerEnter (Collider collision)
+	{
+		Collider = collision;
+		if (Collider.gameObject.tag == "Switch") {
+			SetOnScreenText ("Press <spacebar> to toggle the power switch.");
+		}
+		
+		if (Collider.gameObject.tag == "Door") {
+			SetOnScreenText ("Press <spacebar> to open the door.");
+		}
+		
+		if (Collider.gameObject.tag == "Cryocell") {
+			SetOnScreenText ("Press <spacebar> to open the door.");
+		}
+		
+		if (Collider.gameObject.tag == "CollectableConsumable" || Collider.gameObject.tag == "CollectableReusable") {
+			SetOnScreenText ("Press <spacebar> to collect " + Collider.gameObject.name + ".");
+		}
+		
+		if (Collider.gameObject.tag == "Elevator") {
+			SetOnScreenText ("Press <spacebar> to leave this floor");
+		}
+		if (Collider.gameObject.tag == "SecondElevator") {
+			SetOnScreenText ("Press <spacebar> to finish the game");
+		}
+		if (Collider.gameObject.tag == "TimeDoor") {
+			SetOnScreenText ("Press <spacebar> to open the door");
+		}
+		if (Collider.gameObject.tag == "Computer") {
+			SetOnScreenText ("Press <spacebar> to open the door");
+		}
+
+	}
+	
 }
