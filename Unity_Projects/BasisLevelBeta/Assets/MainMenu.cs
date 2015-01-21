@@ -4,7 +4,6 @@ using System.Collections;
 public class MainMenu : MonoBehaviour {
 	public bool menu;
 	public bool options;
-	public bool login;
 	private bool video;
 	private bool audiosettings;
 	public float fieldOfView = 60f;
@@ -35,15 +34,8 @@ public class MainMenu : MonoBehaviour {
 		if (audiosettings) {
 			audioOptions ();
 		}
-
-		if (login) {
-			loginMenu();
-		}
 	}
 
-	private void loginMenu(){
-		Application.LoadLevel ("LoginScene");
-	}
 
 	//Function that describes the main menu
 	private void mainMenu() {
@@ -56,12 +48,9 @@ public class MainMenu : MonoBehaviour {
 			menu = false;
 			options = true;
 		}
-		
-		if (GUI.Button(new Rect (Screen.width / 2 - 75, Screen.height / 2 + 50, 150, 30), "Login")) {
-			loginMenu ();
-		}
 
-		if (GUI.Button(new Rect (Screen.width / 2 - 75, Screen.height / 2 + 100, 150, 30), "Quit game")) {
+
+		if (GUI.Button(new Rect (Screen.width / 2 - 75, Screen.height / 2 + 50, 150, 30), "Quit game")) {
 			Application.Quit();
 		}
 	}
