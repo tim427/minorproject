@@ -16,6 +16,7 @@ public class EnemyControllerNAV : MonoBehaviour
 	public bool linkedWithCamera = true;
 	public int state;
 	public bool intelligentPatrolling;
+	public GameObject[] cameras;
 	public Vector3[] patrolPositions = new Vector3[5];
 	
 	private float weightFactor = 1.0005f;
@@ -292,9 +293,8 @@ public class EnemyControllerNAV : MonoBehaviour
 
 			detection = true;
 			targetPos = target.position;
-		} else if (state != 5 && CameraController.x != 0) {
+		} else if (state != 5 && SeenByCam() && linkedWithCamera) {
 			state = 3;
-			CameraController.x = 0;
 			inCameraPos = target.position;
 		} else if (state == 4 && Time.time - timeSinceMovingInState4 > 10 || state == 3 && Time.time - timeSinceMovingInState5 > 5) {
 			
@@ -386,4 +386,37 @@ public class EnemyControllerNAV : MonoBehaviour
 
 		return res;
 	}
-}
+
+	public void addCamera (){
+
+		GameObject[] storeCams = cameras;
+		cameras = new GameObject[cameras.Length + 1];
+		for (int i = 0; i < storeCams.Length; i++){
+			cameras[i] = storeCams[i];
+		}
+	}
+
+	public void delCamera(){
+
+		GameObject[] storeCams = cameras;
+		cameras = new GameObject[cameras.Length - 1];
+		for (int i = 0; i < storeCams.Length - 1; i++){
+			cameras[i] = storeCams[i];
+        }
+
+	}
+
+	bool SeenByCam(){
+		bool res = false;
+		for (int i = 0; i < cameras.Length; i++){
+			if (cameras[i].GetComponent<CameraController>().x != 0){
+				print (" ik zie je");
+				res = true;
+				cameras[i].GetComponent<CameraController>().x = 0;
+                break;
+			}
+		}
+		return res;
+	}
+        
+    }

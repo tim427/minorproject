@@ -15,9 +15,9 @@ public class CameraController : MonoBehaviour
 	public float detectionDistance = 8f;
 	private RaycastHit hitInfo;
 	public static RaycastHit hitInfoLast;
-	public static float x;
-	public static float y;
-	public static float z;
+	public float x;
+	public float y;
+	public float z;
 	public AudioClip camera_detect;
 	private bool canplaysound = true;
 	
