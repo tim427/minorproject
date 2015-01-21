@@ -362,7 +362,7 @@ public class EnemyControllerNAV : MonoBehaviour
 	void Animation(){
 
 		if (GetComponent<Animator>() != null){
-			if(IsMoving()){
+			if(!isNotMoving()){
 				GetComponent<Animator>().enabled = true;
 			} else {
 				GetComponent<Animator>().enabled = false;
