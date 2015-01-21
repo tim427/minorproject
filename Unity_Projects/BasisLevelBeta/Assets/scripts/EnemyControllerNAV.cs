@@ -390,7 +390,7 @@ public class EnemyControllerNAV : MonoBehaviour
 	public void addCamera (){
 
 		GameObject[] storeCams = cameras;
-		cameras = new GameObject[cameras.Length + 1];
+		cameras = new GameObject[storeCams.Length + 1];
 		for (int i = 0; i < storeCams.Length; i++){
 			cameras[i] = storeCams[i];
 		}
