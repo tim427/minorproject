@@ -15,3 +15,5 @@ EditorBuildSettings:
     path: Assets/scenes/endgamefailure.unity
   - enabled: 1
     path: Assets/scenes/endgamesuccess.unity
+  - enabled: 1
+    path: Assets/scenes/LoginScene.unity

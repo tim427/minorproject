@@ -49,6 +49,7 @@ public class LogIn : MonoBehaviour {
 //							print("WWW Ok!: " + www.data);
 				if(www.data != "false") {
 					Debug.Log ("Hi USER!");
+					Application.LoadLevel("Hoofdscene");
 					GameObject.FindGameObjectWithTag("Player").GetComponent<ColliderController>().userName = usernameString;
 				}
 				else {
