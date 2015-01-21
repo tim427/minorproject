@@ -270,11 +270,9 @@ public class ColliderController : MonoBehaviour
 					}
 				}
 				if(www.url.Contains("collectables_use_remove.php")){
-					print ("Removed!");
 					reusableLocked = false;
 				}
 				if(www.url.Contains("gcm.php")){
-					print ("Pushed message!");
 				}
 			} else {
 				//			print("WWW Error: "+ www.error);
@@ -311,6 +309,7 @@ public class ColliderController : MonoBehaviour
 			int countDrones = 0;
 			for (int i = 0;i<dronesList.Length;i++) {
 				if (Vector3.Distance(dronesList[i].transform.position,transform.position)<15) {
+					dronesList[i].GetComponent<EnemyControllerNAV>().state = 0;
 					dronesList[i].GetComponent<EnemyControllerNAV>().LedColour("grey");
 					dronesList[i].GetComponent<EnemyControllerNAV>().enabled = false;
 					countDrones++;
@@ -446,7 +445,6 @@ public class ColliderController : MonoBehaviour
 					foreach (GameObject DirLights in GameObject.FindGameObjectsWithTag("VerticalLights")) {
 						DirLights.light.color = (switchOn ? new Color (0F, 0F, 0F, 1F) : new Color (0F, 0F, 0F, 1F));
 						DirLights.light.intensity = 0F;
-						print("directional light off");
 					}
 				}
 			}
@@ -681,7 +679,6 @@ public class ColliderController : MonoBehaviour
 		
 		if (openCryoCell == true) {
 			moveCryoCell += 1;
-			print (moveCryoCell);
 			if (moveCryoCell < 12 ) {
 				tempColliderCryoCell.transform.FindChild("Cylinder").Translate(0, -0.006f, 0);
 			}
