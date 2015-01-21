@@ -44,6 +44,7 @@ public class ColliderController : MonoBehaviour
 	public bool switchMove;
 	public bool timeMove;
 	public string userName = "";
+	public string passWord = "";
 	public int HighScore;
 	public AudioClip explosionSound;
 	private bool timeConfirm;
@@ -170,7 +171,7 @@ public class ColliderController : MonoBehaviour
 		if (showCollectables) {
 			GUI.Box (new Rect (10, 10, 250, CollectedGameObjects.Count * 30 + 30), "Collected items: " + CollectedGameObjects.Count);
 			for (int i = 0; i < CollectedGameObjects.Count; i++) {
-				if (GUI.Button (new Rect (20, i * 30 + 40, 150, 20), CollectedGameObjects [i].name)) {
+				if (GUI.Button (new Rect (20, i * 30 + 40, 200, 20), CollectedGameObjects [i].name)) {
 					if (CollectedGameObjects [i].tag == "CollectableReusable") {
 						Reuse (CollectedGameObjects [i]);
 					}
@@ -360,7 +361,11 @@ public class ColliderController : MonoBehaviour
 			Screen.lockCursor = false;
 			Time.timeScale = 0;
 			SetOnScreenText("You awaken feeling cold, locked up in a cell. This might be a chance to escape...");
-			if (GUI.Button(new Rect(Screen.width/2 - 75, Screen.height/2 + 30, 150, 30), "Continue")) {
+
+
+
+
+			if (GUI.Button(new Rect(Screen.width/2 - 100, Screen.height/2 + 150, 150, 30), "Play offline")) {
 				Time.timeScale = 1f;
 				startConfirm = false;
 				Screen.lockCursor = true;
@@ -368,6 +373,18 @@ public class ColliderController : MonoBehaviour
 				GetComponent<MouseLook>().enabled = true;
 			}
 
+			userName = GUI.TextField (new Rect (Screen.width /2 - 50 , Screen.height / 2 + 50, 200, 50), userName, 10);
+			if (GUI.Button(new Rect(Screen.width/2 + 100, Screen.height/2 + 150, 150, 30), "Play online")) {
+				WWWForm form = new WWWForm();
+				WWW www = new WWW("https://drproject.twi.tudelft.nl/ewi3620tu6/scores.php?username="+userName);
+				StartCoroutine( WaitForRequest( www ) );	
+				Time.timeScale = 1f;
+				startConfirm = false;
+				Screen.lockCursor = true;
+				GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MouseLook>().enabled = true;
+				GetComponent<MouseLook>().enabled = true;
+			}
+			
 		}
 
 		if (timeConfirm) {
