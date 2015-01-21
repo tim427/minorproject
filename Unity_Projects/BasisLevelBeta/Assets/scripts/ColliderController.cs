@@ -19,6 +19,7 @@ public class ColliderController : MonoBehaviour
 	private bool openCryoCell;
 	private int moveCryoCell;
 	private Collider tempColliderCryoCell;
+	private bool switchSwitch;
 	private static Texture2D _staticRectTexture;
 	private static GUIStyle _staticRectStyle;
 	private Collider tempColliderSimpleDoor;
@@ -52,6 +53,8 @@ public class ColliderController : MonoBehaviour
 		addHighscore(0);
 		timeLeft = 15f;
 		moveCryoCell = 0;
+		SwitchCounter = 0;
+		switchSwitch = false;
 		pushText("You just started the game. Good luck!");
 		// Disable ceiling lights for now...
 		foreach (GameObject Ceiling_Lamp in GameObject.FindGameObjectsWithTag("ceilLamp")) {
@@ -95,53 +98,53 @@ public class ColliderController : MonoBehaviour
 			GetComponent<MouseLook>().enabled = !GetComponent<MouseLook>().enabled;
 		}
 		
-		if (Collider != null && Collider.gameObject.tag == "Switch") {
-						if (Input.GetKeyDown (KeyCode.Space)) {
-								switchOn = !switchOn;
-								SwitchCounter ++;
-								switchMove = true;
-								tempColliderSwitch = Collider;
-								// collision.animation.Play ("Switch|SwitchAction");
-								Collider.audio.Play ();
-								if (SwitchCounter < 20) {
-										SetOnScreenText ("You just toggled the switch " + (switchOn ? "ON" : "OFF"));
-										// change the red directional lights to normal lamps
-										foreach (GameObject ceilingLight in GameObject.FindGameObjectsWithTag("CeilingLights")) {
-												ceilingLight.light.color = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (1F, 0F, 0F, 1F));
-												ceilingLight.light.intensity = (switchOn ? 0.3F : 0.4F);
-												ceilingLight.light.range = (switchOn ? 30.0F : 40.0F); // old: 20.0F : 25.0F
-												RenderSettings.ambientLight = (switchOn ? Color.black : Color.black);
-										} //werkt niet >> Color(0.2f,0.2f,0.2f,1f);
-										// Lamp objects
-										foreach (GameObject Ceiling_Lamp in GameObject.FindGameObjectsWithTag("ceilLamp")) {
-												Ceiling_Lamp.light.color = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (1F, 0F, 0F, 1F));
-												Ceiling_Lamp.light.intensity = (switchOn ? 0.5F : 0.1F);
-						
-										}
-										// Directional lights
-										foreach (GameObject DirLights in GameObject.FindGameObjectsWithTag("VerticalLights")) {
-												DirLights.light.color = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (1F, 0F, 0F, 1F));
-												DirLights.light.intensity = (switchOn ? 0.1F : 0.1F);
-										}
-										GameObject.FindGameObjectWithTag ("MainCamera").camera.backgroundColor = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (0.95F, 0.25F, 0.25F, 1F));
-								} else { // turn off all lights
-										SetOnScreenText ("The lights are malfunctioning due to excessive usage!");
-										GameObject.FindGameObjectWithTag ("MainCamera").camera.backgroundColor = new Color (0F, 0F, 0F, 0F);
-										foreach (GameObject ceilingLight in GameObject.FindGameObjectsWithTag("CeilingLights")) {
-												ceilingLight.light.enabled = false; 
-										}
-										foreach (GameObject Ceiling_Lamp in GameObject.FindGameObjectsWithTag("ceilLamp")) {
-												Ceiling_Lamp.light.color = (switchOn ? new Color (0F, 0F, 0F, 1F) : new Color (0F, 0F, 0F, 1F));
-												Ceiling_Lamp.light.intensity = 0F;
-										}
-										foreach (GameObject DirLights in GameObject.FindGameObjectsWithTag("VerticalLights")) {
-												DirLights.light.color = (switchOn ? new Color (0F, 0F, 0F, 1F) : new Color (0F, 0F, 0F, 1F));
-												DirLights.light.intensity = 0F;
-										print("directional light off");
-										}
-								}
-						}
+		if ((Collider != null && Collider.gameObject.tag == "Switch") || switchSwitch == true) {
+			if (Input.GetKeyDown (KeyCode.Space) || switchSwitch == true) {
+				switchOn = !switchOn;
+				SwitchCounter ++;
+				switchMove = true;
+				tempColliderSwitch = Collider;
+				switchSwitch = false;
+				// collision.animation.Play ("Switch|SwitchAction");
+				Collider.audio.Play ();
+				if (SwitchCounter < 20) {
+					SetOnScreenText ("You just toggled the switch " + (switchOn ? "ON" : "OFF"));
+					// change the red directional lights to normal lamps
+					foreach (GameObject ceilingLight in GameObject.FindGameObjectsWithTag("CeilingLights")) {
+					ceilingLight.light.color = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (1F, 0F, 0F, 1F));
+					ceilingLight.light.intensity = (switchOn ? 0.3F : 0.4F);
+					ceilingLight.light.range = (switchOn ? 30.0F : 40.0F); // old: 20.0F : 25.0F
+					RenderSettings.ambientLight = (switchOn ? Color.black : Color.black);
+					} //werkt niet >> Color(0.2f,0.2f,0.2f,1f);
+					// Lamp objects
+				foreach (GameObject Ceiling_Lamp in GameObject.FindGameObjectsWithTag("ceilLamp")) {
+					Ceiling_Lamp.light.color = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (1F, 0F, 0F, 1F));
+					Ceiling_Lamp.light.intensity = (switchOn ? 0.5F : 0.1F);
 				}
+				// Directional lights
+				foreach (GameObject DirLights in GameObject.FindGameObjectsWithTag("VerticalLights")) {
+					DirLights.light.color = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (1F, 0F, 0F, 1F));
+					DirLights.light.intensity = (switchOn ? 0.1F : 0.1F);
+				}
+				GameObject.FindGameObjectWithTag ("MainCamera").camera.backgroundColor = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (0.95F, 0.25F, 0.25F, 1F));
+				} else { // turn off all lights
+					SetOnScreenText ("The lights are malfunctioning due to excessive usage!");
+					GameObject.FindGameObjectWithTag ("MainCamera").camera.backgroundColor = new Color (0F, 0F, 0F, 0F);
+					foreach (GameObject ceilingLight in GameObject.FindGameObjectsWithTag("CeilingLights")) {
+						ceilingLight.light.enabled = false; 
+					}
+					foreach (GameObject Ceiling_Lamp in GameObject.FindGameObjectsWithTag("ceilLamp")) {
+						Ceiling_Lamp.light.color = (switchOn ? new Color (0F, 0F, 0F, 1F) : new Color (0F, 0F, 0F, 1F));
+						Ceiling_Lamp.light.intensity = 0F;
+					}
+					foreach (GameObject DirLights in GameObject.FindGameObjectsWithTag("VerticalLights")) {
+						DirLights.light.color = (switchOn ? new Color (0F, 0F, 0F, 1F) : new Color (0F, 0F, 0F, 1F));
+						DirLights.light.intensity = 0F;
+						print("directional light off");
+					}
+				}
+			}
+	}
 
 		if (Collider != null && Collider.gameObject.tag == "DoorSwitch") {
 			if (Input.GetKeyDown (KeyCode.Space)) {
@@ -479,6 +482,13 @@ public class ColliderController : MonoBehaviour
 				Application.LoadLevel("endgamefailure");
 				pushText("Unfortunately, you have not achieved within the time!");
 			}
+		}
+
+		// Cheat to go to the second level
+		if (Input.GetKeyDown (KeyCode.F2)) {
+			transform.position = new Vector3(0, 1, 100);
+			transform.Rotate(0, 270, 0);
+			switchSwitch = true;
 		}
 }
 	
