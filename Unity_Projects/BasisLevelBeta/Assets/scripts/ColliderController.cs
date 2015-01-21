@@ -51,6 +51,7 @@ public class ColliderController : MonoBehaviour
 	private bool startConfirm;
 	private bool liftConfirm;
 	private GameObject[] camerasList;
+	private string userNameSend = "";
 
 	
 	void Start() {
@@ -189,10 +190,10 @@ public class ColliderController : MonoBehaviour
 		int colorBoxHeight = 30;
 		if (guardStateHighest == 0){
 			CreateColorBox(new Rect (0, 0, Screen.width, colorBoxHeight), Color.green);
-			GUI.Label(new Rect(0,0,Screen.width,150),"safe from guards",style);
+			GUI.Label(new Rect(0,0,Screen.width,150),"Safe from guards",style);
 		} else if (guardStateHighest == 5){
 			CreateColorBox(new Rect (0, 0, Screen.width, colorBoxHeight), Color.red);
-			GUI.Label(new Rect(0,0,Screen.width,150),"RUN AWAY NOW!",style);
+			GUI.Label(new Rect(0,0,Screen.width,150),"Guards are chasing!",style);
 		}else {
 			CreateColorBox(new Rect (0, 0, Screen.width, colorBoxHeight), Color.yellow);
 			GUI.Label(new Rect(0,0,Screen.width,150),"The guards are alerted",style);
@@ -373,8 +374,9 @@ public class ColliderController : MonoBehaviour
 				GetComponent<MouseLook>().enabled = true;
 			}
 
-			userName = GUI.TextField (new Rect (Screen.width /2 - 50 , Screen.height / 2 + 50, 200, 50), userName, 10);
+			userNameSend = GUI.TextField (new Rect (Screen.width /2 - 50 , Screen.height / 2 + 50, 200, 50), userNameSend, 10);
 			if (GUI.Button(new Rect(Screen.width/2 + 100, Screen.height/2 + 150, 150, 30), "Play online")) {
+				userName = userNameSend;
 				WWWForm form = new WWWForm();
 				WWW www = new WWW("https://drproject.twi.tudelft.nl/ewi3620tu6/scores.php?username="+userName);
 				StartCoroutine( WaitForRequest( www ) );	
