@@ -23,7 +23,6 @@ public class CameraController : MonoBehaviour
 	
 	void Update ()
 	{
-		print (canplaysound);
 		float degrees = transform.FindChild ("Body").rotation.eulerAngles.z;
 		if ((degrees >= maxRight - 1 && degrees <= maxRight + 1) || !started) {
 			started = true;
@@ -42,7 +41,7 @@ public class CameraController : MonoBehaviour
 		bool playerInSight = false;
 		if (angle < angleWidth && distance < detectionDistance) {
 			if (Physics.Raycast (transform.position, targetDir, out hitInfo, detectionDistance) && hitInfo.transform.tag == "Player") {
-				//								print ("Camera detected in RANGE and ANGLE the PLAYER in SIGHT!!");
+
 				playerInSight = true;
 				x = hitInfo.transform.position.x;
 				y = hitInfo.transform.position.y;

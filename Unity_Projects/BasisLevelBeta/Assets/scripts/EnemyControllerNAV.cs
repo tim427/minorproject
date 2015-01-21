@@ -74,8 +74,7 @@ public class EnemyControllerNAV : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		
-		print ("state" + state);
+
 		
 		// Retrieve info of target every frame
 		Vector3 targetDir = target.transform.position - transform.position;
@@ -284,8 +283,7 @@ public class EnemyControllerNAV : MonoBehaviour
 		if (angle < detectionAngle && distance < detectionDistance && Physics.Raycast (transform.position, targetDir, out hitInfo, detectionDistance) && hitInfo.transform.tag == "Player") {
 
 
-			print ("Time.time - timeSinceDetection)/(distance*0.15" + (Time.time - timeSinceDetection)/(distance*0.15));
-
+	
 			if ((Time.time - timeSinceDetection)/(distance*0.15) > 2 || state == 2 || state == 4 || state == 3 || state == 0 && intelligentPatrolling) {
 				state = 5;	
 			} else  if (state < 5) {
