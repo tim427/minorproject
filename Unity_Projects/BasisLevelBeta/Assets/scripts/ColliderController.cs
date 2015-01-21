@@ -98,8 +98,8 @@ public class ColliderController : MonoBehaviour
 			GetComponent<MouseLook>().enabled = !GetComponent<MouseLook>().enabled;
 		}
 		
-		if ((Collider != null && Collider.gameObject.tag == "Switch") || switchSwitch == true) {
-			if (Input.GetKeyDown (KeyCode.Space) || switchSwitch == true) {
+		if ((Collider != null && Collider.gameObject.tag == "Switch")) {
+			if (Input.GetKeyDown (KeyCode.Space)) {
 				switchOn = !switchOn;
 				SwitchCounter ++;
 				switchMove = true;
@@ -726,6 +726,7 @@ public class ColliderController : MonoBehaviour
 		string postData = "{\"Highscore\": ";
 		postData += HighScore+ "}";
 		sendData(postData, "highscore");
+		pushText ("");
 	}
 
 	static void CreateColorBox(Rect position, Color color) 
