@@ -142,7 +142,7 @@ public class ColliderController : MonoBehaviour
 				}
 
 		if (Collider != null && Collider.gameObject.tag == "DoorSwitch") {
-			if (Input.GetKeyDown (KeyCode.Space)) {
+			//if (Input.GetKeyDown (KeyCode.Space)) {
 				if (switchOn) {
 					HighScore = HighScore + 5;
 					Collider.audio.Play ();
@@ -152,7 +152,7 @@ public class ColliderController : MonoBehaviour
 				} else {
 					SetOnScreenText ("The door won't open, if only I had a key...");
 				}
-			}
+			//}
 		}
 		
 		if (Collider != null && Collider.gameObject.tag == "KeyLock" && !keyUnlocked) {
