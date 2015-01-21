@@ -641,15 +641,21 @@ public class ColliderController : MonoBehaviour
 				}
 			}
 		}
-
+		GUIStyle style = new GUIStyle (GUI.skin.label);
+		style.fontSize = 24;
+		style.alignment = TextAnchor.UpperCenter;
+		style.normal.textColor = Color.black;
 		// GUI Box which shows the guard state
-		int colorBoxHeight = 10;
+		int colorBoxHeight = 30;
 		if (guardStateHighest == 0){
 			CreateColorBox(new Rect (0, 0, Screen.width, colorBoxHeight), Color.green);
+			GUI.Label(new Rect(0,0,Screen.width,150),"safe from guards",style);
 		} else if (guardStateHighest == 5){
 			CreateColorBox(new Rect (0, 0, Screen.width, colorBoxHeight), Color.red);
+			GUI.Label(new Rect(0,0,Screen.width,150),"RUN AWAY NOW!",style);
 		}else {
 			CreateColorBox(new Rect (0, 0, Screen.width, colorBoxHeight), Color.yellow);
+			GUI.Label(new Rect(0,0,Screen.width,150),"The guards are alerted",style);
 		}
 
 		// GUI Box which shows the score of the player
