@@ -1,0 +1,30 @@
+Welcome to Escape! My name is Mike and next to me are my team members Jordi, Arnoud, Tim & Xander.
+Together we created a stealth game named Escape. It's the year 2116 and aliens from the planet Aleya are
+running out of their powers source. They travelled the whole milkyway and found humans as their new power source. 
+The game starts in a high-security prison, were those aliens store humans to extract power from them. Due to a
+power failure you get one chance to escape from the prison. 
+
+The next thing we want to show is, is what makes our game technically challenging. First we will discuss the
+procedural generation in our game. Next our artificial intelligent guards will be discussed and third the second 
+screen will be discussed. Finally one of you can play our game.
+
+The procedural genertion of our game. The wall and floor textures are procedural generated. A script was written which
+devide a texture in tiles of a given size. These tiles are placed on walls row by row.
+
+The meshes of the floor are also procedural generated. An algorithm creates arrays with vertices, traiangles 
+and normals. The arrays are added to an mesh, the algorithm keeps track that those create a plane. In this way
+it is simple to create an x by y plane with random selected tiles.
+
+Next the positions of different components are procedurally generated. Some objects can have an x number of 
+positions. A random number between 0-1 is created, when this number is in a certain range, the object will be
+on let's say position number 2. In this way, everytime the game starts it will be different from the previous 
+game. 
+
+The guards can have three different states. A state where it didn't notice you, a state where it has notice you
+and a state where it has seen you and here it will try to catch you. When a quard didn't notice you, it will walk
+through to room, searching for you. When it notice you on a place it will visit this place more than other places.
+This is the intelligent part of the guards. When a guard lost you, it will search for you on the last place were 
+it saw you.
+
+The last part is the second screen. We created an android app, which shows all your collectables and your scores. 
+It uses push notifications and you can turn your flashlight on and off via the app.
