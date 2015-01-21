@@ -36,6 +36,8 @@ TagManager:
   - SecondElevator
   - OfficeDoor
   - OfficeLock
+  - TimeSwitch
+  - TimeDoor
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
