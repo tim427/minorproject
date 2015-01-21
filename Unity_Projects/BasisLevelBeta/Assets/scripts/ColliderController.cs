@@ -43,7 +43,7 @@ public class ColliderController : MonoBehaviour
 	public int position_time;
 	public bool switchMove;
 	public bool timeMove;
-	public string userName = "tim";
+	public string userName = "";
 	public int HighScore;
 	public AudioClip explosionSound;
 	private bool timeConfirm;
@@ -102,6 +102,7 @@ public class ColliderController : MonoBehaviour
 			{
 				guardStateHighest = guard.GetComponent<EnemyControllerNAV>().state;
 			}
+
 		}
 		
 		if (Input.GetKeyDown (KeyCode.Tab)) {
@@ -431,10 +432,10 @@ public class ColliderController : MonoBehaviour
 						DirLights.light.color = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (1F, 0F, 0F, 1F));
 						DirLights.light.intensity = (switchOn ? 0.1F : 0.1F);
 					}
-					GameObject.FindGameObjectWithTag ("MainCamera").camera.backgroundColor = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (0.95F, 0.25F, 0.25F, 1F));
+					//GameObject.FindGameObjectWithTag ("MainCamera").camera.backgroundColor = (switchOn ? new Color (0.64F, 0.82F, 1F, 1F) : new Color (0.95F, 0.25F, 0.25F, 1F));
 				} else { // turn off all lights
 					SetOnScreenText ("The lights are malfunctioning due to excessive usage!");
-					GameObject.FindGameObjectWithTag ("MainCamera").camera.backgroundColor = new Color (0F, 0F, 0F, 0F);
+					//GameObject.FindGameObjectWithTag ("MainCamera").camera.backgroundColor = new Color (0F, 0F, 0F, 0F);
 					foreach (GameObject ceilingLight in GameObject.FindGameObjectsWithTag("CeilingLights")) {
 						ceilingLight.light.enabled = false; 
 					}
