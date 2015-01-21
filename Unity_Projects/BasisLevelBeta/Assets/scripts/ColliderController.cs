@@ -12,6 +12,7 @@ public class ColliderController : MonoBehaviour
 	private int SwitchCounter = 0;
 	private Collider tempCollider;
 	private Collider tempColliderSwitch;
+	private Collider tempTimeCollider;
 	private int guardStateHighest;
 	private string url = "https://drproject.twi.tudelft.nl/ewi3620tu6/";
 	private bool reusableLocked = false;
@@ -20,6 +21,7 @@ public class ColliderController : MonoBehaviour
 	private int moveCryoCell;
 	private Collider tempColliderCryoCell;
 	private bool switchSwitch;
+	private bool timeSwitch;
 	private static Texture2D _staticRectTexture;
 	private static GUIStyle _staticRectStyle;
 	private Collider tempColliderSimpleDoor;
@@ -27,6 +29,7 @@ public class ColliderController : MonoBehaviour
 	public bool onlineMode = true;
 	public float timeLeft;
 	public bool switchOn = false;
+	public bool timeOn = false;
 	public bool keyUnlocked = false;
 	public bool liftUnlocked = false;
 	public bool showCollectables = false;
@@ -38,7 +41,9 @@ public class ColliderController : MonoBehaviour
 	public Font Font;
 	public AudioClip collectSound;
 	public int position_switch;
+	public int position_time;
 	public bool switchMove;
+	public bool timeMove;
 	public string userName = "tim";
 	public int HighScore;
 	public AudioClip explosionSound;
@@ -47,11 +52,13 @@ public class ColliderController : MonoBehaviour
 	void Start() {
 		Time.timeScale = 1;	
 		switchMove = false;
+		timeMove = false;
 		position_switch = 0;
+		position_time = 0;
 		UpdateCollectables();
 		HighScore = 0;
 		addHighscore(0);
-		timeLeft = 15f;
+		timeLeft = 7.5f;
 		moveCryoCell = 0;
 		SwitchCounter = 0;
 		switchSwitch = false;
@@ -475,12 +482,62 @@ public class ColliderController : MonoBehaviour
 			}
 		}
 
+		if (timeMove == true && tempTimeCollider != null) {
+			
+			// Switch the switch upwards
+			if (timeOn == false && position_time > 0f) {
+				tempTimeCollider.transform.FindChild ("Switch").Rotate (0, 3, 0);
+				position_time--;
+			}
+			//Switch the switch downwards
+			if (timeOn == true && position_time < 30f) {
+				tempTimeCollider.transform.FindChild ("Switch").Rotate (0, -3, 0);
+				position_time++;
+			}
+			if (position_time > 30f || position_time < 0f){
+				timeMove = false;
+				tempTimeCollider = null;
+			}
+		}
+
+		if ((Collider != null && Collider.gameObject.tag == "TimeSwitch")) {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				timeOn = !timeOn;
+				timeMove = true;
+				tempTimeCollider = Collider;
+				timeSwitch = false;
+				// collision.animation.Play ("Switch|SwitchAction");
+				Collider.audio.Play ();
+				startTimer = true;
+			}
+		}
+
+		if (Collider != null && Collider.gameObject.tag == "TimeDoor") {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				if (timeOn) {
+					Collider.audio.Play ();
+					SetOnScreenText ("You have opened the door.");
+					tempCollider = Collider;
+					startTimer = false;
+					
+				} else {
+					// in reverse
+					SetOnScreenText ("The door won't open, if only there was a switch nearby...");
+				}
+			}
+		}
+
 		// Race against clock
 		if (startTimer == true) {
 			timeLeft -= Time.deltaTime;
 			if (timeLeft < 0f){
-				Application.LoadLevel("endgamefailure");
-				pushText("Unfortunately, you have not achieved within the time!");
+				startTimer = false;
+				timeOn = !timeOn;
+				timeMove = true;
+				tempTimeCollider = GameObject.FindGameObjectWithTag("TimeSwitch").collider;
+				timeSwitch = false;
+				timeLeft = 7.5f;
+				pushText("You hear the door lock in place, and the switch reset. ");
 			}
 		}
 
@@ -538,6 +595,9 @@ public class ColliderController : MonoBehaviour
 		}
 		if (Collider.gameObject.tag == "SecondElevator") {
 			SetOnScreenText ("Press <spacebar> to finish the game");
+		}
+		if (Collider.gameObject.tag == "TimeDoor") {
+			SetOnScreenText ("Press <spacebar> to open the door");
 		}
 	}
 	
