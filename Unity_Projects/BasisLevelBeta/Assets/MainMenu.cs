@@ -19,8 +19,6 @@ public class MainMenu : MonoBehaviour {
 		menu = true;
 	}
 	
-	// Update is called once per frame
-	
 	void OnGUI() {
 		if (menu) {
 			mainMenu();
@@ -59,7 +57,11 @@ public class MainMenu : MonoBehaviour {
 			options = true;
 		}
 		
-		if (GUI.Button(new Rect (Screen.width / 2 - 75, Screen.height / 2 + 50, 150, 30), "Quit game")) {
+		if (GUI.Button(new Rect (Screen.width / 2 - 75, Screen.height / 2 + 50, 150, 30), "Login")) {
+			loginMenu ();
+		}
+
+		if (GUI.Button(new Rect (Screen.width / 2 - 75, Screen.height / 2 + 100, 150, 30), "Quit game")) {
 			Application.Quit();
 		}
 	}
